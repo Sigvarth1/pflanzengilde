@@ -77,11 +77,12 @@ export const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>(() => {
     const saved = localStorage.getItem(STORAGE_KEY_LANG);
     if (saved === 'de' || saved === 'en' || saved === 'nb') return saved;
+    // Norwegian fork: Norwegian unless the browser asks for German or English
     if (typeof navigator !== 'undefined') {
       if (navigator.language.startsWith('de')) return 'de';
-      if (/^(nb|nn|no)\b/i.test(navigator.language)) return 'nb';
+      if (navigator.language.startsWith('en')) return 'en';
     }
-    return 'en';
+    return 'nb';
   });
 
   const [selectedSoil, setSelectedSoil] = useState<SoilType>(() => {
