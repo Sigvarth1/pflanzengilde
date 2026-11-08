@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { ClimateZone, Language, SoilType, StarTree, getLoc, getLocList } from '../types/guild';
 import { STAR_TREES } from '../data/starTrees';
-import { AlertTriangle, TreePine, Sun, CloudSun, Cloud, Droplet, Bug, Mountain, Filter, Sparkles, Calendar, Scissors, Globe, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, TreePine, Sun, CloudSun, Cloud, Droplet, Bug, Mountain, Filter, Sprout, Calendar, Scissors, Globe, ShieldCheck } from 'lucide-react';
 import { t, formatNumber, translateSeason, translateSun, translateRootHabit, translateStarCategory, translateClimateZone } from '../i18n/translations';
 import { PlantThumbnail } from './PlantThumbnail';
 import { PhotoCreditBadge, creditAnchorId } from './PhotoCreditBadge';
@@ -78,21 +78,21 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
   }, [shadeFilter, categoryFilter, zoneOnlyFilter, selectedZone]);
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm">
+    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200/80">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-stone-100">
         <div>
-          <h2 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-            <TreePine className="w-5 h-5 text-forest-600" />
+          <h2 className="text-lg font-semibold text-stone-900 flex items-center gap-2">
+            <TreePine className="w-5 h-5 text-forest-600" strokeWidth={1.75} />
             {tr.step1Title}
           </h2>
-          <p className="text-xs text-stone-500">
+          <p className="text-sm text-stone-500 mt-0.5">
             {tr.step1Subtitle}
           </p>
         </div>
 
         <div className="flex items-center gap-2.5 self-start sm:self-center">
           {selectedTree.jugloneProducer && (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium animate-pulse">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-xs font-medium">
               <AlertTriangle className="w-4 h-4 text-amber-600 flex-shrink-0" />
               <span>{tr.jugloneActiveAlert}</span>
             </div>
@@ -104,16 +104,16 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                 type="button"
                 onClick={() => setIsPresetsOpen(prev => !prev)}
                 aria-expanded={isPresetsOpen}
-                className="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 hover:text-stone-900 text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                className="px-3 py-1.5 rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 text-stone-700 hover:text-stone-900 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                 title={tr.presetsTitle}
               >
-                <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                <Sprout className="w-3.5 h-3.5 text-stone-500 shrink-0" strokeWidth={1.75} />
                 <span>{tr.presets}</span>
               </button>
 
               {isPresetsOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-64 z-30 animate-in fade-in zoom-in-95 bg-white border border-stone-200 rounded-2xl shadow-xl p-1.5">
-                  <div className="px-3 py-1 text-[10px] font-bold text-stone-400 uppercase tracking-wider border-b border-stone-100 mb-1">
+                <div className="absolute right-0 top-full mt-1.5 w-64 z-30 animate-in fade-in zoom-in-95 bg-white ring-1 ring-stone-900/5 rounded-xl shadow-[0_12px_32px_-12px_rgba(46,41,34,0.2)] p-1.5">
+                  <div className="px-3 py-1 text-xs font-medium text-stone-500 border-b border-stone-100 mb-1">
                     {tr.presetsTitle}
                   </div>
                   <button
@@ -122,10 +122,10 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       onLoadPreset('apple');
                       setIsPresetsOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-forest-50 hover:text-forest-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="font-semibold">{tr.presetApple}</span>
-                    <span className="text-[10px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetAppleSub}</span>
+                    <span className="text-[11px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetAppleSub}</span>
                   </button>
                   <button
                     type="button"
@@ -133,10 +133,10 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       onLoadPreset('walnut');
                       setIsPresetsOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-amber-50 hover:text-amber-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="font-semibold">{tr.presetWalnut}</span>
-                    <span className="text-[10px] text-amber-600 bg-amber-50 font-semibold px-1.5 py-0.5 rounded">{tr.presetWalnutSub}</span>
+                    <span className="text-[11px] text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetWalnutSub}</span>
                   </button>
                   <button
                     type="button"
@@ -144,10 +144,10 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       onLoadPreset('apricot');
                       setIsPresetsOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-orange-50 hover:text-orange-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="font-semibold">{tr.presetApricot}</span>
-                    <span className="text-[10px] text-orange-600 bg-orange-50 font-semibold px-1.5 py-0.5 rounded">{tr.presetApricotSub}</span>
+                    <span className="text-[11px] text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetApricotSub}</span>
                   </button>
                   <button
                     type="button"
@@ -155,10 +155,10 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       onLoadPreset('minimal');
                       setIsPresetsOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-emerald-50 hover:text-emerald-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
+                    className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="font-semibold">{tr.presetMinimal}</span>
-                    <span className="text-[10px] text-emerald-600 bg-emerald-50 font-semibold px-1.5 py-0.5 rounded">{tr.presetMinimalSub}</span>
+                    <span className="text-[11px] text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetMinimalSub}</span>
                   </button>
                 </div>
               )}
@@ -169,16 +169,16 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
 
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-4 p-3 bg-stone-50/80 rounded-xl border border-stone-200/80 text-xs">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="font-semibold text-stone-700 flex items-center gap-1 mr-1">
-            <Sun className="w-3.5 h-3.5 text-amber-500" />
+          <span className="font-medium text-stone-600 flex items-center gap-1.5 mr-1">
+            <Sun className="w-3.5 h-3.5 text-stone-500" strokeWidth={1.75} />
             {tr.shadeLevelLabel}:
           </span>
           <button
             type="button"
             onClick={() => setShadeFilter('ALL')}
-            className={`px-2.5 py-1 rounded-lg font-medium transition-all ${
+            className={`px-2.5 py-1 rounded-lg font-medium transition ${
               shadeFilter === 'ALL'
-                ? 'bg-forest-700 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -187,9 +187,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setShadeFilter('FULL_SUN')}
-            className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition-all ${
+            className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition ${
               shadeFilter === 'FULL_SUN'
-                ? 'bg-amber-600 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -199,9 +199,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setShadeFilter('PARTIAL_SHADE')}
-            className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition-all ${
+            className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition ${
               shadeFilter === 'PARTIAL_SHADE'
-                ? 'bg-amber-700 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -212,9 +212,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
             <button
               type="button"
               onClick={() => setShadeFilter('FULL_SHADE')}
-              className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition-all ${
+              className={`px-2.5 py-1 rounded-lg font-medium flex items-center gap-1 transition ${
                 shadeFilter === 'FULL_SHADE'
-                  ? 'bg-indigo-700 text-white shadow-xs'
+                  ? 'bg-forest-700 text-white'
                   : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
               }`}
             >
@@ -225,16 +225,16 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-1.5 pt-2 lg:pt-0 border-t lg:border-t-0 border-stone-200">
-          <span className="font-semibold text-stone-700 flex items-center gap-1 mr-1">
+          <span className="font-medium text-stone-600 flex items-center gap-1.5 mr-1">
             <Filter className="w-3.5 h-3.5 text-stone-500" />
             {tr.categoryFilterLabel}:
           </span>
           <button
             type="button"
             onClick={() => setCategoryFilter('ALL')}
-            className={`px-2 py-1 rounded-lg font-medium transition-all ${
+            className={`px-2 py-1 rounded-lg font-medium transition ${
               categoryFilter === 'ALL'
-                ? 'bg-stone-800 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -243,9 +243,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setCategoryFilter('TREES')}
-            className={`px-2 py-1 rounded-lg font-medium transition-all ${
+            className={`px-2 py-1 rounded-lg font-medium transition ${
               categoryFilter === 'TREES'
-                ? 'bg-stone-800 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -254,9 +254,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setCategoryFilter('SHRUBS')}
-            className={`px-2 py-1 rounded-lg font-medium transition-all ${
+            className={`px-2 py-1 rounded-lg font-medium transition ${
               categoryFilter === 'SHRUBS'
-                ? 'bg-stone-800 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -265,9 +265,9 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setCategoryFilter('VINES_HERBS')}
-            className={`px-2 py-1 rounded-lg font-medium transition-all ${
+            className={`px-2 py-1 rounded-lg font-medium transition ${
               categoryFilter === 'VINES_HERBS'
-                ? 'bg-stone-800 text-white shadow-xs'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
           >
@@ -277,14 +277,14 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <button
             type="button"
             onClick={() => setZoneOnlyFilter(!zoneOnlyFilter)}
-            className={`px-2.5 py-1 rounded-lg font-medium transition-all cursor-pointer flex items-center gap-1.5 ${
+            className={`px-2.5 py-1 rounded-lg font-medium transition cursor-pointer flex items-center gap-1.5 ${
               zoneOnlyFilter
-                ? 'bg-sky-700 text-white shadow-xs font-bold'
+                ? 'bg-forest-700 text-white'
                 : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
             }`}
             title={tr.filterZoneOnly}
           >
-            <Globe className="w-3.5 h-3.5 text-sky-400" />
+            <Globe className="w-3.5 h-3.5" />
             <span>{tr.filterZoneOnly}: {zoneOnlyFilter ? tr.gardenWarningsOn : tr.gardenWarningsOff}</span>
           </button>
 
@@ -323,39 +323,39 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                 key={tree.id}
                 type="button"
                 onClick={() => onSelectTree(tree)}
-                className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all relative flex flex-col justify-between cursor-pointer group ${
+                className={`p-3 rounded-xl border text-left transition-colors relative flex flex-col justify-between cursor-pointer group ${
                   isSelected
-                    ? 'border-forest-600 bg-forest-50/40 ring-2 ring-forest-600/20 shadow-xs'
-                    : 'border-stone-200 hover:border-forest-300 hover:bg-stone-50/50 bg-white'
+                    ? 'border-forest-600 bg-forest-50/60 ring-1 ring-forest-600'
+                    : 'border-stone-200 hover:border-stone-300 bg-white'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between gap-1 mb-1.5">
+                  <div className="flex items-center justify-between gap-1 mb-2">
                     <div className="flex items-center gap-1.5">
                       <PlantThumbnail
                         src={tree.imageUrl}
                         alt={localizedName}
                         fallbackText={localizedName.substring(0, 2)}
                         fallbackColor={tree.color}
-                        className="w-7 h-7 sm:w-8 sm:h-8"
-                        targetSize={64}
+                        className="w-9 h-9"
+                        roundedClassName="rounded-lg"
+                        targetSize={72}
                       />
-                      <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: tree.color }} />
                     </div>
                     <div className="flex flex-wrap items-center gap-1 justify-end">
                       {tree.sunPreference === 'FULL_SUN' && (
                         <span title={tr.sunFull}>
-                          <Sun className="w-3.5 h-3.5 text-amber-500" />
+                          <Sun className="w-3.5 h-3.5 text-stone-400" strokeWidth={1.75} />
                         </span>
                       )}
                       {tree.sunPreference === 'PARTIAL_SUN' && (
                         <span title={tr.sunPartial}>
-                          <CloudSun className="w-3.5 h-3.5 text-amber-600" />
+                          <CloudSun className="w-3.5 h-3.5 text-stone-400" strokeWidth={1.75} />
                         </span>
                       )}
                       {tree.sunPreference === 'FULL_SHADE' && (
                         <span title={tr.sunShade}>
-                          <Cloud className="w-3.5 h-3.5 text-indigo-500" />
+                          <Cloud className="w-3.5 h-3.5 text-stone-400" strokeWidth={1.75} />
                         </span>
                       )}
 
@@ -363,12 +363,12 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                         <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title={tr.soilOptimal} />
                       )}
                       {tree.unsuitableSoils?.includes(selectedSoil) && (
-                        <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" title={tr.soilUnsuitable} />
+                        <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" title={tr.soilUnsuitable} />
                       )}
 
                       {tree.jugloneProducer && (
                         <span
-                          className="text-[9px] sm:text-[10px] font-bold px-1 sm:px-1.5 py-0.5 rounded bg-amber-100 text-amber-800"
+                          className="text-[11px] sm:text-xs font-bold px-1 sm:px-1.5 py-0.5 rounded bg-amber-100 text-amber-800"
                           title={tr.starSelectorProducesJuglone}
                         >
                           {language === 'en' ? 'Juglone' : 'Juglon'}
@@ -377,7 +377,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
 
                       {isZoneIncompatible && (
                         <span
-                          className="text-[9px] font-bold px-1 py-0.5 rounded bg-rose-100 text-rose-800 flex items-center gap-0.5"
+                          className="text-[11px] font-bold px-1 py-0.5 rounded bg-rose-100 text-rose-800 flex items-center gap-0.5"
                           title={`${tr.zoneIncompatibleAlert} (${translateClimateZone(selectedZone, language)})`}
                         >
                           <AlertTriangle className="w-2.5 h-2.5 text-rose-600 shrink-0" />
@@ -386,18 +386,18 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       )}
                     </div>
                   </div>
-                  <div className="font-semibold text-xs text-stone-900 line-clamp-1">
+                  <div className="font-semibold text-[13px] text-stone-900 line-clamp-1">
                     {localizedName}
                   </div>
-                  <div className="text-[10px] text-stone-500 italic line-clamp-1">
+                  <div className="text-[11px] text-stone-500 italic line-clamp-1">
                     {tree.botanicalName}
                   </div>
-                  <div className="text-[9px] font-medium text-stone-500 mt-0.5">
+                  <div className="text-[11px] font-medium text-stone-500 mt-0.5">
                     {translateStarCategory(tree.category, language)}
                   </div>
                 </div>
 
-                <div className="mt-2 pt-1.5 sm:pt-2 border-t border-stone-100 text-[10px] text-stone-500 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-0.5">
+                <div className="mt-3 pt-2 border-t border-stone-100 text-[11px] text-stone-500 flex flex-col xs:flex-row items-start xs:items-center justify-between gap-0.5">
                   <span>{tr.dripLine}: {formatNumber(tree.matureRadiusM, 1, language)} m</span>
                   <span className="font-medium text-forest-700">{translateSeason(tree.bloomSeason, language)}</span>
                 </div>
@@ -441,7 +441,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
             query={`${selectedTree.botanicalName} ${getLoc(selectedTree.commonName, language)}`}
             label={tr.googleImages}
             title={tr.searchGoogleImages}
-            className="w-full justify-center text-[10px] py-0.5"
+            className="w-full justify-center text-[11px] py-0.5"
           />
         </div>
 
@@ -449,7 +449,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           <div className="font-semibold text-stone-900 mb-1 flex flex-wrap items-center gap-1.5">
             <span className="text-sm font-bold">{getLoc(selectedTree.commonName, language)}</span>
             <span className="text-stone-500 font-normal italic">({selectedTree.botanicalName})</span>
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-stone-200 text-stone-700">
+            <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-stone-200 text-stone-700">
               {translateStarCategory(selectedTree.category, language)}
             </span>
           </div>
@@ -462,7 +462,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
         <div className="md:col-span-5 space-y-2 border-t md:border-t-0 md:border-l border-stone-200 pt-3 md:pt-0 md:pl-4 text-xs">
           <div className="grid grid-cols-2 gap-2">
             <div className="p-2 rounded-lg bg-white border border-stone-200/80 space-y-0.5">
-              <div className="text-[10px] text-stone-400 font-semibold flex items-center gap-1 uppercase">
+              <div className="text-[11px] text-stone-400 font-semibold flex items-center gap-1 ">
                 <Sun className="w-3 h-3 text-amber-500" />
                 {tr.lightPref}
               </div>
@@ -471,7 +471,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
               </div>
             </div>
             <div className="p-2 rounded-lg bg-white border border-stone-200/80 space-y-0.5">
-              <div className="text-[10px] text-stone-400 font-semibold flex items-center gap-1 uppercase">
+              <div className="text-[11px] text-stone-400 font-semibold flex items-center gap-1 ">
                 <Droplet className="w-3 h-3 text-blue-500" />
                 {tr.rootHabit}
               </div>
@@ -482,12 +482,12 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
           </div>
 
           <div className="p-2.5 rounded-lg bg-white border border-stone-200/80 space-y-1.5">
-            <div className="flex items-center justify-between text-[10px] text-stone-500 font-semibold uppercase">
+            <div className="flex items-center justify-between text-[11px] text-stone-500 font-semibold ">
               <span className="flex items-center gap-1">
                 <Bug className="w-3 h-3 text-rose-500" />
                 {tr.keyPests}
               </span>
-              <span className="text-[9px] text-stone-400 lowercase font-normal">
+              <span className="text-[11px] text-stone-400 lowercase font-normal">
                 {tr.starSelectorClickToFilterDefense}
               </span>
             </div>
@@ -500,7 +500,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       key={pIdx}
                       type="button"
                       onClick={() => onFilterByPest?.(pest, defense.companionPlantIds)}
-                      className="px-2 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 border border-rose-200 hover:border-rose-300 text-rose-900 text-[10px] font-semibold flex items-center gap-1 transition-all cursor-pointer shadow-2xs hover:scale-102 active:scale-98"
+                      className="px-2 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 border border-rose-200 hover:border-rose-300 text-rose-900 text-[11px] font-semibold flex items-center gap-1 transition cursor-pointer active:scale-98"
                       title={`${tr.keyPestClickToFilter} (${defense.companionPlantIds.length}) · ${tr.evidenceLevelTooltip.replace('{level}', evidenceLabel(defense.evidence, language))}`}
                     >
                       <ShieldCheck className="w-2.5 h-2.5 text-rose-600 shrink-0" />
@@ -512,7 +512,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                 return (
                   <span
                     key={pIdx}
-                    className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-600 text-[10px]"
+                    className="px-2 py-0.5 rounded-md bg-stone-100 border border-stone-200 text-stone-600 text-[11px]"
                   >
                     {pest}
                   </span>

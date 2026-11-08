@@ -52,7 +52,7 @@ const CreditList: React.FC<{ title: string; rows: CreditRow[]; tr: Tr }> = ({ ti
   if (rows.length === 0) return null;
   return (
     <section className="space-y-2">
-      <h2 className="text-sm font-bold text-stone-500 uppercase tracking-wider">
+      <h2 className="text-sm font-bold text-stone-500">
         {title} <span className="font-medium text-stone-400">({rows.length})</span>
       </h2>
       <ul className="divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-white">
@@ -60,7 +60,7 @@ const CreditList: React.FC<{ title: string; rows: CreditRow[]; tr: Tr }> = ({ ti
           <li
             key={key}
             id={anchor}
-            className="px-4 py-2.5 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-baseline sm:gap-4 scroll-mt-24 transition-all first:rounded-t-2xl last:rounded-b-2xl"
+            className="px-4 py-2.5 text-xs sm:text-sm flex flex-col sm:flex-row sm:items-baseline sm:gap-4 scroll-mt-24 transition first:rounded-t-2xl last:rounded-b-2xl"
           >
             <div className="sm:w-1/3 shrink-0 font-semibold text-stone-900">
               {name}

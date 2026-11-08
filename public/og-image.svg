@@ -17,8 +17,8 @@
     </style>
   </defs>
 
-  <!-- Background in exact brand green -->
-  <rect width="1200" height="630" fill="#16a34a"/>
+  <!-- Background in moss brand green -->
+  <rect width="1200" height="630" fill="#415a31"/>
 
   <!-- Centered Content: Sprout Icon + Pflanzengilde.de -->
   <g>

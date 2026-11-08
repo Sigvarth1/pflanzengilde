@@ -147,11 +147,11 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
 
   return (
     <div className="w-full lg:w-96 flex flex-col space-y-4 shrink-0">
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 sm:p-5 space-y-4">
+      <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 space-y-4">
         <div role="button" tabIndex={0} aria-expanded={isOpen('card')} onClick={() => toggle('card')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('card'); } }} className="cursor-pointer select-none flex items-center justify-between pb-3 border-b border-stone-100">
           <div className="flex items-center gap-2"><CollapseChevron open={isOpen('card')} />
             <Trees className="w-5 h-5 text-forest-700" />
-            <h3 className="text-sm font-bold text-stone-900">
+            <h3 className="text-sm font-semibold text-stone-900">
               {tr.gardenSidebarTitle}
             </h3>
           </div>
@@ -166,7 +166,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
-          className={`p-3.5 rounded-xl border-2 border-dashed transition-all cursor-pointer text-center space-y-1.5 ${
+          className={`p-3.5 rounded-xl border-2 border-dashed transition cursor-pointer text-center space-y-1.5 ${
             isDropActive
               ? 'border-forest-500 bg-forest-50'
               : 'border-stone-300 hover:border-forest-400 bg-stone-50/50 hover:bg-forest-50/30'
@@ -192,7 +192,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
           <button
             type="button"
             onClick={() => setIsPickerOpen(!isPickerOpen)}
-            className="w-full py-2 px-3 rounded-xl bg-forest-600 hover:bg-forest-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+            className="w-full h-9 px-3 rounded-lg bg-forest-700 hover:bg-forest-800 text-white font-medium text-sm flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>{tr.gardenSidebarAddStarPlant}</span>
@@ -200,7 +200,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
 
           {isPickerOpen && (
             <div className="mt-2 p-2 rounded-xl bg-stone-50 border border-stone-200 max-h-60 overflow-y-auto space-y-1.5">
-              <div className="text-[10px] font-bold text-stone-500 uppercase tracking-wider px-2 py-1 flex items-center justify-between">
+              <div className="text-[11px] font-bold text-stone-500 px-2 py-1 flex items-center justify-between">
                 <span>{tr.gardenSidebarImportedGuilds}</span>
                 <span className="font-mono text-forest-700 font-bold">{loadedGuildTemplates.length}</span>
               </div>
@@ -234,17 +234,17 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                       onAddStarPlant(tmpl.starTree, tmpl.selectedPlantIds);
                       setIsPickerOpen(false);
                     }}
-                    className="w-full p-2.5 rounded-lg bg-white hover:bg-forest-50 border border-stone-200 text-left flex flex-col gap-1 text-xs transition-colors cursor-pointer group shadow-2xs"
+                    className="w-full p-2.5 rounded-lg bg-white hover:bg-forest-50 border border-stone-200 text-left flex flex-col gap-1 text-xs transition-colors cursor-pointer group"
                   >
                     <div className="flex items-center justify-between w-full">
                       <span className="font-bold text-stone-800 group-hover:text-forest-800 truncate">
                         {getLoc(tmpl.starTree.commonName, language)}
                       </span>
-                      <span className="text-[10px] font-mono text-forest-700 font-semibold shrink-0 bg-forest-50 px-1.5 py-0.5 rounded border border-forest-200">
+                      <span className="text-[11px] font-mono text-forest-700 font-semibold shrink-0 bg-forest-50 px-1.5 py-0.5 rounded border border-forest-200">
                         {tmpl.selectedPlantIds.length} {tr.gardenSidebarCompanions}
                       </span>
                     </div>
-                    <div className="text-[10px] text-stone-500 flex items-center justify-between w-full">
+                    <div className="text-[11px] text-stone-500 flex items-center justify-between w-full">
                       <span className="italic truncate">{tmpl.sourceName}</span>
                       <span className="font-mono text-stone-400">r={tmpl.starTree.matureRadiusM}m</span>
                     </div>
@@ -256,12 +256,12 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
         </div>
 
         <div className="space-y-2 pt-2 border-t border-stone-100">
-          <div role="button" tabIndex={0} aria-expanded={isOpen('stars')} onClick={() => toggle('stars')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('stars'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+          <div role="button" tabIndex={0} aria-expanded={isOpen('stars')} onClick={() => toggle('stars')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('stars'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
             <div className="flex items-center gap-1.5"><CollapseChevron open={isOpen('stars')} />
               <Trees className="w-3.5 h-3.5 text-forest-700" />
               <span>{tr.gardenSidebarActiveStarPlants}</span>
             </div>
-            <span className="text-[10px] font-mono text-stone-500 font-bold bg-stone-100 px-1.5 py-0.5 rounded">
+            <span className="text-[11px] font-mono text-stone-500 font-bold bg-stone-100 px-1.5 py-0.5 rounded">
               {starPlants.length}
             </span>
           </div>
@@ -285,7 +285,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                 return (
                   <div
                     key={tree.id}
-                    className={`rounded-xl border transition-all ${
+                    className={`rounded-xl border transition ${
                       allSelected
                         ? 'bg-sky-50/70 border-sky-300 ring-1 ring-sky-300'
                         : someSelected
@@ -313,11 +313,11 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <div className="min-w-0 flex-1">
                           <div className="font-bold text-xs text-stone-900 truncate flex items-center gap-1.5">
                             <span>{getLoc(tree.commonName, language)}</span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-forest-100 text-forest-800 shrink-0">
+                            <span className="text-[11px] font-bold px-1.5 py-px rounded-full bg-forest-100 text-forest-800 shrink-0">
                               ×{instances.length}
                             </span>
                           </div>
-                          <div className="text-[10px] text-stone-500 italic truncate">
+                          <div className="text-[11px] text-stone-500 italic truncate">
                             {tree.botanicalName}
                           </div>
                         </div>
@@ -354,15 +354,15 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                                 onSelectTree(inst.instanceId);
                                 onSelectTreeIds?.([inst.instanceId]);
                               }}
-                              className={`p-2 rounded-lg border text-[11px] flex items-center justify-between gap-1.5 transition-all cursor-pointer ${
+                              className={`p-2 rounded-lg border text-[11px] flex items-center justify-between gap-1.5 transition cursor-pointer ${
                                 isInstSelected
                                   ? 'bg-sky-100 border-sky-300 text-sky-950 font-semibold'
                                   : 'bg-white hover:bg-stone-100/80 border-stone-200 text-stone-700'
                               }`}
                             >
                               <div className="flex items-center gap-1.5 min-w-0">
-                                <span className="font-mono text-[10px] text-stone-400 font-bold">#{idx + 1}</span>
-                                <span className="font-mono text-[10px] text-stone-600">
+                                <span className="font-mono text-[11px] text-stone-400 font-bold">#{idx + 1}</span>
+                                <span className="font-mono text-[11px] text-stone-600">
                                   ({inst.xM > 0 ? `+${inst.xM}` : inst.xM}m, {inst.yM > 0 ? `+${inst.yM}` : inst.yM}m)
                                 </span>
                               </div>
@@ -399,12 +399,12 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
 </div>
 
         <div className="space-y-2 pt-3 border-t border-stone-100">
-          <div role="button" tabIndex={0} aria-expanded={isOpen('companions')} onClick={() => toggle('companions')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('companions'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+          <div role="button" tabIndex={0} aria-expanded={isOpen('companions')} onClick={() => toggle('companions')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('companions'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
             <div className="flex items-center gap-1.5"><CollapseChevron open={isOpen('companions')} />
               <Sprout className="w-3.5 h-3.5 text-forest-600" />
               <span>{tr.gardenSidebarActiveCompanions}</span>
             </div>
-            <span className="text-[10px] font-mono text-stone-500 font-bold bg-stone-100 px-1.5 py-0.5 rounded">
+            <span className="text-[11px] font-mono text-stone-500 font-bold bg-stone-100 px-1.5 py-0.5 rounded">
               {companions.length}
             </span>
           </div>
@@ -422,7 +422,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                 return (
                   <div
                     key={plant.id}
-                    className={`rounded-xl border transition-all text-xs ${
+                    className={`rounded-xl border transition text-xs ${
                       highlightedPlantId === plant.id
                         ? 'border-amber-400 bg-amber-50 ring-2 ring-amber-300'
                         : 'border-stone-200 bg-white hover:bg-stone-50/80'
@@ -445,16 +445,16 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <div className="min-w-0 flex-1">
                           <div className="font-bold text-xs text-stone-900 truncate flex items-center gap-1.5">
                             <span>{getLoc(plant.commonName, language)}</span>
-                            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-stone-100 text-stone-700 shrink-0">
+                            <span className="text-[11px] font-bold px-1.5 py-px rounded-full bg-stone-100 text-stone-700 shrink-0">
                               ×{instances.length}
                             </span>
                             {mergedCount > 0 && (
-                              <span className="text-[9px] font-medium px-1.5 py-0.2 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
+                              <span className="text-[11px] font-medium px-1.5 py-px rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
                                 {mergedCount} {tr.gardenSidebarShared}
                               </span>
                             )}
                           </div>
-                          <div className="text-[10px] text-stone-500 italic truncate">
+                          <div className="text-[11px] text-stone-500 italic truncate">
                             {plant.botanicalName}
                           </div>
                         </div>
@@ -481,12 +481,12 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                     </div>
 
                     {isExpanded && (
-                      <div className="border-t border-stone-100 bg-stone-50/60 p-2 space-y-1 rounded-b-xl text-[10px]">
+                      <div className="border-t border-stone-100 bg-stone-50/60 p-2 space-y-1 rounded-b-xl text-[11px]">
                         <div className="flex flex-wrap gap-1 pb-1">
                           {plant.roles.map(r => (
                             <span
                               key={r}
-                              className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-white border border-stone-200 text-stone-600"
+                              className="px-1.5 py-0.5 rounded text-[11px] font-semibold bg-white border border-stone-200 text-stone-600"
                             >
                               {translateRole(r, language)}
                             </span>

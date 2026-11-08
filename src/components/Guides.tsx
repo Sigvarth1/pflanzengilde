@@ -12,7 +12,6 @@ import {
   BookmarkCheck,
   CheckCircle2,
   ExternalLink,
-  Sparkles,
   TreePine,
   ShieldCheck,
   ShieldAlert,
@@ -27,7 +26,6 @@ import {
 } from 'lucide-react';
 import { GroundCoverGuide, RaisedBedGuide } from './RaisedBedGuide';
 import { ForageGapGuide } from './ForageGapGuide';
-import { HeroBanner } from './HeroBanner';
 
 interface GuidesProps {
   language: Language;
@@ -71,7 +69,7 @@ const tabFromHash = (hash: string): GuideTab | null => {
 };
 
 const GuideStep: React.FC<{ id: string; step: number; title: string; children: React.ReactNode }> = ({ id, step, title, children }) => (
-  <div id={id} className="flex gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-200 scroll-mt-24 transition-all">
+  <div id={id} className="flex gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-200 scroll-mt-24 transition">
     <div className="w-10 h-10 rounded-xl bg-forest-600 text-white font-extrabold flex items-center justify-center shrink-0">
       {step}
     </div>
@@ -95,7 +93,7 @@ interface ChopCardProps {
 }
 
 const ChopCard: React.FC<ChopCardProps> = ({ tr, id, name, latin, badge, cut, much, spread, children }) => (
-  <div id={id} className="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-4 scroll-mt-24 transition-all">
+  <div id={id} className="p-6 rounded-2xl bg-stone-50 border border-stone-200 space-y-4 scroll-mt-24 transition">
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-stone-200 pb-3">
       <div>
         <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
@@ -1231,73 +1229,71 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
   };
 
   const roles: { id: string; icon: Icon; iconClass: string; title: string; tag: string; tagClass: string; body: React.ReactNode }[] = [
-    { id: 'role-NITROGEN_FIXER', icon: Zap, iconClass: 'text-emerald-600', title: tr.roleNitrogenFixer, tag: 'N₂ → NH₄⁺', tagClass: 'bg-emerald-100 text-emerald-800', body: <RichText text={tr.guidesPlantsCannotDirectlyAbsorbAtmospheric} onFootnote={scrollToFootnote} /> },
-    { id: 'role-DYNAMIC_ACCUMULATOR', icon: Droplets, iconClass: 'text-sky-600', title: tr.roleDynamicAccumulator, tag: 'K⁺, Ca²⁺, Mg²⁺, P', tagClass: 'bg-sky-100 text-sky-800', body: <RichText text={tr.guidesSpeciesProfoundVerticalTaprootsSuch} onFootnote={scrollToFootnote} /> },
-    { id: 'role-POLLINATOR_MAGNET', icon: Sun, iconClass: 'text-amber-500', title: tr.rolePollinatorMagnet, tag: tr.guideTagNectarBridge, tagClass: 'bg-amber-100 text-amber-800', body: <RichText text={tr.guidesEffectivePollinationRequires} onFootnote={scrollToFootnote} /> },
-    { id: 'role-PEST_REPELLER', icon: Bug, iconClass: 'text-rose-500', title: tr.rolePestRepeller, tag: tr.guideTagPushPull, tagClass: 'bg-rose-100 text-rose-800', body: <RichText text={tr.guidesManyPestInsectsFindTheir} onFootnote={scrollToFootnote} /> },
-    { id: 'role-LIVING_MULCH', icon: Leaf, iconClass: 'text-emerald-700', title: tr.roleLivingMulch, tag: tr.guideTagSoilArmor, tagClass: 'bg-emerald-100 text-emerald-900', body: <RichText text={tr.guidesBareSoilEcologicalWoundProstrate} onFootnote={scrollToFootnote} /> },
-    { id: 'role-GRASS_BARRIER', icon: ShieldCheck, iconClass: 'text-amber-600', title: tr.roleGrassBarrier, tag: tr.guideTagRhizomeExclusion, tagClass: 'bg-amber-100 text-amber-900', body: <RichText text={tr.guidesTurfgrassesEGPoaPratensis} onFootnote={scrollToFootnote} /> },
-    { id: 'role-ANTIFUNGAL', icon: ShieldCheck, iconClass: 'text-indigo-600', title: tr.roleAntifungal, tag: tr.guideTagAntifungalBadge, tagClass: 'bg-indigo-100 text-indigo-900', body: <RichText text={tr.guidesFungalPathogensLikeAppleScab} onFootnote={scrollToFootnote} /> },
-    { id: 'role-BIOMASS_PRODUCER', icon: Scissors, iconClass: 'text-emerald-600', title: tr.roleBiomassProducer, tag: tr.guideTagInSituMulch, tagClass: 'bg-emerald-100 text-emerald-900', body: <RichText text={tr.guidesRatherThanImportingBagsPlastic} onFootnote={scrollToFootnote} /> },
-    { id: 'role-EDIBLE_UNDERSTORY', icon: HeartHandshake, iconClass: 'text-amber-600', title: tr.roleEdibleUnderstory, tag: tr.guideTagMultiTierYields, tagClass: 'bg-amber-100 text-amber-900', body: tr.guidesPermaculturePrioritizesMultiFunctional }
+    { id: 'role-NITROGEN_FIXER', icon: Zap, iconClass: 'text-stone-500', title: tr.roleNitrogenFixer, tag: 'N₂ → NH₄⁺', tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesPlantsCannotDirectlyAbsorbAtmospheric} onFootnote={scrollToFootnote} /> },
+    { id: 'role-DYNAMIC_ACCUMULATOR', icon: Droplets, iconClass: 'text-stone-500', title: tr.roleDynamicAccumulator, tag: 'K⁺, Ca²⁺, Mg²⁺, P', tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesSpeciesProfoundVerticalTaprootsSuch} onFootnote={scrollToFootnote} /> },
+    { id: 'role-POLLINATOR_MAGNET', icon: Sun, iconClass: 'text-stone-500', title: tr.rolePollinatorMagnet, tag: tr.guideTagNectarBridge, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesEffectivePollinationRequires} onFootnote={scrollToFootnote} /> },
+    { id: 'role-PEST_REPELLER', icon: Bug, iconClass: 'text-stone-500', title: tr.rolePestRepeller, tag: tr.guideTagPushPull, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesManyPestInsectsFindTheir} onFootnote={scrollToFootnote} /> },
+    { id: 'role-LIVING_MULCH', icon: Leaf, iconClass: 'text-stone-500', title: tr.roleLivingMulch, tag: tr.guideTagSoilArmor, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesBareSoilEcologicalWoundProstrate} onFootnote={scrollToFootnote} /> },
+    { id: 'role-GRASS_BARRIER', icon: ShieldCheck, iconClass: 'text-stone-500', title: tr.roleGrassBarrier, tag: tr.guideTagRhizomeExclusion, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesTurfgrassesEGPoaPratensis} onFootnote={scrollToFootnote} /> },
+    { id: 'role-ANTIFUNGAL', icon: ShieldCheck, iconClass: 'text-stone-500', title: tr.roleAntifungal, tag: tr.guideTagAntifungalBadge, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesFungalPathogensLikeAppleScab} onFootnote={scrollToFootnote} /> },
+    { id: 'role-BIOMASS_PRODUCER', icon: Scissors, iconClass: 'text-stone-500', title: tr.roleBiomassProducer, tag: tr.guideTagInSituMulch, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: <RichText text={tr.guidesRatherThanImportingBagsPlastic} onFootnote={scrollToFootnote} /> },
+    { id: 'role-EDIBLE_UNDERSTORY', icon: HeartHandshake, iconClass: 'text-stone-500', title: tr.roleEdibleUnderstory, tag: tr.guideTagMultiTierYields, tagClass: 'bg-white text-stone-600 ring-1 ring-stone-900/10', body: tr.guidesPermaculturePrioritizesMultiFunctional }
   ];
 
   return (
-    <div className="flex-1 w-full bg-stone-50 text-stone-900 font-sans selection:bg-forest-200 py-4 sm:py-6">
+    <div className="flex-1 w-full text-stone-900 font-sans py-4 sm:py-6">
       <main className="max-w-5xl mx-auto px-4 sm:px-6 w-full space-y-8">
         <div className="pb-8">
-          <HeroBanner
-            compact
-            title={tr.heroGuidesTitle}
-            subtitle={tr.guidesSubtitle}
-            primaryLabel={tr.heroCta}
-            primaryDirection="out"
-            onPrimary={() => onNavigate('/')}
-          />
+          <header className="pt-2 sm:pt-4">
+            <p className="text-sm font-medium text-forest-700">{tr.guidesPeerReviewedPermacultureScience}</p>
+            <h1 className="mt-2 text-3xl sm:text-4xl font-semibold text-stone-900">{tr.guidesTitle}</h1>
+            <p className="mt-3 max-w-3xl text-sm sm:text-base text-stone-600 leading-relaxed">{tr.guidesSubtitle}</p>
+          </header>
 
-          <div className="mt-8 flex flex-wrap items-center gap-2 border-b border-stone-200 pb-px">
+          <nav className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 border-t border-stone-200 pt-4">
             {GUIDE_TABS.map(({ id, icon: TabIcon, label }) => (
               <button
                 key={id}
                 type="button"
                 onClick={() => handleSelectTab(id)}
-                className={`px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer ${
+                aria-current={activeTab === id ? 'page' : undefined}
+                className={`h-10 px-3 rounded-lg text-sm text-left flex items-center gap-2.5 transition-colors cursor-pointer ${
                   activeTab === id
-                    ? 'bg-forest-600 text-white shadow-sm'
-                    : 'text-stone-600 hover:text-stone-900 hover:bg-stone-100'
+                    ? 'bg-white text-stone-900 font-medium ring-1 ring-stone-900/10'
+                    : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
                 }`}
               >
-                <TabIcon className="w-4 h-4" />
-                <span>{tr[label]}</span>
+                <TabIcon className={`w-4 h-4 shrink-0 ${activeTab === id ? 'text-forest-700' : 'text-stone-400'}`} strokeWidth={1.75} />
+                <span className="truncate">{tr[label]}</span>
               </button>
             ))}
-          </div>
+          </nav>
         </div>
 
         {activeTab === 'roles' && (
           <div className="space-y-8 animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
-              <h2 className="text-2xl font-bold text-stone-900 flex items-center gap-2.5">
-                <Sparkles className="w-6 h-6 text-forest-600" />
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
+              <h2 className="text-2xl font-semibold text-stone-900 flex items-center gap-2.5">
+                <Sprout className="w-6 h-6 text-forest-600" />
                 <span>{tr.guidesEcologicalMechanics9PlantRoles}</span>
               </h2>
               <p className="text-sm text-stone-600 leading-relaxed">
                 {tr.guidesNaturalEcosystemsPlantsDoNot}
               </p>
 
-              <div className="grid grid-cols-1 gap-6 pt-4">
+              <div className="grid grid-cols-1 gap-4 pt-2">
                 {roles.map(({ id, icon: RoleIcon, iconClass, title, tag, tagClass, body }, i) => (
-                  <div key={id} id={id} className="p-5 rounded-2xl bg-stone-50 border border-stone-200/90 space-y-2 scroll-mt-24 transition-all">
+                  <div key={id} id={id} className="p-5 sm:p-6 rounded-2xl bg-stone-50 border border-stone-200/70 space-y-3 scroll-mt-24">
                     <div className="flex items-center justify-between">
-                      <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
+                      <h3 className="text-base font-semibold text-stone-900 flex items-center gap-2.5">
                         <RoleIcon className={`w-4 h-4 ${iconClass}`} />
                         {`${i + 1}. `}{title}
                       </h3>
-                      <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full ${tagClass}`}>
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded-md shrink-0 ${tagClass}`}>
                         {tag}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
+                    <p className="text-sm text-stone-700 leading-relaxed">
                       {body}
                     </p>
                   </div>
@@ -1309,8 +1305,8 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'guild_design' && (
           <div className="space-y-8 animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
-              <h2 className="text-2xl font-bold text-stone-900 flex items-center gap-2.5">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
+              <h2 className="text-2xl font-semibold text-stone-900 flex items-center gap-2.5">
                 <TreePine className="w-6 h-6 text-forest-600" />
                 <span>{tr.guidesStepStepGuildDesignMasterclass}</span>
               </h2>
@@ -1320,13 +1316,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
               <div className="space-y-6 pt-2">
                 <GuideStep id="guide-star-plants" step={1} title={tr.guidesSelectKeystoneStarPlant}>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     <RichText text={tr.guidesDetermineMatureCanopyRadiusR} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
 
                 <GuideStep id="guide-sectors" step={2} title={tr.guidesSolarSectoringAspectOrientation}>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     <RichText text={tr.guidesNorthernHemisphereSouthernArcReceives} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
@@ -1348,13 +1344,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 </GuideStep>
 
                 <GuideStep id="guide-harvest-ladder" step={4} title={tr.guidesPreserveSouthwestHarvestWedge215}>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     {tr.guidesNeverPlantThornyBerryShrubs}
                   </p>
                 </GuideStep>
 
                 <GuideStep id="guide-soil-succession" step={5} title={tr.guidesSoilTextureMatchingEcological}>
-                  <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     <RichText text={tr.guidesMatchPlantsYourSoilTexture} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
@@ -1366,13 +1362,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'chop_and_drop' && (
           <div id="chop-overview" className="space-y-8 animate-in fade-in duration-200 scroll-mt-24">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
                   <Scissors className="w-3.5 h-3.5 text-emerald-600" />
                   <span>{tr.guidesCompletePracticalFieldManual}</span>
                 </div>
-                <h2 className="text-2xl font-bold text-stone-900">
+                <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guidesTabChopAndDrop}
                 </h2>
                 <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
@@ -1545,9 +1541,9 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     <button
                       type="button"
                       onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-900 text-xs font-bold transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                     >
-                      <Scissors className="w-3.5 h-3.5 text-teal-700" />
+                      <Scissors className="w-3.5 h-3.5 text-forest-700" />
                       <span>{tr.guidesOpenCompleteTeaPruningManual}</span>
                     </button>
                   </div>
@@ -1767,13 +1763,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'allelopathy' && (
           <div id="allelopathy" className="space-y-8 animate-in fade-in duration-200 scroll-mt-24">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold mb-2">
                   <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
                   <span>{tr.guidesChemicalEcologyRhizosphereBuffers}</span>
                 </div>
-                <h2 className="text-2xl font-bold text-stone-900">
+                <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guidesAllelopathyRootExudatesSoilAntagonisms}
                 </h2>
                 <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
@@ -1799,7 +1795,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       {tr.guidesBuffer200MTrees}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     <RichText text={tr.guidesOurCentralStarTreePersian} onFootnote={scrollToFootnote} />
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
@@ -1839,7 +1835,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       {tr.guidesAutoSolvedPlannerBuffer1}
                     </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed">
                     <RichText text={tr.guidesAlliumSpeciesOurCatalogChives} onFootnote={scrollToFootnote} />
                   </p>
                   <div className="p-3.5 rounded-xl bg-emerald-50/90 border border-emerald-200 text-xs text-emerald-950">
@@ -1854,7 +1850,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-amber-200/70 pb-3">
                     <div>
                       <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-                        <Sparkles className="w-5 h-5 text-amber-600" />
+                        <Sprout className="w-5 h-5 text-amber-600" />
                         <span>
                           {tr.guides3BronzeFennelFoeniculumVulgare}
                         </span>
@@ -1929,13 +1925,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'shade_and_stars' && (
           <div id="shade_and_stars" className="space-y-8 animate-in fade-in duration-200 scroll-mt-24">
-            <div id="shade-mechanics" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6 scroll-mt-24">
+            <div id="shade-mechanics" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6 scroll-mt-24">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold mb-2">
                   <Sun className="w-3.5 h-3.5 text-amber-600" />
                   <span>{tr.guidesCanopyLightGeometryPhenologicalEscape}</span>
                 </div>
-                <h2 className="text-2xl font-bold text-stone-900">
+                <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guides1ShadeDynamicsSolarSectors}
                 </h2>
                 <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
@@ -1972,7 +1968,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
                 <div className="p-4 rounded-2xl bg-sky-50/60 border border-sky-200 space-y-2">
                   <strong className="text-sky-950 font-bold text-sm flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-sky-600" />
+                    <Sprout className="w-4 h-4 text-sky-600" />
                     <span>{tr.guidesVernalPhenologicalShadeEscape}</span>
                   </strong>
                   <p className="text-stone-700 leading-relaxed">
@@ -1985,13 +1981,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="dual-role-stars" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6 scroll-mt-24">
+            <div id="dual-role-stars" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6 scroll-mt-24">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-50 border border-forest-200 text-forest-800 text-xs font-semibold mb-2">
                   <TreePine className="w-3.5 h-3.5 text-forest-600" />
                   <span>{tr.guidesKeystoneTreesBuiltEcologicalRoles}</span>
                 </div>
-                <h2 className="text-2xl font-bold text-stone-900">
+                <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guides2DualRoleStarPlants}
                 </h2>
                 <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
@@ -2001,12 +1997,12 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 {[
-                  { title: tr.guidesBlackAlderAlnusGlutinosa, tag: tr.guidesNitrogenFixerBiomass, tagClass: 'bg-emerald-100 text-emerald-900', text: tr.guidesRegisteredAsCentralNitrogenFixing, slots: [<code>plant-alder</code>] },
-                  { title: tr.guidesSeaBuckthornHippophaeRhamnoides, tag: tr.guidesStarCompanionDualPlant, tagClass: 'bg-emerald-100 text-emerald-900', text: tr.guidesAvailableBothAsCentralStar },
-                  { title: tr.guidesSmallLeavedLindenTiliaCordata, tag: tr.guidesPollinatorCaAccumulator, tagClass: 'bg-amber-100 text-amber-900', text: tr.guidesRegisteredAsStarTreeR, slots: [<code>plant-linden</code>] },
-                  { title: tr.guidesBlackElderberrySambucusNigra, tag: tr.guidesStarCompanionDualPlant, tagClass: 'bg-emerald-100 text-emerald-900', text: tr.guidesAvailableBothAsStarBerry },
-                  { title: tr.guidesRedBlackCurrantRibesRubrum, tag: tr.guidesStarShadeUnderstory, tagClass: 'bg-emerald-100 text-emerald-900', text: tr.guidesBothSpeciesServeAsCompact },
-                  { title: tr.guidesIndustrialHempTeaCamelliaRhododendron, tag: tr.guidesStarCompanionDualPlants, tagClass: 'bg-sky-100 text-sky-900', text: tr.guidesIndustrialHempCannabisSativaFunctions }
+                  { title: tr.guidesBlackAlderAlnusGlutinosa, tag: tr.guidesNitrogenFixerBiomass, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesRegisteredAsCentralNitrogenFixing, slots: [<code>plant-alder</code>] },
+                  { title: tr.guidesSeaBuckthornHippophaeRhamnoides, tag: tr.guidesStarCompanionDualPlant, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesAvailableBothAsCentralStar },
+                  { title: tr.guidesSmallLeavedLindenTiliaCordata, tag: tr.guidesPollinatorCaAccumulator, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesRegisteredAsStarTreeR, slots: [<code>plant-linden</code>] },
+                  { title: tr.guidesBlackElderberrySambucusNigra, tag: tr.guidesStarCompanionDualPlant, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesAvailableBothAsStarBerry },
+                  { title: tr.guidesRedBlackCurrantRibesRubrum, tag: tr.guidesStarShadeUnderstory, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesBothSpeciesServeAsCompact },
+                  { title: tr.guidesIndustrialHempTeaCamelliaRhododendron, tag: tr.guidesStarCompanionDualPlants, tagClass: 'bg-stone-100 text-stone-700', text: tr.guidesIndustrialHempCannabisSativaFunctions }
                 ].map(({ title, tag, tagClass, text, slots }) => (
                   <div key={title} className="p-5 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
                     <div className="flex items-center justify-between gap-2">
@@ -2052,14 +2048,14 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'tea_sinensis' && (
           <div className="space-y-8 animate-in fade-in duration-200">
-            <div id="tea-sinensis-botany" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-sinensis-botany" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-stone-100 pb-5">
                 <div>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 mb-2">
                     <Leaf className="w-3.5 h-3.5 text-emerald-700" />
                     {tr.guidesSeedCupAgronomyProcessingMasterclass}
                   </span>
-                  <h2 className="text-2xl font-bold text-stone-900">
+                  <h2 className="text-2xl font-semibold text-stone-900">
                     {tr.guidesChineseTeaBushCamelliaSinensis}
                   </h2>
                   <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-3xl">
@@ -2076,10 +2072,10 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 </button>
               </div>
 
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-50/90 via-stone-50 to-amber-50/60 border border-emerald-200 space-y-4">
+              <div className="p-5 rounded-2xl bg-forest-50 border border-forest-200 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
+                    <span className="text-[11px] font-extrabold text-emerald-800 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
                       {tr.guidesPrimaryVideoSensoryReference}
                     </span>
                     <h3 className="text-base font-bold text-stone-900 mt-1.5">
@@ -2156,19 +2152,19 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
               <div className="space-y-4 pt-2">
                 <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-forest-600" />
+                  <Sprout className="w-5 h-5 text-forest-600" />
                   <span>
                     {tr.guides1EvolutionaryEcologyLeafBiochemistry}
                   </span>
                 </h3>
-                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                <p className="text-sm text-stone-700 leading-relaxed">
                   <RichText text={tr.guidesWholeGenomeSequencingDemonstratesThat} onFootnote={scrollToFootnote} />
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">
                         {tr.guides1522DryWeight}
                       </span>
                       <span className="text-xs font-mono text-stone-500">EGCG / ECG / EC</span>
@@ -2183,7 +2179,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
                   <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-teal-800 bg-teal-100 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-extrabold text-forest-800 bg-forest-100 px-2.5 py-0.5 rounded-full">
                         {tr.guides1545Dry}
                       </span>
                       <span className="text-xs font-mono text-stone-500">γ-Glutamylethylamide</span>
@@ -2198,7 +2194,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
                   <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">
+                      <span className="text-xs font-extrabold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">
                         {tr.guides2035Dry}
                       </span>
                       <span className="text-xs font-mono text-stone-500">1,3,7-Trimethylxanthine</span>
@@ -2214,7 +2210,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="tea-sinensis-planting" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-sinensis-planting" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-forest-100 text-forest-800 mb-2">
                   <Compass className="w-3.5 h-3.5 text-forest-700" />
@@ -2296,10 +2292,10 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="tea-sinensis-care" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-sinensis-care" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-900 mb-2">
-                  <Scissors className="w-3.5 h-3.5 text-teal-700" />
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-forest-100 text-forest-900 mb-2">
+                  <Scissors className="w-3.5 h-3.5 text-forest-700" />
                   {tr.guidesPruningShadingPluckingArchitecture}
                 </span>
                 <h3 className="text-xl font-bold text-stone-900">
@@ -2310,7 +2306,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2 flex flex-col justify-between">
                   <div className="space-y-2">
-                    <div className="text-xs font-extrabold uppercase tracking-wider text-forest-800">
+                    <div className="text-xs font-extrabold text-forest-800">
                       {tr.guidesFormativeMaintenancePruning}
                     </div>
                     <h4 className="font-bold text-stone-900 text-sm">
@@ -2322,7 +2318,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                         <RichText text={tr.guidesDoNotHarvestLeavesPinch} onFootnote={scrollToFootnote} slots={[<button
                               type="button"
                               onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
-                              className="text-teal-800 font-bold underline decoration-teal-500 underline-offset-2 hover:text-teal-950 cursor-pointer"
+                              className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
                             >{tr.guidesFirstCenteringCutDingxingXiujian}</button>]} />
                       </li>
                       <li>
@@ -2330,7 +2326,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                         <RichText text={tr.guidesHeadBackScaffoldsAt35} onFootnote={scrollToFootnote} slots={[<button
                               type="button"
                               onClick={() => scrollToSection('tea_sinensis', 'tea-pruning-stage-3')}
-                              className="text-teal-800 font-bold underline decoration-teal-500 underline-offset-2 hover:text-teal-950 cursor-pointer"
+                              className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
                             >{tr.guidesPluckingTableCaizhaiMian}</button>]} />
                       </li>
                       <li>
@@ -2338,7 +2334,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                         <RichText text={tr.guidesLightlyTrimTop35} onFootnote={scrollToFootnote} slots={[<button
                               type="button"
                               onClick={() => scrollToSection('tea_sinensis', 'tea-pruning-crows-feet')}
-                              className="text-teal-800 font-bold underline decoration-teal-500 underline-offset-2 hover:text-teal-950 cursor-pointer"
+                              className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
                             >{tr.guidesCrowSFeetJizhaoZhi}</button>]} />
                       </li>
                     </ul>
@@ -2346,9 +2342,9 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <button
                     type="button"
                     onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
-                    className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-900 text-xs font-bold transition-colors cursor-pointer"
+                    className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                   >
-                    <Scissors className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+                    <Scissors className="w-3.5 h-3.5 text-forest-700 shrink-0" />
                     <span>
                       {tr.guidesHowPruneStepStepDingxing}
                     </span>
@@ -2356,7 +2352,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
-                  <div className="text-xs font-extrabold uppercase tracking-wider text-teal-800">
+                  <div className="text-xs font-extrabold text-forest-800">
                     {tr.guidesBiochemicalShadeManipulation}
                   </div>
                   <h4 className="font-bold text-stone-900 text-sm">
@@ -2382,7 +2378,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
-                  <div className="text-xs font-extrabold uppercase tracking-wider text-amber-800">
+                  <div className="text-xs font-extrabold text-amber-800">
                     {tr.guidesPluckingStandardsTiming}
                   </div>
                   <h4 className="font-bold text-stone-900 text-sm">
@@ -2407,19 +2403,19 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
               <div
                 id="tea-sinensis-pruning-guide"
-                className="p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-teal-50/70 via-white to-emerald-50/40 border border-teal-200 space-y-5 scroll-mt-24 transition-all"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-stone-200 space-y-5 scroll-mt-24 transition"
               >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-teal-200/80 pb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-forest-200/80 pb-3">
                   <div>
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-teal-100 text-teal-900 mb-1">
-                      <Scissors className="w-3.5 h-3.5 text-teal-700" />
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-forest-100 text-forest-900 mb-1">
+                      <Scissors className="w-3.5 h-3.5 text-forest-700" />
                       {tr.guidesStepStepPracticalPruningManual}
                     </span>
                     <h4 className="text-base sm:text-lg font-extrabold text-stone-900">
                       {tr.guides3aHowExecuteTeaPruning}
                     </h4>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-white border border-teal-200 text-teal-900 text-xs font-mono font-bold self-start sm:self-center">
+                  <span className="px-3 py-1 rounded-full bg-white border border-forest-200 text-forest-900 text-xs font-mono font-bold self-start sm:self-center">
                     {tr.guides45OutwardBudCutFeb}
                   </span>
                 </div>
@@ -2427,7 +2423,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
                   <div className="lg:col-span-7 p-4 rounded-xl bg-white border border-stone-200 space-y-2.5 text-xs">
                     <div className="font-extrabold text-stone-900 text-sm flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-teal-700 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-forest-700 shrink-0" />
                       <span>
                         {tr.guides1ExactCutGeometryWhere}
                       </span>
@@ -2449,7 +2445,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   </div>
 
                   <div className="lg:col-span-5 p-4 rounded-xl bg-stone-900 text-stone-100 border border-stone-800 flex flex-col justify-between">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-teal-300 mb-2">
+                    <div className="text-[11px] font-bold text-forest-300 mb-2">
                       {tr.guidesVisualSchema3StageDingxing}
                     </div>
                     <svg viewBox="0 0 360 215" className="w-full h-auto rounded-lg bg-stone-950/80 border border-stone-800 p-1" role="img" aria-label={tr.guidesTeaPruningDiagramAria}>
@@ -2509,18 +2505,18 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
                 <div className="space-y-3">
                   <div className="font-extrabold text-stone-900 text-sm flex items-center gap-2">
-                    <Scissors className="w-4 h-4 text-teal-700" />
+                    <Scissors className="w-4 h-4 text-forest-700" />
                     <span>
                       <RichText text={tr.guides23StageFormativePruning} onFootnote={scrollToFootnote} />
                     </span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <div id="tea-pruning-stage-1" className="p-4 rounded-xl bg-white border border-amber-200 space-y-2 scroll-mt-24">
+                    <div id="tea-pruning-stage-1" className="p-4 rounded-xl bg-white border border-stone-200 space-y-2 scroll-mt-24">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="px-2 py-0.5 rounded-md bg-amber-100 text-amber-900 font-extrabold text-[11px]">
+                        <span className="px-2 py-0.5 rounded-md bg-forest-100 text-forest-900 font-extrabold text-[11px]">
                           {tr.guides1stCutEndYear1}
                         </span>
-                        <span className="font-mono font-bold text-amber-900">15–20 cm</span>
+                        <span className="font-mono font-bold text-forest-900">15–20 cm</span>
                       </div>
                       <h5 className="font-bold text-stone-900 text-xs sm:text-sm">
                         {tr.guides1stFormativeCutDeCentering}
@@ -2541,12 +2537,12 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       </ul>
                     </div>
 
-                    <div id="tea-pruning-stage-2" className="p-4 rounded-xl bg-white border border-sky-200 space-y-2 scroll-mt-24">
+                    <div id="tea-pruning-stage-2" className="p-4 rounded-xl bg-white border border-stone-200 space-y-2 scroll-mt-24">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="px-2 py-0.5 rounded-md bg-sky-100 text-sky-900 font-extrabold text-[11px]">
+                        <span className="px-2 py-0.5 rounded-md bg-forest-100 text-forest-900 font-extrabold text-[11px]">
                           {tr.guides2ndCutEndYear2}
                         </span>
-                        <span className="font-mono font-bold text-sky-900">30–40 cm</span>
+                        <span className="font-mono font-bold text-forest-900">30–40 cm</span>
                       </div>
                       <h5 className="font-bold text-stone-900 text-xs sm:text-sm">
                         {tr.guides2ndFormativeCutBuildingSecondary}
@@ -2567,12 +2563,12 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       </ul>
                     </div>
 
-                    <div id="tea-pruning-stage-3" className="p-4 rounded-xl bg-white border border-purple-200 space-y-2 scroll-mt-24">
+                    <div id="tea-pruning-stage-3" className="p-4 rounded-xl bg-white border border-stone-200 space-y-2 scroll-mt-24">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="px-2 py-0.5 rounded-md bg-purple-100 text-purple-900 font-extrabold text-[11px]">
+                        <span className="px-2 py-0.5 rounded-md bg-forest-100 text-forest-900 font-extrabold text-[11px]">
                           {tr.guides3rdCutEndYear3}
                         </span>
-                        <span className="font-mono font-bold text-purple-900">40–55 cm → 75 cm</span>
+                        <span className="font-mono font-bold text-forest-900">40–55 cm → 75 cm</span>
                       </div>
                       <h5 className="font-bold text-stone-900 text-xs sm:text-sm">
                         {tr.guides3rdFormativeCutTippingPlucking}
@@ -2617,12 +2613,12 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       </p>
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-white border border-teal-300 space-y-1.5">
+                    <div className="p-3.5 rounded-xl bg-white border border-forest-300 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <strong className="text-teal-950 font-bold">
+                        <strong className="text-forest-950 font-bold">
                           {tr.guidesBDeepPruningAgainstCrow}
                         </strong>
-                        <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-900 font-mono font-bold text-[11px]">
+                        <span className="px-2 py-0.5 rounded bg-forest-100 text-forest-900 font-mono font-bold text-[11px]">
                           {tr.guidesDeepPruningDepth}
                         </span>
                       </div>
@@ -2663,7 +2659,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="tea-sinensis-processing" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-sinensis-processing" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 mb-2">
                   <Zap className="w-3.5 h-3.5 text-amber-700" />
@@ -2795,14 +2791,14 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'tea_assamica' && (
           <div className="space-y-8 animate-in fade-in duration-200">
-            <div id="tea-assamica-botany" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-assamica-botany" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 border-b border-stone-100 pb-5">
                 <div>
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-900 mb-2">
                     <Sprout className="w-3.5 h-3.5 text-amber-700" />
                     {tr.guidesLargeLeafTropicalTeaTree}
                   </span>
-                  <h2 className="text-2xl font-bold text-stone-900">
+                  <h2 className="text-2xl font-semibold text-stone-900">
                     {tr.guidesAssamYunnanLargeLeafTea}
                   </h2>
                   <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-3xl">
@@ -2850,7 +2846,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
               <div className="space-y-4">
                 <h3 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-amber-600" />
+                  <Sprout className="w-5 h-5 text-amber-600" />
                   <span>
                     {tr.guides1ScientificComparisonCamelliaSinensis}
                   </span>
@@ -2896,7 +2892,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="tea-assamica-planting" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-assamica-planting" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-forest-100 text-forest-800 mb-2">
                   <TreePine className="w-3.5 h-3.5 text-forest-700" />
@@ -2936,9 +2932,9 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <button
                     type="button"
                     onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
-                    className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-teal-50 hover:bg-teal-100 border border-teal-200 text-teal-900 text-xs font-bold transition-colors cursor-pointer"
+                    className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                   >
-                    <Scissors className="w-3.5 h-3.5 text-teal-700 shrink-0" />
+                    <Scissors className="w-3.5 h-3.5 text-forest-700 shrink-0" />
                     <span>
                       {tr.guidesViewStepStepPruningGuide}
                     </span>
@@ -2967,7 +2963,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               </div>
             </div>
 
-            <div id="tea-assamica-processing" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div id="tea-assamica-processing" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-900 mb-2">
                   <Zap className="w-3.5 h-3.5 text-rose-700" />
@@ -3055,9 +3051,9 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'sources' && (
           <div className="space-y-8 animate-in fade-in duration-200">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-6">
               <div>
-                <h2 className="text-2xl font-bold text-stone-900 flex items-center gap-2">
+                <h2 className="text-2xl font-semibold text-stone-900 flex items-center gap-2">
                   <BookmarkCheck className="w-6 h-6 text-forest-600" />
                   <span>{tr.guidesTabSources}</span>
                 </h2>

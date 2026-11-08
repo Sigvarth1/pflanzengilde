@@ -38,7 +38,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
   const tr = t(language);
   const { isOpen, toggle } = useCollapsible();
   const header = (key: string, text: string) => (
-    <button type="button" onClick={() => toggle(key)} aria-expanded={isOpen(key)} className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide text-stone-500 cursor-pointer">
+    <button type="button" onClick={() => toggle(key)} aria-expanded={isOpen(key)} className="flex items-center gap-1 text-[11px] font-bold text-stone-500 cursor-pointer">
       <CollapseChevron open={isOpen(key)} />
       {text}
     </button>
@@ -74,12 +74,12 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
   const guide = () => onNavigate?.('/guides?tab=raised_beds');
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 space-y-3">
+    <div className="bg-white rounded-2xl border border-stone-200 p-4 space-y-3">
       <div role="button" tabIndex={0} aria-expanded={isOpen('card')} onClick={() => toggle('card')}
         onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('card'); } }}
         className="flex items-center gap-2 cursor-pointer select-none">
         <CollapseChevron open={isOpen('card')} className="w-4 h-4 text-stone-400 shrink-0" />
-        <Fence className="w-4 h-4 text-amber-800" />
+        <Fence className="w-4 h-4 text-forest-600" strokeWidth={1.75} />
         <div>
           <h3 className="text-sm font-bold text-stone-900">{tr.infraTitle}</h3>
           <p className="text-[11px] text-stone-500">{tr.infraSubtitle}</p>
@@ -107,7 +107,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
             </button>
           </div>
         ) : (
-          <div className="text-[11px] text-stone-400 italic">{tr.infraNoOutline}</div>
+          <div className="text-xs text-stone-500">{tr.infraNoOutline}</div>
         )}
         </>)}
       </section>
@@ -116,7 +116,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
         {header('beds', `${tr.infraRaisedBeds} (${infrastructure.raisedBeds.length})`)}
         {isOpen('beds') && (<>
         {toolButtons('BED')}
-        {infrastructure.raisedBeds.length === 0 && <div className="text-[11px] text-stone-400 italic">{tr.infraNoBeds}</div>}
+        {infrastructure.raisedBeds.length === 0 && <div className="text-xs text-stone-500">{tr.infraNoBeds}</div>}
         <ul className="space-y-1">
           {infrastructure.raisedBeds.map((b, i) => {
             const warn = siteWarnings.some(w => w.bedId === b.id && w.severity === 'WARNING');
@@ -147,7 +147,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
             );
           })}
         </ul>
-        <p className="text-[10.5px] text-stone-500 leading-snug">
+        <p className="text-[11px] text-stone-500 leading-snug">
           {tr.infraLinedHint}{' '}
           <button type="button" onClick={guide} className="inline-flex items-center gap-0.5 text-forest-700 font-semibold underline cursor-pointer">
             <BookOpen className="w-3 h-3" />{tr.infraGuideLink}

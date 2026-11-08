@@ -62,7 +62,7 @@ export const PhotoCreditBadge: React.FC<PhotoCreditBadgeProps> = ({
       title={label}
       aria-label={label}
       data-photo-credit={anchorId}
-      className={`absolute z-20 inline-flex items-center justify-center w-4 h-4 rounded-full bg-black/50 hover:bg-black/80 focus-visible:bg-black/80 text-white text-[10px] font-semibold leading-none no-underline select-none transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${className}`}
+      className={`absolute z-20 inline-flex items-center justify-center w-4 h-4 rounded-full bg-black/50 hover:bg-black/80 focus-visible:bg-black/80 text-white text-[11px] font-semibold leading-none no-underline select-none transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 ${className}`}
     >
       <span aria-hidden="true">©</span>
     </a>

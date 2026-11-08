@@ -7,7 +7,7 @@ import { computeClusterGardenLayout, getMinTrunkDistanceM, getRecommendedSpacing
 import { GardenSubstitution } from '../core/gardenOptimizer';
 import { GUILD_PLANTS } from '../data/guildPlants';
 import { readSavedAutoResolvePreference, STORAGE_KEY_GARDEN_GRID } from '../utils/gardenStorage';
-import { AlertOctagon, AlertTriangle, ArrowRight, CheckCircle2, Compass, Eye, EyeOff, RefreshCw, ShieldCheck, SunMedium, Shrink, Sparkles, Trees, Layers } from 'lucide-react';
+import { AlertOctagon, AlertTriangle, ArrowRight, CheckCircle2, Compass, Eye, EyeOff, RefreshCw, ShieldCheck, SunMedium, Shrink, Sprout, Trees, Layers } from 'lucide-react';
 import { t, formatNumber, translateZone, translateLayer, translateRole } from '../i18n/translations';
 import { PlantThumbnail } from './PlantThumbnail';
 import { SpacingWarningBanner } from './SpacingWarningBanner';
@@ -280,12 +280,12 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
   }, [selectedPlants, starTree]);
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-4">
+    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200/80 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100">
         <div>
-          <h3 className="text-base font-bold text-stone-900 flex flex-wrap items-center gap-2">
+          <h3 className="text-lg font-semibold text-stone-900 flex flex-wrap items-center gap-2">
             <span className="flex items-center gap-2">
-              <Compass className="w-5 h-5 text-sky-600" />
+              <Compass className="w-5 h-5 text-forest-600" strokeWidth={1.75} />
               {tr.canvasTitle}
             </span>
             {hasOptimizedResolution && (
@@ -295,14 +295,14 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                   tr.gardenPlanAutoSpacedTitle
                 }
               >
-                <Sparkles className="w-3 h-3 text-emerald-600" />
+                <Sprout className="w-3 h-3 text-emerald-600" />
                 <span className="hidden sm:inline">
                   {tr.gardenPlanAutoSpaced}
                 </span>
               </span>
             )}
           </h3>
-          <p className="text-xs text-stone-500">
+          <p className="text-sm text-stone-500 mt-0.5">
             {tr.canvasSubtitle}
           </p>
         </div>
@@ -312,8 +312,8 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
             <button
               type="button"
               onClick={() => setShowRings(!showRings)}
-              className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1 transition-colors ${
-                showRings ? 'bg-forest-50 border-forest-300 text-forest-800 font-medium' : 'bg-stone-50 border-stone-200 text-stone-500 hover:bg-stone-100'
+              className={`h-8 px-2.5 rounded-lg border flex items-center gap-1.5 transition-colors ${
+                showRings ? 'bg-stone-900/5 border-stone-300 text-stone-900' : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800 hover:bg-stone-50'
               }`}
             >
               {showRings ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
@@ -323,35 +323,35 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
             <button
               type="button"
               onClick={() => setShowSunOverlay(!showSunOverlay)}
-              className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1 transition-colors ${
-                showSunOverlay ? 'bg-amber-50 border-amber-300 text-amber-900 font-medium' : 'bg-stone-50 border-stone-200 text-stone-500 hover:bg-stone-100'
+              className={`h-8 px-2.5 rounded-lg border flex items-center gap-1.5 transition-colors ${
+                showSunOverlay ? 'bg-stone-900/5 border-stone-300 text-stone-900' : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800 hover:bg-stone-50'
               }`}
             >
-              <SunMedium className="w-3.5 h-3.5 text-amber-500" />
+              <SunMedium className="w-3.5 h-3.5" />
               <span>{tr.toggleSun}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setShowCanopySpread(!showCanopySpread)}
-              className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1 transition-colors ${
-                showCanopySpread ? 'bg-emerald-50 border-emerald-300 text-emerald-900 font-medium' : 'bg-stone-50 border-stone-200 text-stone-500 hover:bg-stone-100'
+              className={`h-8 px-2.5 rounded-lg border flex items-center gap-1.5 transition-colors ${
+                showCanopySpread ? 'bg-stone-900/5 border-stone-300 text-stone-900' : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800 hover:bg-stone-50'
               }`}
               title={tr.gardenPlanToggleCanopyTitle}
             >
-              <Shrink className="w-3.5 h-3.5 text-emerald-600" />
+              <Shrink className="w-3.5 h-3.5" />
               <span>{tr.spacingToggleCanopy}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setShowGroundCovers(!showGroundCovers)}
-              className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1 transition-colors ${
-                showGroundCovers ? 'bg-emerald-50 border-emerald-300 text-emerald-900 font-medium' : 'bg-stone-50 border-stone-200 text-stone-500 hover:bg-stone-100'
+              className={`h-8 px-2.5 rounded-lg border flex items-center gap-1.5 transition-colors ${
+                showGroundCovers ? 'bg-stone-900/5 border-stone-300 text-stone-900' : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800 hover:bg-stone-50'
               }`}
               title={tr.groundCoverLegendHint}
             >
-              <Layers className="w-3.5 h-3.5 text-emerald-600" />
+              <Layers className="w-3.5 h-3.5" />
               <span>{tr.showGroundCovers}</span>
             </button>
           </div>
@@ -360,14 +360,14 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
             <button
               type="button"
               onClick={() => setIsMultiPanelOpen(!isMultiPanelOpen)}
-              className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`h-8 px-2.5 rounded-lg border flex items-center gap-1.5 transition-colors cursor-pointer ${
                 clusterConfig.count > 1 || isMultiPanelOpen
-                  ? 'bg-sky-50 border-sky-300 text-sky-900 font-bold'
-                  : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                  ? 'bg-stone-900/5 border-stone-300 text-stone-900'
+                  : 'bg-white border-stone-200 text-stone-500 hover:text-stone-800 hover:bg-stone-50'
               }`}
               title={tr.gardenPlanClusterTitle}
             >
-              <Trees className="w-3.5 h-3.5 text-forest-600" />
+              <Trees className="w-3.5 h-3.5" />
               <span>
                 {clusterConfig.count > 1
                   ? tr.gardenPlanStarPlantsCount.replace('{count}', String(clusterConfig.count))
@@ -379,7 +379,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenInGardenGrid(starTree, clusterConfig)}
-                className="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center gap-1 shadow-xs transition-colors cursor-pointer"
+                className="h-8 px-3 rounded-lg bg-forest-700 hover:bg-forest-800 text-white font-medium text-xs flex items-center gap-1 transition-colors cursor-pointer"
                 title={tr.gardenPlanOpenInGridTitle}
               >
                 <span>{tr.gardenPlanOpenInGrid}</span>
@@ -439,7 +439,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                       onClick={() => setClusterShape(prev => ({ ...prev, pattern }))}
                       className={`px-2.5 py-1 rounded-lg border text-xs font-semibold cursor-pointer ${
                         clusterConfig.pattern === pattern
-                          ? 'bg-white border-forest-500 text-forest-800 shadow-xs'
+                          ? 'bg-white border-forest-500 text-forest-800'
                           : 'border-stone-200 text-stone-600 hover:bg-white'
                       }`}
                     >
@@ -473,7 +473,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
               {clusterLayout && (
                 <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5 font-medium">
-                    <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <Sprout className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>
                       {tr.gardenPlanSavings
                         .replace('{optimized}', String(clusterLayout.resolution.stats.companionPlantCount))
@@ -485,7 +485,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                     <button
                       type="button"
                       onClick={() => onOpenInGardenGrid(starTree, clusterConfig)}
-                      className="px-2.5 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] flex items-center gap-1 shrink-0 transition-colors cursor-pointer self-end sm:self-auto"
+                      className="px-2.5 py-1 rounded-md bg-forest-600 hover:bg-forest-700 text-white font-bold text-[11px] flex items-center gap-1 shrink-0 transition-colors cursor-pointer self-end sm:self-auto"
                     >
                       <span>{tr.gardenPlanOpenInGardenGrid}</span>
                       <ArrowRight className="w-3 h-3" />
@@ -860,7 +860,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                       stroke={isHovered ? '#ffffff' : style.stroke}
                       strokeWidth={isHovered ? 2.5 : 1.5}
                       opacity={style.opacity}
-                      className="transition-all duration-150"
+                      className="transition duration-150"
                     />
                     {placed.plant.seasonalActivity.floweringSeasons.includes(currentSeason) && (
                       <circle
@@ -999,7 +999,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                   return (
                     <g key={`cluster-link-${link.a}-${link.b}`}>
                       <line x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke="#15803d" strokeWidth="1.5" strokeDasharray="5 3" opacity="0.6" />
-                      <rect x={midX - 22} y={midY - 8} width="44" height="16" rx="4" fill="#ffffff" fillOpacity="0.9" stroke="#cbd5e1" strokeWidth="1" />
+                      <rect x={midX - 22} y={midY - 8} width="44" height="16" rx="4" fill="#ffffff" fillOpacity="0.9" stroke="#d3cab8" strokeWidth="1" />
                       <text x={midX} y={midY + 3.5} textAnchor="middle" fill="#15803d" fontSize="8.5" fontWeight="bold" fontFamily="sans-serif">
                         {fmtM(link.distM)} m
                       </text>
@@ -1148,7 +1148,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                         stroke={isHovered ? '#ffffff' : style.stroke}
                         strokeWidth={isHovered ? 2 : 1.5}
                         opacity={style.opacity}
-                        className="transition-all duration-150"
+                        className="transition duration-150"
                       />
 
                       {comp.plant.seasonalActivity.floweringSeasons.includes(currentSeason) && (
@@ -1236,10 +1236,10 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                   <div className="font-bold text-sm text-forest-300 leading-snug truncate">
                     {getLoc(plant.commonName, language)}
                   </div>
-                  <div className="text-[10px] text-stone-400 italic truncate">
+                  <div className="text-[11px] text-stone-400 italic truncate">
                     {plant.botanicalName}
                   </div>
-                  <div className="text-[10px] text-stone-300 mt-0.5">
+                  <div className="text-[11px] text-stone-300 mt-0.5">
                     {hoveredPlant ? (
                       <>
                         <strong>{fmtM(hoveredPlant.distanceM)} m</strong> {tr.fromTrunk} ({translateZone(hoveredPlant.zone, language)})
@@ -1248,7 +1248,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                       <>
                         {isShared ? (
                           <span className="text-emerald-400 font-semibold">
-                            ✨ {tr.gardenPlanSharedByTrees.replace('{count}', String(hoveredClusterComp!.servicingTreeIds.length))}
+                            {tr.gardenPlanSharedByTrees.replace('{count}', String(hoveredClusterComp!.servicingTreeIds.length))}
                             {' '}({hoveredClusterComp!.servicingTreeIds.map(starLabel).join(', ')})
                           </span>
                         ) : (
@@ -1273,12 +1273,12 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                 <div>{tr.layer}: <span className="text-forest-400">{translateLayer(plant.layer, language)}</span></div>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {plant.roles.map(r => (
-                    <span key={r} className="px-1.5 py-0.5 rounded bg-forest-950 text-forest-200 text-[9px]">
+                    <span key={r} className="px-1.5 py-0.5 rounded bg-forest-950 text-forest-200 text-[11px]">
                       {translateRole(r, language)}
                     </span>
                   ))}
                 </div>
-                <p className="mt-1 text-[10px] text-stone-400 leading-tight">
+                <p className="mt-1 text-[11px] text-stone-400 leading-tight">
                   {getLoc(plant.notes, language)}
                 </p>
               </div>
@@ -1313,7 +1313,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
               <span>{tr.gardenPlanLegendShared}</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-sky-600 inline-flex items-center justify-center text-[8px] text-white font-bold">↻</span>
+              <span className="w-3 h-3 rounded-full bg-sky-600 inline-flex items-center justify-center text-[11px] text-white font-bold">↻</span>
               <span>{tr.gardenPlanLegendSubstituted}</span>
             </div>
             <div className="flex items-center gap-1.5">
@@ -1332,11 +1332,11 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
               {tr.gardenWarningsTitle}
             </span>
             {clusterLayout.resolution.unresolved.length > 0 ? (
-              <span className="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 font-semibold text-[10px]">
+              <span className="px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 font-semibold text-[11px]">
                 {clusterLayout.resolution.unresolved.length} {tr.gardenWarningsConflicts}
               </span>
             ) : (
-              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold text-[10px]">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 font-semibold text-[11px]">
                 {tr.gardenWarningsInHarmony}
               </span>
             )}

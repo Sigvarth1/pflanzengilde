@@ -170,7 +170,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
           </button>
         </div>
 
-        <div className="bg-slate-900 text-white rounded-xl sm:rounded-2xl px-3.5 py-3 sm:px-4 sm:py-3.5 border border-slate-800 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-2.5 md:gap-4 min-h-[92px] sm:min-h-[76px] md:h-[72px]">
+        <div className="bg-stone-900 text-white rounded-xl sm:rounded-2xl px-3.5 py-3 sm:px-4 sm:py-3.5 border border-stone-800 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-2.5 md:gap-4 min-h-[92px] sm:min-h-[76px] md:h-[72px]">
           <div className="flex items-center gap-3 min-w-0 flex-1">
             <div
               className="p-2 sm:p-2.5 rounded-xl shrink-0"
@@ -189,37 +189,37 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
                 >
                   {displayRegion.usda}
                 </span>
-                <span className="text-xs text-slate-400 font-mono shrink-0 hidden sm:inline">
+                <span className="text-xs text-stone-400 font-mono shrink-0 hidden sm:inline">
                   {getLoc(displayRegion.latRange, language)}
                 </span>
               </div>
-              <p className="text-xs text-slate-300 mt-0.5 truncate">
-                <strong className="text-slate-200">{tr.climateModalKeyRegions}</strong>
-                <span className="text-slate-300">{getLoc(displayRegion.geoAreas, language)}</span>
+              <p className="text-xs text-stone-300 mt-0.5 truncate">
+                <strong className="text-stone-200">{tr.climateModalKeyRegions}</strong>
+                <span className="text-stone-300">{getLoc(displayRegion.geoAreas, language)}</span>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 shrink-0 border-t md:border-t-0 md:border-l border-slate-800 pt-2 md:pt-0 md:pl-4">
-            <Compass className="w-4 h-4 text-sky-400 shrink-0" />
+          <div className="flex items-center gap-2 shrink-0 border-t md:border-t-0 md:border-l border-stone-800 pt-2 md:pt-0 md:pl-4">
+            <Compass className="w-4 h-4 text-forest-300 shrink-0" />
             <div className="text-xs">
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-medium whitespace-nowrap">
+              <div className="text-[11px] sm:text-xs text-stone-400 font-medium whitespace-nowrap">
                 {tr.hemisphereDerivedNote}
               </div>
-              <div className="font-bold text-slate-200 whitespace-nowrap">
+              <div className="font-bold text-stone-200 whitespace-nowrap">
                 {displayRegion.hemisphere === 'NORTHERN' ? tr.sunPathNorthNote : tr.sunPathSouthNote}
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-950 rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-slate-800 shadow-inner relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1.5 px-2">
-            <span className="font-semibold text-slate-300 flex items-center gap-1.5 text-[11px] sm:text-xs">
+        <div className="bg-stone-950 rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-stone-800 shadow-inner relative overflow-hidden">
+          <div className="flex items-center justify-between text-xs text-stone-400 mb-1.5 px-2">
+            <span className="font-semibold text-stone-300 flex items-center gap-1.5 text-[11px] sm:text-xs">
               <Globe className="w-3.5 h-3.5 text-forest-400" />
               {tr.worldMapTitle}
             </span>
-            <span className="text-[10px] sm:text-[11px] text-slate-400 font-mono">
+            <span className="text-[11px] sm:text-xs text-stone-400 font-mono">
               {tr.mapRegionHoverHint}
             </span>
           </div>
@@ -295,7 +295,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
                       d={region.polygonPath}
                       fill={region.fillColor}
                       fillOpacity={opacity}
-                      className="transition-all duration-150"
+                      className="transition duration-150"
                     />
                   );
                 })}
@@ -352,7 +352,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
             return (
               <div
                 key={zone.id}
-                className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 transition-all relative text-left ${
+                className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 transition relative text-left ${
                   isSelected
                     ? `${zone.borderAccent} bg-white shadow-md ring-2 ring-forest-500/20`
                     : 'border-stone-200 bg-white hover:border-stone-300'
@@ -393,9 +393,9 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleSelectRegion(northDef)}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1 ${
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition cursor-pointer flex items-center gap-1 ${
                         activeRegionId === northDef.id
-                          ? 'bg-forest-600 text-white border-forest-600 shadow-xs'
+                          ? 'bg-forest-600 text-white border-forest-600'
                           : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-stone-300'
                       }`}
                     >
@@ -412,9 +412,9 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
                     <button
                       type="button"
                       onClick={() => handleSelectRegion(southDef)}
-                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all cursor-pointer flex items-center gap-1 ${
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition cursor-pointer flex items-center gap-1 ${
                         activeRegionId === southDef.id
-                          ? 'bg-forest-600 text-white border-forest-600 shadow-xs'
+                          ? 'bg-forest-600 text-white border-forest-600'
                           : 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100 hover:border-stone-300'
                       }`}
                     >

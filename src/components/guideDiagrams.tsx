@@ -346,7 +346,7 @@ export const SeasonTimeline: React.FC<DiagramProps> = ({ language, className }) 
     <div className={className}>
       <div className="grid grid-cols-[7.5rem_1fr] gap-x-2 gap-y-1.5 items-center text-[11px]">
         <span />
-        <div className="grid grid-cols-12 text-center text-[10px] font-bold text-stone-400">{months.split('').map((m, i) => <span key={i}>{m}</span>)}</div>
+        <div className="grid grid-cols-12 text-center text-[11px] font-bold text-stone-400">{months.split('').map((m, i) => <span key={i}>{m}</span>)}</div>
         {rows.map(r => (
           <React.Fragment key={r.t.en}>
             <span className="font-semibold text-stone-700 text-right">{g(r.t)}</span>
@@ -377,7 +377,7 @@ export const ForageGapTimeline: React.FC<DiagramProps> = ({ language, className 
     <div className={className}>
       <div className="grid grid-cols-[7.5rem_1fr] gap-x-2 gap-y-1.5 items-center text-[11px]">
         <span />
-        <div className="grid grid-cols-12 text-center text-[10px] font-bold text-stone-400">{months.split('').map((m, i) => <span key={i}>{m}</span>)}</div>
+        <div className="grid grid-cols-12 text-center text-[11px] font-bold text-stone-400">{months.split('').map((m, i) => <span key={i}>{m}</span>)}</div>
         <span className="font-semibold text-stone-700 text-right">{g(L('Nectar peaks', 'Nektarspitzen'))}</span>
         <div className="relative h-4 rounded-full bg-stone-100">
           {peaks.map(([a, b], i) => <div key={i} className="absolute top-0 h-4 rounded-full" style={{ ...bar(a, b), background: LEAF, opacity: 0.75 }} />)}
@@ -387,7 +387,7 @@ export const ForageGapTimeline: React.FC<DiagramProps> = ({ language, className 
           {gaps.map(x => <div key={x.t.en} className="absolute top-0 h-4 rounded-full" style={{ ...bar(x.a, x.b), background: '#f59e0b', opacity: 0.8 }} />)}
         </div>
       </div>
-      <p className="mt-1.5 text-[10px] text-stone-500 text-center">{g(L('Schematic, south-west England farmland [1]. Month positions are approximate.', 'Schema, Agrarland in Südwestengland [1]. Monatslagen sind ungefähr.'))}</p>
+      <p className="mt-1.5 text-[11px] text-stone-500 text-center">{g(L('Schematic, south-west England farmland [1]. Month positions are approximate.', 'Schema, Agrarland in Südwestengland [1]. Monatslagen sind ungefähr.'))}</p>
     </div>
   );
 };

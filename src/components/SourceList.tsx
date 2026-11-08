@@ -86,9 +86,9 @@ export const SourceList: React.FC<SourceListProps> = ({
   const visible = canCollapse && !expanded ? items.slice(0, collapseAfter) : items;
 
   return (
-    <div className={`text-[10px] text-stone-500 leading-snug space-y-0.5 ${className}`}>
+    <div className={`text-[11px] text-stone-500 leading-snug space-y-0.5 ${className}`}>
       {heading && (
-        <div className="flex items-center gap-1 font-semibold text-stone-600 uppercase tracking-wider">
+        <div className="flex items-center gap-1 font-semibold text-stone-600">
           <BookOpen className="w-3 h-3 shrink-0" />
           <span>{heading}</span>
         </div>

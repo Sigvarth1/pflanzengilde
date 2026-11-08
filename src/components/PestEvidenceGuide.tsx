@@ -112,7 +112,7 @@ export const PestEvidenceGuide: React.FC<{ language: Language }> = ({ language }
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 shadow-xs space-y-8">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200 space-y-8">
       <div>
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
           <Bug className="w-3.5 h-3.5 text-emerald-600" />

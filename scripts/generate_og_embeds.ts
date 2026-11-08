@@ -58,7 +58,7 @@ function wrapText(text: string, maxCharsPerLine = 46, maxLines = 3): string[] {
 function createSvgOverlay(title: string, botanical: string, description: string): string {
   const descLines = wrapText(description, 44, 3);
   const descSvgLines = descLines.map((line, idx) =>
-    `<text x="70" y="${275 + idx * 36}" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#e2e8f0">${escapeXml(line)}</text>`
+    `<text x="70" y="${275 + idx * 36}" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" fill="#e7e1d5">${escapeXml(line)}</text>`
   ).join('\n  ');
 
   return `
@@ -81,12 +81,12 @@ function createSvgOverlay(title: string, botanical: string, description: string)
   <rect width="1200" height="630" fill="url(#bottomGrad)" />
 
   <!-- Permaculture Badge -->
-  <rect x="70" y="65" width="250" height="34" rx="17" fill="#14532d" fill-opacity="0.95" stroke="#22c55e" stroke-width="1.5" />
-  <text x="195" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#86efac" letter-spacing="1.5">PERMAKULTUR-GILDE</text>
+  <rect x="70" y="65" width="250" height="34" rx="17" fill="#2e3d25" fill-opacity="0.95" stroke="#86a66a" stroke-width="1.5" />
+  <text x="195" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#c9d9b8">Permakultur-Gilde</text>
 
   <!-- Title & Botanical Name -->
   <text x="70" y="155" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="bold" fill="#ffffff">${escapeXml(title)}</text>
-  <text x="70" y="200" font-family="Arial, Helvetica, sans-serif" font-size="26" font-style="italic" fill="#86efac">${escapeXml(botanical)}</text>
+  <text x="70" y="200" font-family="Arial, Helvetica, sans-serif" font-size="26" font-style="italic" fill="#c9d9b8">${escapeXml(botanical)}</text>
 
   <!-- Short Description -->
   ${descSvgLines}
@@ -94,7 +94,7 @@ function createSvgOverlay(title: string, botanical: string, description: string)
   <!-- BOTTOM LEFT: Pflanzengilde.de Logo + Text -->
   <g transform="translate(70, 505)">
     <!-- Sprout Icon Badge -->
-    <rect width="64" height="64" rx="18" fill="#16a34a" />
+    <rect width="64" height="64" rx="18" fill="#52713c" />
     <g transform="translate(14, 14) scale(1.5)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M7 20h10"/>
       <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
@@ -102,8 +102,8 @@ function createSvgOverlay(title: string, botanical: string, description: string)
       <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
     </g>
     <!-- Brand Typography -->
-    <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#4ade80">.de</tspan></text>
-    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#a7f3d0" letter-spacing="0.02em">Interaktiver Permakultur-Gildenplaner</text>
+    <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#a8c08f">.de</tspan></text>
+    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">Interaktiver Permakultur-Gildenplaner</text>
   </g>
 </svg>
 `.trim();
@@ -199,7 +199,7 @@ async function generateAll() {
       <stop offset="100%" stop-color="#112918" />
     </linearGradient>
     <radialGradient id="mapGlow" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#16a34a" stop-opacity="0.18" />
+      <stop offset="0%" stop-color="#52713c" stop-opacity="0.18" />
       <stop offset="100%" stop-color="#090d0a" stop-opacity="0" />
     </radialGradient>
   </defs>
@@ -231,28 +231,28 @@ async function generateAll() {
     <line x1="0" y1="270" x2="495" y2="270" stroke="#264530" stroke-width="1.5" stroke-dasharray="6,6" />
 
     <!-- CAD Distance Lines Between Star Trees -->
-    <line x1="145" y1="155" x2="365" y2="175" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7,5" />
-    <line x1="145" y1="155" x2="240" y2="375" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7,5" />
-    <line x1="365" y1="175" x2="240" y2="375" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="7,5" />
+    <line x1="145" y1="155" x2="365" y2="175" stroke="#a89e8a" stroke-width="2.5" stroke-dasharray="7,5" />
+    <line x1="145" y1="155" x2="240" y2="375" stroke="#a89e8a" stroke-width="2.5" stroke-dasharray="7,5" />
+    <line x1="365" y1="175" x2="240" y2="375" stroke="#a89e8a" stroke-width="2.5" stroke-dasharray="7,5" />
 
     <!-- Distance Pill 1 (5.0m) -->
-    <rect x="220" y="148" width="66" height="26" rx="8" fill="#090d0a" stroke="#475569" stroke-width="1.5" />
-    <text x="253" y="166" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">5.0m</text>
+    <rect x="220" y="148" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
+    <text x="253" y="166" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">5.0m</text>
 
     <!-- Distance Pill 2 (4.8m) -->
-    <rect x="155" y="252" width="66" height="26" rx="8" fill="#090d0a" stroke="#475569" stroke-width="1.5" />
-    <text x="188" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">4.8m</text>
+    <rect x="155" y="252" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
+    <text x="188" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">4.8m</text>
 
     <!-- Distance Pill 3 (5.2m) -->
-    <rect x="275" y="262" width="66" height="26" rx="8" fill="#090d0a" stroke="#475569" stroke-width="1.5" />
-    <text x="308" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">5.2m</text>
+    <rect x="275" y="262" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
+    <text x="308" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">5.2m</text>
 
     <!-- Companion Plant Dots Around & Between Star Trees -->
     <!-- Tree 1 Companions -->
     <circle cx="105" cy="115" r="8" fill="#9333ea" stroke="#ffffff" stroke-width="1.5" />
     <circle cx="185" cy="110" r="8" fill="#facc15" stroke="#ffffff" stroke-width="1.5" />
     <circle cx="95" cy="185" r="8" fill="#c084fc" stroke="#ffffff" stroke-width="1.5" />
-    <circle cx="145" cy="118" r="7" fill="#4ade80" stroke="#ffffff" stroke-width="1.5" />
+    <circle cx="145" cy="118" r="7" fill="#a8c08f" stroke="#ffffff" stroke-width="1.5" />
     <!-- Shared Interstitial Companions -->
     <circle cx="255" cy="130" r="9" fill="#f43f5e" stroke="#ffffff" stroke-width="2" />
     <circle cx="250" cy="220" r="9" fill="#38bdf8" stroke="#ffffff" stroke-width="2" />
@@ -263,7 +263,7 @@ async function generateAll() {
     <circle cx="418" cy="210" r="8" fill="#facc15" stroke="#ffffff" stroke-width="1.5" />
     <circle cx="355" cy="128" r="7" fill="#c084fc" stroke="#ffffff" stroke-width="1.5" />
     <!-- Tree 3 Companions -->
-    <circle cx="185" cy="415" r="8" fill="#4ade80" stroke="#ffffff" stroke-width="1.5" />
+    <circle cx="185" cy="415" r="8" fill="#a8c08f" stroke="#ffffff" stroke-width="1.5" />
     <circle cx="295" cy="418" r="8" fill="#f43f5e" stroke="#ffffff" stroke-width="1.5" />
     <circle cx="240" cy="432" r="8" fill="#9333ea" stroke="#ffffff" stroke-width="1.5" />
 
@@ -285,43 +285,43 @@ async function generateAll() {
     <!-- Bottom Map Legend Bar -->
     <rect x="22" y="478" width="451" height="42" rx="12" fill="#142419" stroke="#264530" stroke-width="1" />
     <circle cx="46" cy="499" r="6" fill="#ef4444" />
-    <text x="58" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e2e8f0">Leitbäume</text>
+    <text x="58" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">Leitbäume</text>
     <circle cx="155" cy="499" r="6" fill="#9333ea" />
-    <text x="167" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e2e8f0">Begleitpflanzen</text>
-    <text x="455" y="504" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#86efac">CAD-Abstände (m)</text>
+    <text x="167" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">Begleitpflanzen</text>
+    <text x="455" y="504" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#c9d9b8">CAD-Abstände (m)</text>
   </g>
 
   <!-- LEFT SIDE: Badge, Title, Subtitle, Features, and Brand Logo -->
-  <rect x="65" y="60" width="310" height="36" rx="18" fill="#14532d" stroke="#22c55e" stroke-width="1.5" />
-  <text x="220" y="83" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#86efac" letter-spacing="1.5">2D-PERMAKULTUR-GARTENPLAN</text>
+  <rect x="65" y="60" width="310" height="36" rx="18" fill="#2e3d25" stroke="#86a66a" stroke-width="1.5" />
+  <text x="220" y="83" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">2D-Permakultur-Gartenplan</text>
 
   <text x="65" y="152" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#ffffff">Permakultur-</text>
-  <text x="65" y="208" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#4ade80">Gartenplan</text>
+  <text x="65" y="208" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#a8c08f">Gartenplan</text>
 
-  <text x="65" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" font-style="italic" fill="#a7f3d0">Mehrbaum-Raster &amp; Begleitpflanzen-Optimierung</text>
+  <text x="65" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" font-style="italic" fill="#d9e4cc">Mehrbaum-Raster &amp; Begleitpflanzen-Optimierung</text>
 
-  <text x="65" y="308" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e2e8f0">• Maßstabsgetreue Baum-Koordinaten &amp; Abstände</text>
-  <text x="65" y="346" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e2e8f0">• Intelligente Begleitpflanzen-Teilung zwischen Gilden</text>
-  <text x="65" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e2e8f0">• Allelopathie-Prüfung, PDF-Plan &amp; Einkaufsliste</text>
+  <text x="65" y="308" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Maßstabsgetreue Baum-Koordinaten &amp; Abstände</text>
+  <text x="65" y="346" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Intelligente Begleitpflanzen-Teilung zwischen Gilden</text>
+  <text x="65" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Allelopathie-Prüfung, PDF-Plan &amp; Einkaufsliste</text>
 
   <!-- Pill Badges -->
-  <rect x="65" y="418" width="160" height="36" rx="10" fill="#14291a" stroke="#22c55e" stroke-width="1" />
-  <text x="145" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#86efac">${starPlantCount} Leitpflanzen</text>
+  <rect x="65" y="418" width="160" height="36" rx="10" fill="#14291a" stroke="#86a66a" stroke-width="1" />
+  <text x="145" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${starPlantCount} Leitpflanzen</text>
 
-  <rect x="240" y="418" width="195" height="36" rx="10" fill="#14291a" stroke="#22c55e" stroke-width="1" />
-  <text x="337" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#86efac">${companionCountLabel} Begleitpflanzen</text>
+  <rect x="240" y="418" width="195" height="36" rx="10" fill="#14291a" stroke="#86a66a" stroke-width="1" />
+  <text x="337" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${companionCountLabel} Begleitpflanzen</text>
 
   <!-- BOTTOM LEFT: Pflanzengilde.de Logo + Text -->
   <g transform="translate(65, 505)">
-    <rect width="64" height="64" rx="18" fill="#16a34a" />
+    <rect width="64" height="64" rx="18" fill="#52713c" />
     <g transform="translate(14, 14) scale(1.5)" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M7 20h10"/>
       <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
       <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
       <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
     </g>
-    <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#4ade80">.de</tspan></text>
-    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#a7f3d0" letter-spacing="0.02em">Interaktiver Permakultur-Gartenplaner</text>
+    <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#a8c08f">.de</tspan></text>
+    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">Interaktiver Permakultur-Gartenplaner</text>
   </g>
 </svg>
 `.trim();

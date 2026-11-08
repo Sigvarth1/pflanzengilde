@@ -5,14 +5,14 @@
 @layer base {
   :root {
     color-scheme: light;
-    --ink: #3c315b;
-    --lavender: #ab9ff2;
-    --mist: #f5f2ff;
+    --ink: #2e2922;
+    --moss: #86a66a;
+    --ground: #f4f1ea;
     --cream: #fffdf8;
   }
 
   html {
-    background: var(--mist);
+    background: var(--ground);
   }
 
   body {
@@ -32,18 +32,18 @@
   }
 
   ::selection {
-    background: #dcd5fc;
+    background: #c9d9b8;
     color: var(--ink);
   }
 
   :focus-visible {
-    outline: 2px solid #6e5bd6;
+    outline: 2px solid #52713c;
     outline-offset: 2px;
   }
 
   input, textarea, select {
-    caret-color: #6e5bd6;
-    accent-color: #6e5bd6;
+    caret-color: #52713c;
+    accent-color: #52713c;
   }
 
   a {
@@ -72,35 +72,25 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f5f2ff;
+  background: #f4f1ea;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d3cbee;
+  background: #d3cab8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ab9ff2;
+  background: #a89e8a;
 }
 html {
-  scrollbar-color: #d3cbee #f5f2ff;
+  scrollbar-color: #d3cab8 #f4f1ea;
 }
 
-/* Hero ribbons: one slow drift, the page's single authored motion */
-.hero-ribbon {
-  transform-box: view-box;
-  transform-origin: center;
-  animation: ribbon-drift 22s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
+/* Swipeable chip/tab strips: scroll without a visible bar */
+.no-scrollbar,
+.scrollbar-none {
+  scrollbar-width: none;
 }
-.hero-ribbon-b { animation-duration: 26s; animation-delay: -6s; }
-.hero-ribbon-c { animation-duration: 30s; animation-delay: -12s; }
-.hero-ribbon-d { animation-duration: 24s; animation-delay: -3s; }
-.hero-ribbon-e { animation-duration: 34s; animation-delay: -9s; }
-
-@keyframes ribbon-drift {
-  from { transform: translate3d(-18px, 6px, 0) rotate(-1.2deg); }
-  to   { transform: translate3d(22px, -10px, 0) rotate(1.4deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-ribbon { animation: none; }
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }

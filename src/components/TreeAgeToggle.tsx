@@ -22,7 +22,7 @@ export const TreeAgeToggle: React.FC<TreeAgeToggleProps> = ({ language, treeAge,
       role="radiogroup"
       aria-label={tr.treeAgeLabel}
       title={tr.treeAgeHint}
-      className="flex items-center gap-1 text-xs font-semibold p-0.5 rounded-xl bg-stone-100/90 border border-stone-200 shadow-2xs"
+      className="flex items-center gap-1 text-xs font-semibold p-0.5 rounded-xl bg-stone-100/90 border border-stone-200"
     >
       {!compact && <span className="px-2 text-[11px] text-stone-500 font-medium">{tr.treeAgeLabel}</span>}
       {options.map(({ id, label, Icon }) => {
@@ -34,8 +34,8 @@ export const TreeAgeToggle: React.FC<TreeAgeToggleProps> = ({ language, treeAge,
             role="radio"
             aria-checked={active}
             onClick={() => onSelectTreeAge(id)}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition-all cursor-pointer ${
-              active ? 'bg-white text-forest-800 shadow-xs border border-forest-200' : 'text-stone-600 hover:text-stone-900'
+            className={`flex items-center gap-1 px-2.5 py-1 rounded-lg transition cursor-pointer ${
+              active ? 'bg-white text-forest-800 border border-forest-200' : 'text-stone-600 hover:text-stone-900'
             }`}
           >
             <Icon className="w-3.5 h-3.5 shrink-0" />

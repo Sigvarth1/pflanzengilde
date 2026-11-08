@@ -931,7 +931,7 @@ export const GardenPlannerPage: React.FC<GardenPlannerPageProps> = ({
     <div className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5 space-y-3">
       {toast && (
         <div
-          className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-lg border text-sm flex items-center space-x-2 transition-all ${
+          className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-lg border text-sm flex items-center space-x-2 transition ${
             toast.type === 'success'
               ? 'bg-emerald-900 border-emerald-700 text-emerald-100'
               : 'bg-rose-900 border-rose-700 text-rose-100'
@@ -943,7 +943,7 @@ export const GardenPlannerPage: React.FC<GardenPlannerPageProps> = ({
       )}
 
       <div className="flex flex-col lg:flex-row items-start gap-4 sm:gap-6">
-        <div className="w-full lg:w-96 lg:max-h-[calc(100vh-8.5rem)] lg:overflow-y-auto space-y-4 pr-1 scrollbar-thin">
+        <div className="w-full lg:w-96 lg:max-h-[calc(100vh-8.5rem)] lg:overflow-y-auto lg:overflow-x-hidden space-y-4 pr-1 scrollbar-thin">
           <GardenSidebar
             language={language}
             starPlants={starPlants}

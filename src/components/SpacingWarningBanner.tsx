@@ -2,7 +2,7 @@ import React from 'react';
 import { GuildPlant, Language, getLoc } from '../types/guild';
 import { PlantOverlapConflict, SpacingReport } from '../core/spacingEngine';
 import { t, formatNumber, translateRole, translateZone } from '../i18n/translations';
-import { AlertTriangle, AlertOctagon, ArrowRightLeft, Sparkles, Layers } from 'lucide-react';
+import { AlertTriangle, AlertOctagon, ArrowRightLeft, Sprout, Layers } from 'lucide-react';
 
 interface SpacingWarningBannerProps {
   language: Language;
@@ -27,7 +27,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
     if (alternatives.length === 0) return null;
     return (
       <div className="bg-stone-50 p-2.5 rounded-lg border border-stone-200/80 space-y-1.5">
-        <div className="text-[10px] font-bold text-stone-600 flex items-center justify-between">
+        <div className="text-[11px] font-bold text-stone-600 flex items-center justify-between">
           <span>
             {tr.spacingBannerAlternativesFor.replace('{plant}', getLoc(original.commonName, language)).replace('{spread}', String(original.spreadM))}
           </span>
@@ -43,16 +43,16 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
                   <span className="font-bold text-stone-900 text-xs">
                     {getLoc(alt.plant.commonName, language)}
                   </span>
-                  <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
+                  <span className="text-[11px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-px rounded border border-emerald-200">
                     -{alt.spreadReductionPercent}% {tr.spacingBannerSpread}
                   </span>
                 </div>
-                <p className="text-[10px] text-stone-500 mt-0.5 leading-snug">
+                <p className="text-[11px] text-stone-500 mt-0.5 leading-snug">
                   {getLoc(alt.reason, language)}
                 </p>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {alt.sharedRoles.map(r => (
-                    <span key={r} className="text-[9px] px-1 py-0.2 rounded bg-forest-50 text-forest-800 font-medium">
+                    <span key={r} className="text-[11px] px-1 py-px rounded bg-forest-50 text-forest-800 font-medium">
                       {translateRole(r, language)}
                     </span>
                   ))}
@@ -63,7 +63,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
                 <button
                   type="button"
                   onClick={() => onSwapPlant(original.id, alt.plant)}
-                  className="w-full mt-1 px-2 py-1 rounded bg-forest-600 hover:bg-forest-700 text-white font-semibold text-[10px] flex items-center justify-center gap-1 transition-all cursor-pointer shadow-2xs"
+                  className="w-full mt-1 px-2 py-1 rounded bg-forest-600 hover:bg-forest-700 text-white font-semibold text-[11px] flex items-center justify-center gap-1 transition cursor-pointer shadow-2xs"
                 >
                   <ArrowRightLeft className="w-3 h-3" />
                   <span>{tr.spacingSwapAction} {getLoc(alt.plant.commonName, language)}</span>
@@ -77,7 +77,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
   };
 
   return (
-    <div className="rounded-2xl border border-amber-300 bg-amber-50/70 p-4 sm:p-5 text-xs text-stone-800 space-y-4 shadow-sm animate-in fade-in">
+    <div className="rounded-2xl border border-amber-300 bg-amber-50/70 p-4 sm:p-5 text-xs text-stone-800 space-y-4 animate-in fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-amber-200/80">
         <div className="flex items-center gap-2.5">
           <div className={`p-2 rounded-xl shrink-0 ${
@@ -94,9 +94,9 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
           <div>
             <h4 className="font-bold text-stone-900 text-sm flex items-center gap-2">
               <span>{tr.spacingOverlapTitle}</span>
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
                 report.hasCritical
-                  ? 'bg-rose-600 text-white animate-pulse'
+                  ? 'bg-rose-600 text-white'
                   : 'bg-amber-600 text-white'
               }`}>
                 {report.totalConflicts > 0
@@ -120,7 +120,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
           return (
             <div
               key={conflict.id}
-              className={`p-3.5 rounded-xl border bg-white shadow-2xs space-y-3 ${
+              className={`p-3.5 rounded-xl border bg-white space-y-3 ${
                 isCrit ? 'border-rose-300 ring-1 ring-rose-200' : 'border-amber-200'
               }`}
             >
@@ -137,7 +137,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
                   </span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-semibold">
+                <div className="flex flex-wrap items-center gap-1.5 text-[11px] font-semibold">
                   <span className={`px-2 py-0.5 rounded-md ${
                     isCrit ? 'bg-rose-100 text-rose-800 font-bold' : 'bg-amber-100 text-amber-800'
                   }`}>
@@ -156,7 +156,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
               {(conflict.suggestedAlternativesA.length > 0 || conflict.suggestedAlternativesB.length > 0) && (
                 <div className="pt-2 border-t border-stone-100 space-y-2">
                   <div className="text-[11px] font-bold text-forest-800 flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5 text-forest-600" />
+                    <Sprout className="w-3.5 h-3.5 text-forest-600" />
                     <span>{tr.spacingSuggestedAlternatives}</span>
                   </div>
 
@@ -182,7 +182,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
                   <span>{translateZone(z.zone, language)}</span>
                   <span className="font-extrabold text-amber-900">{z.saturationPercent}% {tr.spacingBannerSaturated}</span>
                 </div>
-                <div className="text-[10px] text-amber-900/80 mt-0.5">
+                <div className="text-[11px] text-amber-900/80 mt-0.5">
                   {z.plantCount} {tr.spacingBannerPlantsAcross} {z.zoneAreaM2.toFixed(1)} m² ({z.plantsAreaM2.toFixed(1)} m² {tr.spacingBannerTotalCanopyArea}). {tr.spacingZoneSaturatedDesc}
                 </div>
               </div>

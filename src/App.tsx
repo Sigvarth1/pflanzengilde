@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ActiveGapFilter, ActivePestFilter, ClimateZone, GuildPlant, Hemisphere, Language, PhenoSeason, SoilType, StarTree, TreeAgeMode, getLoc } from './types/guild';
 import { STAR_TREES } from './data/starTrees';
 import { GUILD_PLANTS } from './data/guildPlants';
-import { HeroBanner } from './components/HeroBanner';
 import { Navbar } from './components/Navbar';
 import { SiteConditionsBar } from './components/SiteConditionsBar';
 import { StarTreeSelector } from './components/StarTreeSelector';
@@ -589,7 +588,7 @@ export const App: React.FC = () => {
               showActionBtn={true}
               actionUrl={`https://pflanzengilde.de/garten/?garden=${gardenCode}`}
             />
-            <div className="mt-2 flex justify-end gap-3 text-[10px] text-stone-400">
+            <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-400">
               {Impressum && (
                 <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
                   {embedTr.impressumLink}
@@ -616,7 +615,7 @@ export const App: React.FC = () => {
             showActionBtn={true}
             actionUrl={`https://pflanzengilde.de/?tree=${selectedTree.id}`}
           />
-          <div className="mt-2 flex justify-end gap-3 text-[10px] text-stone-400">
+          <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-400">
             {Impressum && (
               <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
                 {tr.impressumLink}
@@ -695,15 +694,6 @@ export const App: React.FC = () => {
           />
         ) : (
           <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
-            <HeroBanner
-              title={tr.heroTitle}
-              subtitle={tr.heroSubtitle}
-              primaryLabel={tr.heroCta}
-              onPrimary={() => document.getElementById('step-tree')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              secondaryLabel={tr.heroSecondary}
-              onSecondary={() => navigateTo('/guides')}
-            />
-
             <SiteConditionsBar
               language={language}
               selectedSoil={selectedSoil}
@@ -717,7 +707,6 @@ export const App: React.FC = () => {
               onSelectTreeAge={setTreeAge}
             />
 
-            <div id="step-tree" className="scroll-mt-24" />
             <StarTreeSelector
               language={language}
               selectedSoil={selectedSoil}
@@ -729,7 +718,7 @@ export const App: React.FC = () => {
               onNavigate={navigateTo}
             />
 
-            <div id="guild-builder-step" className="scroll-mt-20 transition-all">
+            <div id="guild-builder-step" className="scroll-mt-20 transition">
               <GuildBuilder
                 language={language}
                 selectedSoil={selectedSoil}
@@ -751,17 +740,11 @@ export const App: React.FC = () => {
                   language={language}
                   selectedPlants={selectedPlants}
                 />
-                <SeasonalCalendar
+                <AntagonistCard
                   language={language}
+                  starTree={selectedTree}
                   selectedPlants={selectedPlants}
-                  currentSeason={currentSeason}
-                  onSelectSeason={setCurrentSeason}
-                  onAddPlant={handleAddPlant}
-                  onFilterByGap={handleFilterByGap}
-                  activeGapFilter={activeGapFilter}
-                  onSwapPlant={handleSwapPlant}
-                  onRemovePlant={handleRemovePlant}
-                  selectedTree={selectedTree}
+                  hemisphere={hemisphere}
                 />
               </div>
 
@@ -783,11 +766,17 @@ export const App: React.FC = () => {
             </div>
 
             <div className="content-visibility-auto">
-              <AntagonistCard
+              <SeasonalCalendar
                 language={language}
-                starTree={selectedTree}
                 selectedPlants={selectedPlants}
-                hemisphere={hemisphere}
+                currentSeason={currentSeason}
+                onSelectSeason={setCurrentSeason}
+                onAddPlant={handleAddPlant}
+                onFilterByGap={handleFilterByGap}
+                activeGapFilter={activeGapFilter}
+                onSwapPlant={handleSwapPlant}
+                onRemovePlant={handleRemovePlant}
+                selectedTree={selectedTree}
               />
             </div>
           </main>
@@ -912,7 +901,7 @@ export const App: React.FC = () => {
         <div
           role="status"
           aria-live="polite"
-          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl border text-sm font-medium transition-all transform animate-in slide-in-from-bottom-5 duration-300 ${
+          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl border text-sm font-medium transition transform animate-in slide-in-from-bottom-5 duration-300 ${
             toast.type === 'success'
               ? 'bg-forest-900 text-white border-forest-700 shadow-forest-950/20'
               : 'bg-rose-900 text-white border-rose-700 shadow-rose-950/20'

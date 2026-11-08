@@ -60,13 +60,13 @@ function hexToRgb(hex: string): [number, number, number] {
     clean = clean.split('').map(c => c + c).join('');
   }
   const num = parseInt(clean, 16);
-  if (isNaN(num) || clean.length !== 6) return [22, 163, 74];
+  if (isNaN(num) || clean.length !== 6) return [82, 113, 60];
   return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
 }
 
-/** Vector copy of public/favicon.svg (Lucide Sprout in a rounded #16a34a box). */
+/** Vector copy of public/favicon.svg (Lucide Sprout in a rounded #52713c box). */
 export function drawBrandLogoIcon(doc: jsPDF, x: number, y: number, sizeMm: number) {
-  doc.setFillColor(22, 163, 74);
+  doc.setFillColor(82, 113, 60);
   const rx = sizeMm * 0.25;
   doc.roundedRect(x, y, sizeMm, sizeMm, rx, rx, 'F');
 
@@ -156,7 +156,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     doc.text(mainWord, brandTextX, logoY + 4.8);
     const mainWordW = doc.getTextWidth(mainWord);
 
-    doc.setTextColor(22, 163, 74); // forest-600 (#16a34a)
+    doc.setTextColor(82, 113, 60); // forest-600 (#16a34a)
     const tldWord = '.de';
     doc.text(tldWord, brandTextX + mainWordW, logoY + 4.8);
     const tldWordW = doc.getTextWidth(tldWord);
@@ -167,9 +167,9 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     const badgeW = doc.getTextWidth(badgeText) + 3.6;
     const badgeX = brandTextX + mainWordW + tldWordW + 2.2;
     const badgeY = logoY + 1.3;
-    doc.setFillColor(220, 252, 231); // forest-100
+    doc.setFillColor(228, 236, 219); // forest-100
     doc.roundedRect(badgeX, badgeY, badgeW, 4.3, 2.1, 2.1, 'F');
-    doc.setTextColor(22, 101, 52); // forest-800
+    doc.setTextColor(54, 73, 42); // forest-800
     doc.text(badgeText, badgeX + 1.8, badgeY + 3.0);
 
     doc.setFont('helvetica', 'normal');
@@ -182,7 +182,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     const rightX = margin + contentWidth - 1;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10.5);
-    doc.setTextColor(20, 83, 45); // forest-900
+    doc.setTextColor(46, 61, 37); // forest-900
     doc.text(doc.splitTextToSize(title, rightX - (badgeX + badgeW + 4))[0] || '', rightX, logoY + 4.8, { align: 'right' });
 
     doc.setFont('helvetica', 'normal');
@@ -209,7 +209,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     doc.text(fBrand, textX, miniY + 3.5);
     const fBrandW = doc.getTextWidth(fBrand);
 
-    doc.setTextColor(22, 163, 74); // forest-600
+    doc.setTextColor(82, 113, 60); // forest-600
     const fTld = '.de';
     doc.text(fTld, textX + fBrandW, miniY + 3.5);
     const fTldW = doc.getTextWidth(fTld);
@@ -619,7 +619,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(
     tr.gardenPdfColorKey,
     margin + 4,
@@ -749,7 +749,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     doc.rect(margin, y, contentWidth, 7, 'F');
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
-    doc.setTextColor(20, 83, 45);
+    doc.setTextColor(46, 61, 37);
 
     doc.text(tr.gardenPdfColColor, margin + 3, y + 4.8);
     doc.text(tr.gardenPdfColPos, margin + 14, y + 4.8);
@@ -803,11 +803,11 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
     doc.text(String(idx + 1), margin + 14, curY);
 
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(20, 83, 45);
+    doc.setTextColor(46, 61, 37);
     doc.text(`${row.qty}×`, margin + 23, curY);
 
     doc.setFont('helvetica', 'normal');
-    if (row.isStar) doc.setTextColor(20, 83, 45);
+    if (row.isStar) doc.setTextColor(46, 61, 37);
     else doc.setTextColor(71, 85, 105);
     doc.text(row.type, margin + 37, curY);
 
@@ -909,7 +909,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
   const shadePockets = detectGardenShadePockets(starPlants);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(tr.gardenPdfShadingTitle, margin, p3Y);
   p3Y += 6;
 
@@ -936,7 +936,7 @@ export function generateGardenPlanPdfDoc(options: GenerateGardenPdfOptions): jsP
   doc.roundedRect(margin, p3Y, contentWidth, 34, 2, 2, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(tr.gardenPdfChopTitle, margin + 4, p3Y + 6);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);

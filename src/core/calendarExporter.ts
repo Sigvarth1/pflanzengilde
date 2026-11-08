@@ -957,12 +957,12 @@ function buildBrandedDescriptions(config: BrandedEventConfig): { plainText: stri
       : '';
 
   const guideButtonHtml = guideUrl
-    ? `<a href="${h(guideUrl)}" target="_blank" style="background-color:#15803d;color:#ffffff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;margin-right:8px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">${h(guideLabel || tr.calendarHtmlViewGuide)}</a>`
+    ? `<a href="${h(guideUrl)}" target="_blank" style="background-color:#415a31;color:#ffffff;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;margin-right:8px;box-shadow:0 1px 2px rgba(0,0,0,0.05);">${h(guideLabel || tr.calendarHtmlViewGuide)}</a>`
     : '';
 
   const guildButtonHtml = `<a href="${h(guildShareUrl)}" target="_blank" style="background-color:#f5f5f4;color:#292524;border:1px solid #d6d3d1;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;display:inline-block;">${h(tr.calendarHtmlOpenInPlanner)}</a>`;
 
-  const htmlText = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1c1917;background-color:#fafaf9;margin:0;padding:12px;line-height:1.5;"><div style="background-color:#ffffff;border:1px solid #e7e5e4;border-radius:16px;padding:16px;max-width:580px;box-shadow:0 2px 8px rgba(0,0,0,0.04);"><table style="width:100%;border-collapse:collapse;border-bottom:2px solid #f5f5f4;padding-bottom:12px;margin-bottom:12px;"><tr><td style="width:58px;vertical-align:middle;padding-right:12px;"><img src="${h(imageUrl)}" width="54" height="54" style="border-radius:12px;object-fit:cover;border:1px solid #d6d3d1;display:block;" alt="${h(commonName)}" /></td><td style="vertical-align:middle;"><div style="font-size:11px;font-weight:800;color:#15803d;text-transform:uppercase;letter-spacing:0.5px;">${h(categoryTitle)} • ${h(seasonLabel)}</div><div style="font-size:18px;font-weight:800;color:#1c1917;margin:2px 0;">${h(commonName)}</div>${botanicalName ? `<div style="font-size:12px;color:#78716c;font-style:italic;">${h(botanicalName)}</div>` : ''}</td></tr></table><div style="margin-bottom:14px;">${metaPillsHtml}</div><div style="background-color:#fcfcfc;border:1px solid #f0f0f0;border-left:4px solid #16a34a;border-radius:8px;padding:12px 14px;margin-bottom:14px;"><div style="font-size:12px;font-weight:800;color:#166534;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">${h(instructionHeading)}</div><table style="width:100%;border-collapse:collapse;font-size:12px;">${instructionsRowsHtml}</table></div>${detailsRowsHtml}<div style="margin-bottom:16px;">${guideButtonHtml}${guildButtonHtml}</div><div style="border-top:1px solid #e7e5e4;padding-top:10px;text-align:right;"><a href="${h(baseUrl)}" target="_blank" style="display:inline-block;text-decoration:none;color:#166534;font-weight:700;font-size:12px;"><table style="display:inline-table;border-collapse:collapse;margin-left:auto;"><tr><td style="padding-right:6px;vertical-align:middle;"><img src="${h(baseUrl)}/favicon.svg" width="18" height="18" style="display:block;border-radius:4px;" alt="Logo" /></td><td style="vertical-align:middle;color:#166534;font-size:13px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Pflanzengilde.de</td></tr></table></a></div></div></body></html>`;
+  const htmlText = `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1c1917;background-color:#fafaf9;margin:0;padding:12px;line-height:1.5;"><div style="background-color:#ffffff;border:1px solid #e7e5e4;border-radius:16px;padding:16px;max-width:580px;box-shadow:0 2px 8px rgba(0,0,0,0.04);"><table style="width:100%;border-collapse:collapse;border-bottom:2px solid #f5f5f4;padding-bottom:12px;margin-bottom:12px;"><tr><td style="width:58px;vertical-align:middle;padding-right:12px;"><img src="${h(imageUrl)}" width="54" height="54" style="border-radius:12px;object-fit:cover;border:1px solid #d6d3d1;display:block;" alt="${h(commonName)}" /></td><td style="vertical-align:middle;"><div style="font-size:11px;font-weight:800;color:#415a31;text-transform:uppercase;letter-spacing:0.5px;">${h(categoryTitle)} • ${h(seasonLabel)}</div><div style="font-size:18px;font-weight:800;color:#1c1917;margin:2px 0;">${h(commonName)}</div>${botanicalName ? `<div style="font-size:12px;color:#78716c;font-style:italic;">${h(botanicalName)}</div>` : ''}</td></tr></table><div style="margin-bottom:14px;">${metaPillsHtml}</div><div style="background-color:#fcfcfc;border:1px solid #f0f0f0;border-left:4px solid #52713c;border-radius:8px;padding:12px 14px;margin-bottom:14px;"><div style="font-size:12px;font-weight:800;color:#36492a;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.5px;">${h(instructionHeading)}</div><table style="width:100%;border-collapse:collapse;font-size:12px;">${instructionsRowsHtml}</table></div>${detailsRowsHtml}<div style="margin-bottom:16px;">${guideButtonHtml}${guildButtonHtml}</div><div style="border-top:1px solid #e7e5e4;padding-top:10px;text-align:right;"><a href="${h(baseUrl)}" target="_blank" style="display:inline-block;text-decoration:none;color:#36492a;font-weight:700;font-size:12px;"><table style="display:inline-table;border-collapse:collapse;margin-left:auto;"><tr><td style="padding-right:6px;vertical-align:middle;"><img src="${h(baseUrl)}/favicon.svg" width="18" height="18" style="display:block;border-radius:4px;" alt="Logo" /></td><td style="vertical-align:middle;color:#36492a;font-size:13px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Pflanzengilde.de</td></tr></table></a></div></div></body></html>`;
 
   return { plainText, htmlText };
 }
@@ -1022,7 +1022,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
     recurrenceText: tr.calendarOneTimePlanting,
     imageUrl: treeImgUrl,
     metaPills: [
-      { label: `🌳 ${tr.calendarPillKeystoneTree}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+      { label: `🌳 ${tr.calendarPillKeystoneTree}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' },
       { label: `📍 Zone 0–3`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' },
       { label: tr.calendarPillOneTimeTask, bg: '#fefce8', color: '#854d0e', border: '#fef08a' }
     ],
@@ -1073,7 +1073,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
     recurrenceText: tr.calendarYearly,
     imageUrl: treeImgUrl,
     metaPills: [
-      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' },
       { label: tr.calendarPillDormantPruning, bg: '#fff1f2', color: '#be123c', border: '#fecdd3' },
       { label: `🔄 ${tr.calendarYearly}`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' }
     ],
@@ -1120,7 +1120,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
     recurrenceText: tr.calendarYearly,
     imageUrl: treeImgUrl,
     metaPills: [
-      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' },
       { label: tr.calendarPillMainHarvest, bg: '#fef3c7', color: '#b45309', border: '#fde68a' },
       { label: `🔄 ${tr.calendarYearly}`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' }
     ],
@@ -1165,7 +1165,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
     recurrenceText: tr.calendarYearly,
     imageUrl: treeImgUrl,
     metaPills: [
-      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+      { label: `🌳 ${treeCommonName}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' },
       { label: `📍 Zone 0`, bg: '#fff1f2', color: '#be123c', border: '#fecdd3' },
       { label: tr.calendarPillWinterDefense, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' }
     ],
@@ -1235,7 +1235,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
       metaPills: [
         { label: `📍 ${translateZone(plant.preferredZone, language)}`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' },
         { label: `🧭 ${translateSector(plant.preferredSector, language)}`, bg: '#fefce8', color: '#854d0e', border: '#fef08a' },
-        { label: isPerennial ? tr.calendarPerennial : tr.calendarAnnual, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' }
+        { label: isPerennial ? tr.calendarPerennial : tr.calendarAnnual, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' }
       ],
       instructionHeading: tr.calendarPlantSiteHeading,
       instructions: [
@@ -1304,7 +1304,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
           recurrenceText: tr.calendarYearly,
           imageUrl: plantImgUrl,
           metaPills: [
-            { label: `🌿 ${tr.calendarPillBiomass}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' },
+            { label: `🌿 ${tr.calendarPillBiomass}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' },
             { label: `📍 ${translateZone(plant.preferredZone, language)}`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' },
             { label: `🔄 ${tr.calendarYearly}`, bg: '#fefce8', color: '#854d0e', border: '#fef08a' }
           ],
@@ -1361,7 +1361,7 @@ export function generateGuildCalendarIcs(options: CalendarExportOptions): string
         metaPills: [
           { label: `🍓 ${tr.calendarPillEdibleYield}`, bg: '#fef3c7', color: '#b45309', border: '#fde68a' },
           { label: `📍 ${translateZone(plant.preferredZone, language)}`, bg: '#eff6ff', color: '#1e40af', border: '#bfdbfe' },
-          { label: `🔄 ${tr.calendarYearly}`, bg: '#f0fdf4', color: '#166534', border: '#bbf7d0' }
+          { label: `🔄 ${tr.calendarYearly}`, bg: '#f0fdf4', color: '#36492a', border: '#bbf7d0' }
         ],
         instructionHeading: tr.calendarPlantHarvestHeading,
         instructions: [

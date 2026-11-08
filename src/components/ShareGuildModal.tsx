@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ClimateZone, GuildPlant, Hemisphere, Language, SoilType, StarTree, getLoc } from '../types/guild';
 import { GuildEmbedCard } from './GuildEmbedCard';
 import { buildEmbedIframeCode, buildEmbedUrl, buildShareUrl } from '../utils/shareUtils';
-import { X, Copy, Check, Share2, Code, MessageCircle, Send, Mail, Sparkles } from 'lucide-react';
+import { X, Copy, Check, Share2, Code, MessageCircle, Send, Mail, Sprout } from 'lucide-react';
 import { t } from '../i18n/translations';
 
 interface ShareGuildModalProps {
@@ -156,10 +156,10 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div className="text-xs font-bold text-stone-700 flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-forest-600" />
+                <Sprout className="w-3.5 h-3.5 text-forest-600" />
                 <span>{tr.shareEmbedPreview}</span>
               </div>
-              <span className="text-[10px] text-stone-500">
+              <span className="text-[11px] text-stone-500">
                 {tr.shareGuildPreviewTitle}
               </span>
             </div>
@@ -180,7 +180,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('link')}
-              className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 activeTab === 'link'
                   ? 'bg-white text-forest-900 shadow-xs'
                   : 'text-stone-600 hover:text-stone-900'
@@ -192,7 +192,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
             <button
               type="button"
               onClick={() => setActiveTab('embed')}
-              className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+              className={`flex-1 py-1.5 rounded-lg flex items-center justify-center gap-1.5 transition cursor-pointer ${
                 activeTab === 'embed'
                   ? 'bg-white text-forest-900 shadow-xs'
                   : 'text-stone-600 hover:text-stone-900'
@@ -216,7 +216,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs ${
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs ${
                     copiedLink
                       ? 'bg-emerald-600 text-white'
                       : 'bg-forest-700 hover:bg-forest-800 text-white'
@@ -228,7 +228,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
               </div>
 
               <div className="space-y-2 pt-1">
-                <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                <div className="text-[11px] font-bold text-stone-500">
                   {tr.shareGuildShareDirectly}
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -246,9 +246,9 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
                     href={telegramUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-stone-200 hover:border-sky-400 hover:bg-sky-50/50 text-xs font-semibold text-stone-700 hover:text-sky-800 transition-colors"
+                    className="flex items-center justify-center gap-2 p-2.5 rounded-xl border border-stone-200 hover:border-forest-400 hover:bg-forest-50/50 text-xs font-semibold text-stone-700 hover:text-sky-800 transition-colors"
                   >
-                    <Send className="w-4 h-4 text-sky-500" />
+                    <Send className="w-4 h-4 text-forest-700" />
                     <span>Telegram</span>
                   </a>
 
@@ -305,7 +305,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
                 <button
                   type="button"
                   onClick={handleCopyEmbed}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs ${
+                  className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer shadow-xs ${
                     copiedEmbed
                       ? 'bg-emerald-600 text-white'
                       : 'bg-forest-700 hover:bg-forest-800 text-white'

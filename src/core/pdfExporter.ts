@@ -73,7 +73,7 @@ function drawMiniPlantingMap(
 
   doc.setDrawColor(2, 132, 199);
   doc.circle(cx, cy, metrics.midZoneOuterM * scale, 'S');
-  doc.setDrawColor(22, 163, 74);
+  doc.setDrawColor(82, 113, 60);
   doc.circle(cx, cy, metrics.dripLineM * scale, 'S');
   doc.setDrawColor(5, 150, 105);
   doc.circle(cx, cy, metrics.dripZoneOuterM * scale, 'S');
@@ -152,7 +152,7 @@ function drawNativeRadialMap(
   doc.setDrawColor(5, 150, 105);
   doc.circle(cx, cy, metrics.dripZoneOuterM * scale, 'FD');
 
-  doc.setDrawColor(22, 163, 74);
+  doc.setDrawColor(82, 113, 60);
   doc.circle(cx, cy, metrics.dripLineM * scale, 'S');
 
   doc.setFillColor(240, 249, 255);
@@ -226,7 +226,7 @@ function drawNativeRadialMap(
     const px = cx + placed.distanceM * scale * Math.cos(rad);
     const py = cy + placed.distanceM * scale * Math.sin(rad);
 
-    doc.setFillColor(22, 101, 52);
+    doc.setFillColor(54, 73, 42);
     doc.circle(px, py, 2.5, 'F');
     doc.setDrawColor(255, 255, 255);
     doc.circle(px, py, 2.5, 'S');
@@ -281,7 +281,7 @@ export function generateGuildPdf({
       doc.setTextColor(28, 25, 23);
       doc.text('Pflanzengilde', marginX + 7, currentY + 3);
       const pgW = doc.getTextWidth('Pflanzengilde');
-      doc.setTextColor(22, 163, 74);
+      doc.setTextColor(82, 113, 60);
       doc.text('.de', marginX + 7 + pgW, currentY + 3);
       const deW = doc.getTextWidth('.de');
       doc.setFont('helvetica', 'normal');
@@ -353,7 +353,7 @@ export function generateGuildPdf({
   doc.setTextColor(28, 25, 23); // stone-900
   doc.text('Pflanzengilde', brandX, currentY + 3.8);
   const pgWidth = doc.getTextWidth('Pflanzengilde');
-  doc.setTextColor(22, 163, 74); // forest-600 (#16a34a)
+  doc.setTextColor(82, 113, 60); // forest-600 (#16a34a)
   doc.text('.de', brandX + pgWidth, currentY + 3.8);
   const dotDeWidth = doc.getTextWidth('.de');
 
@@ -362,9 +362,9 @@ export function generateGuildPdf({
   doc.setFontSize(6);
   const badgeW = doc.getTextWidth(badgeText) + 3.6;
   const badgeX = brandX + pgWidth + dotDeWidth + 2.5;
-  doc.setFillColor(220, 252, 231); // forest-100
+  doc.setFillColor(228, 236, 219); // forest-100
   doc.roundedRect(badgeX, currentY + 0.3, badgeW, 4.5, 1.5, 1.5, 'F');
-  doc.setTextColor(22, 101, 52); // forest-800
+  doc.setTextColor(54, 73, 42); // forest-800
   doc.text(badgeText, badgeX + 1.8, currentY + 3.3);
 
   doc.setFont('helvetica', 'normal');
@@ -379,7 +379,7 @@ export function generateGuildPdf({
   });
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.setTextColor(20, 83, 45); // forest-900
+  doc.setTextColor(46, 61, 37); // forest-900
   doc.text(tr.pdfTitle, marginX + contentWidth - 3.5, currentY + 4.2, { align: 'right' });
 
   doc.setFont('helvetica', 'normal');
@@ -392,7 +392,7 @@ export function generateGuildPdf({
   doc.roundedRect(marginX + 2, currentY + 10.5, contentWidth - 4, 7.5, 1.2, 1.2, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.setTextColor(22, 101, 52);
+  doc.setTextColor(54, 73, 42);
   const treeTitle = `${getLoc(starTree.commonName, language)} (${starTree.botanicalName})`;
   const hemisphereLabel = hemisphere === 'NORTHERN' ? tr.northHemisphere : tr.southHemisphere;
   const soilSummary = `${tr.soilType}: ${soilLabel(selectedSoil, tr)}`;
@@ -412,7 +412,7 @@ export function generateGuildPdf({
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9.5);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(`1. ${tr.pdfKeystoneTree}`, marginX + 3.5, currentY + 6);
 
   let textLeftX = marginX + 3.5;
@@ -539,7 +539,7 @@ export function generateGuildPdf({
   // Radial map
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(`3. ${tr.pdfRadialMap}`, marginX, currentY + 4);
 
   doc.setFont('helvetica', 'normal');
@@ -623,7 +623,7 @@ export function generateGuildPdf({
   doc.rect(marginX, currentY - 3, contentWidth, 7, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   const p2HeaderTitle = `${getLoc(starTree.commonName, language)} (${starTree.botanicalName}) • ${tr.pdfTitle}`;
   const p2HeaderLines = doc.splitTextToSize(p2HeaderTitle, contentWidth - 6);
   doc.text(p2HeaderLines[0] || '', marginX + 3, currentY + 2);
@@ -670,7 +670,7 @@ export function generateGuildPdf({
   checkPageBreak(35);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(`5. ${tr.pdfPlantInventory} (${selectedPlants.length} ${tr.pdfAlliesUnit})`, marginX, currentY + 2);
   currentY += 6;
 
@@ -696,7 +696,7 @@ export function generateGuildPdf({
       doc.setDrawColor(226, 232, 240);
       doc.roundedRect(marginX, currentY, contentWidth, cardH, 1.5, 1.5, 'FD');
 
-      doc.setFillColor(22, 101, 52);
+      doc.setFillColor(54, 73, 42);
       doc.roundedRect(marginX, currentY, 2.5, cardH, 1, 0, 'F');
 
       // Left: photo, or a colour tile with initials if there is none
@@ -786,7 +786,7 @@ export function generateGuildPdf({
 
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7.2);
-      doc.setTextColor(22, 101, 52);
+      doc.setTextColor(54, 73, 42);
       const plantTimingParts: string[] = [];
       if (plant.plantingTime) {
         plantTimingParts.push(`${tr.plantingSeasonTag}: ${getLoc(plant.plantingTime, language)}`);
@@ -822,7 +822,7 @@ export function generateGuildPdf({
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10.5);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(
     `6. ${tr.pdfEcologicalRoles}: ${coveredCount} / ${ALL_ROLES.length} ${tr.pdfRolesCovered} (${efficiencyPercent}%)`,
     marginX + 4,
@@ -844,7 +844,7 @@ export function generateGuildPdf({
       doc.setFillColor(34, 197, 94);
       doc.circle(xPos + 2, gridY - 0.8, 1.1, 'F');
       doc.setFont('helvetica', 'bold');
-      doc.setTextColor(20, 83, 45);
+      doc.setTextColor(46, 61, 37);
       doc.text(`[+] ${getLoc(roleDef.displayName, language)} (${matchingCount}x)`, xPos + 4.5, gridY);
     } else {
       doc.setFillColor(203, 213, 225);
@@ -865,7 +865,7 @@ export function generateGuildPdf({
   checkPageBreak(40);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(11);
-  doc.setTextColor(20, 83, 45);
+  doc.setTextColor(46, 61, 37);
   doc.text(`7. ${tr.antagonistsSectionTitle}`, marginX, currentY + 2);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
@@ -883,12 +883,12 @@ export function generateGuildPdf({
 
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9);
-    doc.setTextColor(20, 83, 45);
+    doc.setTextColor(46, 61, 37);
     doc.text(tr.noAntagonistsFound, marginX + 4, currentY + 8);
 
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7.5);
-    doc.setTextColor(22, 101, 52);
+    doc.setTextColor(54, 73, 42);
     doc.text(tr.noAntagonistsFoundSub, marginX + 4, currentY + 14);
 
     currentY += 26;
@@ -975,7 +975,7 @@ export function generateGuildPdf({
 
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(6.8);
-      doc.setTextColor(20, 83, 45);
+      doc.setTextColor(46, 61, 37);
       adviceLines.forEach((line: string) => {
         doc.text(line, marginX + 5, innerY);
         innerY += 3.4;
@@ -1012,7 +1012,7 @@ export function generateGuildPdf({
     doc.setTextColor(28, 25, 23); // stone-900
     doc.text('Pflanzengilde', fBrandX, footerLineY + 5.2);
     const fPgWidth = doc.getTextWidth('Pflanzengilde');
-    doc.setTextColor(22, 163, 74); // forest-600
+    doc.setTextColor(82, 113, 60); // forest-600
     doc.text('.de', fBrandX + fPgWidth, footerLineY + 5.2);
 
     doc.setFont('helvetica', 'normal');

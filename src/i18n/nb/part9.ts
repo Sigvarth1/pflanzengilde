@@ -132,10 +132,4 @@ export const nbPart9 = {
   geoRefExport: 'Eksporter GeoJSON',
   geoRefCancel: 'Avbryt',
 
-  // Hero
-  heroTitle: 'Plantelaug bygd på forskning, ikke folketro',
-  heroSubtitle: 'Velg et tre, legg til følgeplanter etter hva de gjør, og få en planteplan i meter som varsler om dårlige kombinasjoner.',
-  heroCta: 'Velg treet ditt',
-  heroGuidesTitle: 'Vitenskapen bak hvert laug',
-  heroSecondary: 'Les veiledningene',
 };

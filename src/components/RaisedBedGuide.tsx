@@ -162,14 +162,14 @@ export const TONE: Record<Tone, { badge: string; icon: string; band: string }> =
 };
 
 export const Badge: React.FC<{ tone: Tone; children: React.ReactNode }> = ({ tone, children }) => (
-  <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${TONE[tone].badge}`}>{children}</span>
+  <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-bold whitespace-nowrap ${TONE[tone].badge}`}>{children}</span>
 );
 
 /** One guide step as a card: icon, title, badge, the full text, optional picture. */
 const StepCard: React.FC<{ step: Step; language: Language; icon: LucideIcon; tone: Tone; badge?: L; visual?: React.ReactNode; band?: boolean }> = ({ step, language, icon: Icon, tone, badge, visual, band }) => {
   const g = (l: L) => getLoc(l, language);
   return (
-    <div id={step.id} className="relative overflow-hidden rounded-2xl bg-white border border-stone-200 shadow-xs scroll-mt-24 flex flex-col">
+    <div id={step.id} className="relative overflow-hidden rounded-2xl bg-white border border-stone-200 scroll-mt-24 flex flex-col">
       {band && <div className={`h-1.5 bg-gradient-to-r ${TONE[tone].band}`} />}
       <div className="p-5 space-y-2 flex-1 flex flex-col">
         <div className="flex items-center gap-3">
@@ -233,7 +233,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
   return (
     <div className="space-y-6">
       {/* Hero */}
-      <div className="rounded-3xl bg-gradient-to-br from-amber-50 via-white to-emerald-50 border border-stone-200 p-6 grid gap-4 lg:grid-cols-[1fr_1.35fr] items-center">
+      <div className="rounded-3xl bg-stone-50 border border-stone-200 p-6 grid gap-4 lg:grid-cols-[1fr_1.35fr] items-center">
         <div className="space-y-2">
           <Badge tone="amber"><Fence className="w-3 h-3" />{g(L('Raised beds', 'Hochbeete'))}</Badge>
           <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">{g(L('Building raised beds', 'Hochbeete bauen'))}</h2>
@@ -241,7 +241,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
         </div>
         <div className="rounded-2xl bg-white/80 border border-stone-200 p-2">
           <BedCrossSection language={language} className="w-full h-auto" />
-          <p className="text-[10px] text-stone-400 text-center">{g(L('Schematic; values from the sections below', 'Schema; Werte aus den Abschnitten unten'))} <SourceRefs ns={[5, 18, 19, 20, 21]} /></p>
+          <p className="text-[11px] text-stone-400 text-center">{g(L('Schematic; values from the sections below', 'Schema; Werte aus den Abschnitten unten'))} <SourceRefs ns={[5, 18, 19, 20, 21]} /></p>
         </div>
       </div>
 
@@ -291,7 +291,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
                 <span className="text-[11px] font-bold text-stone-500 w-20 shrink-0">{g(m.t)}</span>
                 <div className="flex-1 flex h-6 rounded-lg overflow-hidden">
                   {m.parts.map(([w, l, c], i) => (
-                    <div key={i} className="flex items-center justify-center text-[10px] font-bold" style={{ width: `${w}%`, background: c, color: c === '#d6c29a' ? '#44403c' : '#fff' }}>{Math.round(w)} % {g(l)}</div>
+                    <div key={i} className="flex items-center justify-center text-[11px] font-bold" style={{ width: `${w}%`, background: c, color: c === '#d6c29a' ? '#44403c' : '#fff' }}>{Math.round(w)} % {g(l)}</div>
                   ))}
                 </div>
               </div>
@@ -318,7 +318,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
           <h3 className="font-bold text-base text-stone-900">{g(L('What crosses a raised-bed wall', 'Was über eine Hochbeetwand gelangt'))}</h3>
         </div>
         <p className="text-sm text-stone-700">{g(L('In the garden grid a raised bed counts as its own small garden. Companions only help across a bed wall through effects that pass over it; a companion is shared across a wall only if everything it does crosses, so guilds on both sides keep their own nitrogen fixers, ground covers and mulch plants.', 'Im Gartenraster zählt ein Hochbeet als eigener kleiner Garten. Begleiter helfen über eine Beetwand nur mit Wirkungen, die darüber gelangen; geteilt wird ein Begleiter über eine Wand nur, wenn alles, was er tut, darüber wirkt, sodass Gilden auf beiden Seiten ihre eigenen Stickstoff-Fixierer, Bodendecker und Mulchpflanzen behalten.'))}</p>
-        <div className="rounded-xl bg-sky-50/60 border border-sky-100 p-2"><WallCrossingDiagram language={language} className="w-full h-auto" /></div>
+        <div className="rounded-xl bg-stone-50 border border-stone-200 p-2"><WallCrossingDiagram language={language} className="w-full h-auto" /></div>
         <div className="grid gap-3 md:grid-cols-2">
           {[
             { roles: crossing, tone: 'emerald' as Tone, icon: ArrowUpRight, t: L('crosses', 'gelangt darüber') },
@@ -359,7 +359,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
             return (
               <div key={w} id={`bed-${w.toLowerCase()}`} className="scroll-mt-24 rounded-xl border border-stone-200 bg-stone-50/60 p-3 space-y-1.5">
                 <div className="flex items-start gap-2">
-                  <span className="text-[10px] font-extrabold text-white bg-stone-500 rounded-md px-1.5 py-0.5 mt-0.5">{w}</span>
+                  <span className="text-[11px] font-extrabold text-white bg-stone-500 rounded-md px-1.5 py-0.5 mt-0.5">{w}</span>
                   <div className="text-sm font-bold text-stone-900">{g(BED_WARNINGS[w].title)}</div>
                 </div>
                 <p className="text-xs text-stone-700">{g(BED_WARNINGS[w].text)}</p>
@@ -406,7 +406,7 @@ const EVIDENCE_LABEL: Record<OverlapEvidence, L> = {
 
 const RuleCard: React.FC<{ visual: React.ReactNode; children: React.ReactNode }> = ({ visual, children }) => (
   <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden flex flex-col">
-    <div className="bg-gradient-to-b from-stone-50 to-white border-b border-stone-100 p-2">{visual}</div>
+    <div className="bg-stone-50 border-b border-stone-100 p-2">{visual}</div>
     <div className="p-4 text-sm text-stone-700 leading-relaxed">{children}</div>
   </div>
 );
@@ -485,11 +485,11 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
                     <PlantThumbnail src={p.imageUrl} alt={p.name} fallbackColor={p.color} className="w-11 h-11" roundedClassName="rounded-lg" targetSize={96} priority="low" />
                     <div className="min-w-0 space-y-0.5">
                       <div className="text-xs font-bold text-stone-900">{p.name}</div>
-                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] text-stone-600">
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-stone-600">
                         <span className="inline-flex items-center gap-0.5"><LightIcon className="w-3 h-3 text-amber-500" />{g(LIGHT_LABEL[sp.light])}{sp.ellenbergL !== undefined ? ` (L ${sp.ellenbergL})` : ''}</span>
                         <span className="inline-flex items-center gap-1"><span className={`w-2 h-2 rounded-full ${SEASON_DOT[sp.seasonLayer]}`} />{g(SEASON_LABEL[sp.seasonLayer])}</span>
                       </div>
-                      {sp.caveat && <p className="text-[10.5px] text-stone-500 leading-snug">{g(sp.caveat)}</p>}
+                      {sp.caveat && <p className="text-[11px] text-stone-500 leading-snug">{g(sp.caveat)}</p>}
                     </div>
                   </div>
                 );
@@ -506,11 +506,11 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
       {/* Overlap */}
       <div id="guide-ground-cover-overlap" className="pt-4 border-t border-stone-100 space-y-4 scroll-mt-24">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0"><Blend className="w-5 h-5" /></div>
+          <div className="w-10 h-10 rounded-xl bg-forest-700 text-white flex items-center justify-center shrink-0"><Blend className="w-5 h-5" /></div>
           <h4 className="font-bold text-lg text-stone-900 pt-1.5">{g(L('Which ground covers can share the ground', 'Welche Bodendecker sich den Boden teilen können'))}</h4>
         </div>
         <div className="rounded-2xl bg-amber-50 border border-amber-200 p-4 flex gap-3">
-          <div className="shrink-0 rounded-lg bg-amber-500 text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-1 h-fit">{g(L('Myth check', 'Mythos-Check'))}</div>
+          <div className="shrink-0 rounded-lg bg-amber-500 text-white text-[11px] font-extrabold px-2 py-1 h-fit">{g(L('Myth check', 'Mythos-Check'))}</div>
           <p className="text-sm text-amber-950">{g(L('"A taller plant can simply grow over a lower one" is not a rule the evidence supports: taller plants take a disproportionate share of the light, and grassland plants show little vertical niche separation. Height layering is only used where a pair is documented.', '„Eine höhere Pflanze kann einfach über einer niedrigeren wachsen“ ist keine durch Belege gestützte Regel: Höhere Pflanzen nehmen überproportional viel Licht, und Wiesenpflanzen zeigen kaum Trennung nach Höhenschichten. Höhenschichtung wird nur bei belegten Paaren genutzt.'))}</p>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
@@ -528,10 +528,10 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
             </div>
           ))}
         </div>
-        <div className="rounded-2xl border border-stone-200 p-4 space-y-3 bg-gradient-to-br from-pink-50/50 via-white to-sky-50/50">
-          <div className="flex items-center gap-2"><CalendarRange className="w-4 h-4 text-pink-600" /><span className="text-sm font-bold text-stone-900">{g(L('Different times, same ground', 'Verschiedene Zeiten, gleicher Boden'))}</span></div>
+        <div className="rounded-2xl border border-stone-200 p-4 space-y-3 bg-white">
+          <div className="flex items-center gap-2"><CalendarRange className="w-4 h-4 text-forest-700" /><span className="text-sm font-bold text-stone-900">{g(L('Different times, same ground', 'Verschiedene Zeiten, gleicher Boden'))}</span></div>
           <SeasonTimeline language={language} />
-          <p className="text-[10px] text-stone-400">{g(L('Schematic months for Central Europe', 'Schematische Monate für Mitteleuropa'))}</p>
+          <p className="text-[11px] text-stone-400">{g(L('Schematic months for Central Europe', 'Schematische Monate für Mitteleuropa'))}</p>
           <p className="text-sm text-stone-700">{g(L('Plants that use the ground at different times overlap: spring bulbs under summer covers (by analogy with woodland spring flowers), as long as the cover is at most half as tall as the bulb flower (a rule of thumb from bulb growers, not a measured threshold); winter covers with summer covers (planning judgement), except subterranean clover next to a closed carpet, which competes with its reseeding.', 'Pflanzen, die den Boden zu verschiedenen Zeiten nutzen, überlappen: Frühjahrszwiebeln unter Sommerbodendeckern (in Analogie zu Frühjahrsblühern im Wald), solange der Bodendecker höchstens halb so hoch ist wie die Zwiebelblüte (Faustregel aus dem Zwiebelhandel, kein gemessener Schwellenwert); Winter- mit Sommerbegrünung (Planungsentscheidung), außer Bodenfrüchtigem Klee neben einem geschlossenen Teppich, der mit seiner Selbstaussaat konkurriert.'))}</p>
         </div>
 
@@ -563,7 +563,7 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
                       <Badge tone="stone">{g(EVIDENCE_LABEL[r.evidence])}</Badge>
                     </div>
                     <p className="text-xs text-stone-600 leading-snug">{g(r.reason)}</p>
-                    <p className="text-[10px] text-stone-400">{r.sources.map(src => src.split(' (')[0].split('.')[0] + (src.match(/\((\d{4}|n\.d\.)\)/)?.[0] ? ` ${src.match(/\((\d{4}|n\.d\.)\)/)?.[0]}` : '')).join('; ')}</p>
+                    <p className="text-[11px] text-stone-400">{r.sources.map(src => src.split(' (')[0].split('.')[0] + (src.match(/\((\d{4}|n\.d\.)\)/)?.[0] ? ` ${src.match(/\((\d{4}|n\.d\.)\)/)?.[0]}` : '')).join('; ')}</p>
                   </div>
                 </div>
               );

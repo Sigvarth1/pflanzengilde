@@ -2,7 +2,7 @@ import React from 'react';
 import { CollapseChevron, useCollapsible } from './useCollapsible';
 import { GuildRole, Language, getLoc } from '../types/guild';
 import { GardenConflict, GardenShadePocket, GardenStarPlantInstance, GardenStats } from '../types/garden';
-import { AlertOctagon, AlertTriangle, ArrowRight, CheckCircle2, CloudRain, RefreshCw, ShieldCheck, Sparkles, Sun, Undo2 } from 'lucide-react';
+import { AlertOctagon, AlertTriangle, ArrowRight, CheckCircle2, CloudRain, Leaf, RefreshCw, ShieldCheck, Sprout, Sun, Undo2 } from 'lucide-react';
 import { t, formatNumber, translateRole } from '../i18n/translations';
 import { SourceList } from './SourceList';
 import { GardenSubstitution } from '../core/gardenOptimizer';
@@ -88,7 +88,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
   const involvedTrees = starPlants.filter(t => involvedTreeIds.has(t.instanceId));
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-4 sm:p-5 space-y-4">
+    <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 space-y-4">
       <div role="button" tabIndex={0} aria-expanded={isOpen('card')} onClick={() => toggle('card')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('card'); } }} className="cursor-pointer select-none flex items-center justify-between pb-3 border-b border-stone-100">
         <div className="flex items-center gap-2"><CollapseChevron open={isOpen('card')} />
           <ShieldCheck className="w-5 h-5 text-forest-700" />
@@ -111,9 +111,9 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
 {isOpen('card') && (<>
 
       <div className="space-y-2.5">
-        <div role="button" tabIndex={0} aria-expanded={isOpen('compat')} onClick={() => toggle('compat')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('compat'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+        <div role="button" tabIndex={0} aria-expanded={isOpen('compat')} onClick={() => toggle('compat')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('compat'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
           <span className="flex items-center gap-1.5"><CollapseChevron open={isOpen('compat')} />{tr.gardenWarningsCompatHeading}</span>
-          <span className="text-[10px] font-normal text-stone-400">
+          <span className="text-[11px] font-normal text-stone-400">
             {conflicts.length} {tr.gardenWarningsDetected}
           </span>
         </div>
@@ -138,7 +138,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
               return (
                 <div
                   key={c.id}
-                  className={`p-3 rounded-xl border text-xs space-y-1.5 transition-all ${
+                  className={`p-3 rounded-xl border text-xs space-y-1.5 transition ${
                     isCrit
                       ? 'bg-rose-50/80 border-rose-300 text-rose-950'
                       : 'bg-amber-50/80 border-amber-300 text-amber-950'
@@ -153,7 +153,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
                       )}
                       <span>{getLoc(c.title, language)}</span>
                     </span>
-                    <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                    <span className={`text-[11px] font-mono px-1.5 py-0.5 rounded font-bold ${
                       isCrit ? 'bg-rose-200 text-rose-900' : 'bg-amber-200 text-amber-900'
                     }`}>
                       {formatNumber(c.distanceM, 1, language)} m / min. {formatNumber(c.requiredDistanceM, 1, language)} m
@@ -177,7 +177,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
 
       {(substitutions.length > 0 || suggestions.length > 0 || !autoResolveEnabled) && (
         <div className="space-y-2 pt-2 border-t border-stone-100">
-          <div className="text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+          <div className="text-xs font-bold text-stone-700 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <RefreshCw className="w-3.5 h-3.5 text-forest-600" />
               <span>{tr.gardenResolveHeading}</span>
@@ -185,15 +185,15 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
             <button
               type="button"
               onClick={onToggleAutoResolve}
-              className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-full text-[11px] font-bold flex items-center gap-1 transition cursor-pointer ${
                 autoResolveEnabled
-                  ? 'bg-forest-600 text-white shadow-xs'
+                  ? 'bg-forest-600 text-white'
                   : 'bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200'
               }`}
               title={tr.gardenResolveToggleTitle}
               aria-pressed={autoResolveEnabled}
             >
-              <Sparkles className="w-3 h-3" />
+              <Sprout className="w-3 h-3" />
               <span>Auto: {autoResolveEnabled ? tr.gardenWarningsOn : tr.gardenWarningsOff}</span>
             </button>
           </div>
@@ -208,7 +208,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
                     <button
                       type="button"
                       onClick={() => onKeepOriginal(sub)}
-                      className="shrink-0 px-2 py-1 rounded-lg text-[10px] font-bold bg-white border border-stone-200 hover:border-stone-400 text-stone-700 flex items-center gap-1 cursor-pointer"
+                      className="shrink-0 px-2 py-1 rounded-lg text-[11px] font-bold bg-white border border-stone-200 hover:border-stone-400 text-stone-700 flex items-center gap-1 cursor-pointer"
                       title={tr.gardenResolveUndoTitle.replace('{plant}', plantName(sub.removedPlantId))}
                     >
                       <Undo2 className="w-3 h-3" />
@@ -233,7 +233,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
                     <button
                       type="button"
                       onClick={() => onApplySuggestion(sub)}
-                      className="shrink-0 px-2 py-1 rounded-lg text-[10px] font-bold bg-forest-600 hover:bg-forest-700 text-white flex items-center gap-1 cursor-pointer"
+                      className="shrink-0 px-2 py-1 rounded-lg text-[11px] font-bold bg-forest-600 hover:bg-forest-700 text-white flex items-center gap-1 cursor-pointer"
                       title={tr.gardenResolveApplyTitle
                         .replace('{removed}', plantName(sub.removedPlantId))
                         .replace('{added}', sub.addedPlantIds.length > 0 ? sub.addedPlantIds.map(plantName).join(' + ') : '-')}
@@ -250,7 +250,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
       )}
 
       <div className="space-y-2 pt-2 border-t border-stone-100">
-        <div role="button" tabIndex={0} aria-expanded={isOpen('canopy')} onClick={() => toggle('canopy')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('canopy'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+        <div role="button" tabIndex={0} aria-expanded={isOpen('canopy')} onClick={() => toggle('canopy')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('canopy'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
           <span className="flex items-center gap-1.5"><CollapseChevron open={isOpen('canopy')} />
             <Sun className="w-3.5 h-3.5 text-amber-500" />
             <span>{tr.gardenWarningsCanopyShading}</span>
@@ -259,17 +259,17 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
             <button
               type="button"
               onClick={e => { e.stopPropagation(); onToggleAutoShade?.(); }}
-              className={`px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-full text-[11px] font-bold flex items-center gap-1 transition cursor-pointer ${
                 autoShadeEnabled
-                  ? 'bg-sky-600 text-white shadow-xs'
+                  ? 'bg-sky-600 text-white'
                   : 'bg-stone-100 hover:bg-stone-200 text-stone-600 border border-stone-200'
               }`}
               title={tr.gardenWarningsAutoShadeTitle}
             >
-              <Sparkles className="w-3 h-3" />
+              <Sprout className="w-3 h-3" />
               <span>Auto: {autoShadeEnabled ? tr.gardenWarningsOn : tr.gardenWarningsOff}</span>
             </button>
-            <span className="text-[10px] font-normal text-stone-400">
+            <span className="text-[11px] font-normal text-stone-400">
               {shadePockets.length} {tr.gardenWarningsOverlaps}
             </span>
           </div>
@@ -289,9 +289,9 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
             </p>
             <div className="flex flex-wrap gap-1.5 pt-0.5">
               {[
-                { id: 'plant-wild-garlic', icon: '🌿', name: tr.gardenWarningsShadeWildGarlic },
-                { id: 'plant-hosta', icon: '🍃', name: tr.gardenWarningsShadeHosta },
-                { id: 'plant-comfrey', icon: '🌱', name: tr.gardenWarningsShadeComfrey },
+                { id: 'plant-wild-garlic', name: tr.gardenWarningsShadeWildGarlic },
+                { id: 'plant-hosta', name: tr.gardenWarningsShadeHosta },
+                { id: 'plant-comfrey', name: tr.gardenWarningsShadeComfrey },
               ].map(spec => {
                 const isSatisfied =
                   involvedTrees.length > 0 &&
@@ -303,13 +303,13 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
                   return (
                     <div
                       key={spec.id}
-                      className="px-2.5 py-1 bg-emerald-50 border border-emerald-300 rounded-lg text-[11px] font-medium text-emerald-950 flex items-center gap-1.5 shadow-2xs"
+                      className="px-2.5 py-1 bg-emerald-50 border border-emerald-300 rounded-lg text-[11px] font-medium text-emerald-950 flex items-center gap-1.5"
                       title={tr.gardenWarningsShadeSatisfiedTitle.replace('{name}', spec.name)}
                     >
-                      <span>{spec.icon}</span>
+                      <Leaf className="w-3.5 h-3.5 text-emerald-700 shrink-0" strokeWidth={1.75} />
                       <span>{spec.name}</span>
-                      <span className="text-[9px] font-bold text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded border border-emerald-300">
-                        ✓ {tr.gardenWarningsPlaced}
+                      <span className="text-[11px] font-bold text-emerald-700 bg-emerald-100 px-1 py-px rounded border border-emerald-300">
+                        {tr.gardenWarningsPlaced}
                       </span>
                     </div>
                   );
@@ -320,12 +320,12 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
                     key={spec.id}
                     type="button"
                     onClick={() => onApplyShadePlant?.(spec.id)}
-                    className="px-2.5 py-1 bg-white hover:bg-sky-100 border border-sky-200 hover:border-sky-400 rounded-lg text-[11px] font-medium text-sky-950 flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs"
+                    className="px-2.5 py-1 bg-white hover:bg-sky-100 border border-sky-200 hover:border-sky-400 rounded-lg text-[11px] font-medium text-sky-950 flex items-center gap-1.5 transition-colors cursor-pointer"
                     title={tr.gardenWarningsShadeApplyTitle.replace('{name}', spec.name)}
                   >
-                    <span>{spec.icon}</span>
+                    <Leaf className="w-3.5 h-3.5 text-sky-700 shrink-0" strokeWidth={1.75} />
                     <span>{spec.name}</span>
-                    <span className="text-[9px] font-bold text-sky-600 bg-sky-50 px-1 py-0.2 rounded border border-sky-200">
+                    <span className="text-[11px] font-bold text-sky-600 bg-sky-50 px-1 py-px rounded border border-sky-200">
                       + {tr.gardenWarningsPlace}
                     </span>
                   </button>
@@ -342,7 +342,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
 </div>
 
       <div className="space-y-2 pt-2 border-t border-stone-100">
-        <div role="button" tabIndex={0} aria-expanded={isOpen('efficiency')} onClick={() => toggle('efficiency')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('efficiency'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center justify-between">
+        <div role="button" tabIndex={0} aria-expanded={isOpen('efficiency')} onClick={() => toggle('efficiency')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('efficiency'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
           <span className="flex items-center gap-1.5"><CollapseChevron open={isOpen('efficiency')} />{tr.gardenWarningsEfficiency}</span>
           <span className="text-emerald-700 font-bold">{stats.savingsPercent}% {tr.gardenWarningsSaved}</span>
         </div>
@@ -351,11 +351,11 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
         <div className="grid grid-cols-2 gap-2 text-center text-xs">
           <div className="p-2.5 rounded-xl bg-stone-50 border border-stone-200">
             <div className="text-base font-extrabold text-stone-900">{stats.starPlantCount}</div>
-            <div className="text-[10px] text-stone-500">{tr.gardenPdfStarPlants}</div>
+            <div className="text-[11px] text-stone-500">{tr.gardenPdfStarPlants}</div>
           </div>
           <div className="p-2.5 rounded-xl bg-forest-50 border border-forest-200">
             <div className="text-base font-extrabold text-forest-800">{stats.companionPlantCount}</div>
-            <div className="text-[10px] text-forest-700">
+            <div className="text-[11px] text-forest-700">
               {tr.gardenWarningsCompanionsVs.replace('{count}', String(stats.unoptimizedCompanionCount))}
             </div>
           </div>
@@ -368,7 +368,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
           </div>
           <div className="w-full h-2 rounded-full bg-stone-100 overflow-hidden border border-stone-200">
             <div
-              className="h-full bg-forest-600 rounded-full transition-all duration-500"
+              className="h-full bg-forest-600 rounded-full transition duration-500"
               style={{ width: `${(stats.coveredRoles / 9) * 100}%` }}
             />
           </div>

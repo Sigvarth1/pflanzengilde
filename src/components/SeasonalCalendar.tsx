@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { ActiveGapFilter, GuildPlant, Language, PhenoSeason, StarTree, getLoc } from '../types/guild';
 import { analyzeSeasonalRoleGaps, PHENO_SEASONS, getSuggestedPlantsForGap, analyzePlantRedundancy } from '../core/seasonalGapEngine';
-import { Calendar, AlertCircle, Plus, Check, Sparkles, Clock, Filter, Search, RefreshCw, ArrowRightLeft, Trash2 } from 'lucide-react';
+import { Calendar, AlertCircle, Plus, Check, Sprout, Clock, Filter, Search, RefreshCw, ArrowRightLeft, Trash2 } from 'lucide-react';
 import { t, translateRole, translateSeason } from '../i18n/translations';
 
 interface SeasonalCalendarProps {
@@ -38,19 +38,19 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
   const allGaps = useMemo(() => roleStatuses.flatMap(rs => rs.gaps), [roleStatuses]);
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-5">
+    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200/80 space-y-5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-100">
         <div>
-          <h3 className="text-base font-bold text-stone-900 flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-forest-600" />
+          <h3 className="text-lg font-semibold text-stone-900 flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-forest-600" strokeWidth={1.75} />
             {tr.calendarTitle}
           </h3>
-          <p className="text-xs text-stone-500">
+          <p className="text-sm text-stone-500 mt-0.5">
             {tr.calendarSubtitle}
           </p>
         </div>
 
-        <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl overflow-x-auto text-xs">
+        <div className="flex items-center gap-1 bg-stone-100 p-1 rounded-xl overflow-x-auto no-scrollbar text-xs">
           {PHENO_SEASONS.map(s => {
             const isCurrent = currentSeason === s.id;
             return (
@@ -58,9 +58,9 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                 key={s.id}
                 type="button"
                 onClick={() => onSelectSeason(s.id)}
-                className={`px-2.5 py-1 rounded-lg whitespace-nowrap font-medium transition-all ${
+                className={`h-7 px-2.5 rounded-md whitespace-nowrap font-medium transition-colors ${
                   isCurrent
-                    ? 'bg-white text-forest-800 shadow-xs font-semibold'
+                    ? 'bg-white text-stone-900 ring-1 ring-stone-900/5'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -71,11 +71,11 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-xs border-collapse">
+      <div className="overflow-x-auto -mx-5 sm:mx-0">
+        <table className="w-full min-w-[640px] text-left text-xs border-collapse">
           <thead>
             <tr className="border-b border-stone-200 text-stone-400">
-              <th className="py-2 px-3 font-semibold text-stone-700 w-44">{tr.functionalRole}</th>
+              <th className="sticky left-0 z-10 bg-white py-2 pl-5 sm:pl-3 pr-3 font-medium text-stone-600 w-40 sm:w-48">{tr.functionalRole}</th>
               {PHENO_SEASONS.map(s => (
                 <th
                   key={s.id}
@@ -83,8 +83,8 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                     currentSeason === s.id ? 'text-forest-700 bg-forest-50/70 rounded-t-lg' : ''
                   }`}
                 >
-                  <div className="font-bold">{getLoc(s.label, language)}</div>
-                  <div className="text-[10px] text-stone-400 font-normal">{getLoc(s.months, language)}</div>
+                  <div className="font-semibold">{getLoc(s.label, language)}</div>
+                  <div className="text-[11px] text-stone-400 font-normal">{getLoc(s.months, language)}</div>
                 </th>
               ))}
             </tr>
@@ -93,10 +93,10 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
             {roleStatuses.map(rs => {
               const hasAnyPlant = selectedPlants.some(p => p.roles.includes(rs.role));
               return (
-                <tr key={rs.role} className="hover:bg-stone-50/50">
-                  <td className="py-2.5 px-3 font-semibold text-stone-800">
+                <tr key={rs.role}>
+                  <td className="sticky left-0 z-10 bg-white py-3 pl-5 sm:pl-3 pr-3 font-medium text-stone-800">
                     <div>{getLoc(rs.displayName, language)}</div>
-                    <div className="text-[10px] text-stone-400 font-normal">
+                    <div className="text-[11px] text-stone-400 font-normal">
                       {hasAnyPlant ? translateRole(rs.role, language) : tr.noPlantChosenYet}
                     </div>
                   </td>
@@ -108,7 +108,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                     return (
                       <td
                         key={s.id}
-                        className={`py-2.5 px-2 text-center transition-colors ${
+                        className={`py-3 px-2 text-center transition-colors ${
                           isCurrent ? 'bg-forest-50/50' : ''
                         }`}
                       >
@@ -118,14 +118,14 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                           if (cell.covered) {
                             return (
                               <div className="inline-flex flex-col items-center group relative cursor-help">
-                                <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs shadow-2xs">
+                                <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
                                   <Check className="w-3.5 h-3.5" />
                                 </span>
-                                <span className="text-[10px] text-stone-600 font-medium mt-0.5 max-w-[80px] truncate">
+                                <span className="text-[11px] text-stone-600 font-medium mt-0.5 max-w-[80px] truncate">
                                   {getLoc(cell.plants[0]?.commonName, language)}
                                   {cell.plants.length > 1 && ` +${cell.plants.length - 1}`}
                                 </span>
-                                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block z-50 w-44 bg-stone-900 text-white text-[10px] rounded p-1.5 shadow-lg pointer-events-none">
+                                <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 hidden group-hover:block z-50 w-44 bg-stone-900 text-white text-[11px] rounded p-1.5 shadow-lg pointer-events-none">
                                   {cell.plants.map(p => getLoc(p.commonName, language)).join(', ')}
                                 </div>
                               </div>
@@ -135,24 +135,23 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                               <button
                                 type="button"
                                 onClick={() => onFilterByGap?.({ role: rs.role, season: s.id })}
-                                className={`inline-flex flex-col items-center group cursor-pointer p-1 rounded-xl transition-all hover:scale-105 active:scale-95 focus:outline-none ${
+                                className={`inline-flex flex-col items-center group cursor-pointer p-1 rounded-lg transition-[background-color,transform] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 ${
                                   isCellFiltered
-                                    ? 'ring-2 ring-amber-500 bg-amber-100/90 shadow-xs'
-                                    : 'hover:bg-rose-100/80'
+                                    ? 'ring-2 ring-amber-500 bg-amber-100/90'
+                                    : 'hover:bg-rose-50'
                                 }`}
                                 title={tr.clickToFillGap}
                               >
                                 <span
-                                  className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px] shadow-2xs transition-colors ${
+                                  className={`w-6 h-6 rounded-full flex items-center justify-center font-bold text-[11px] transition-colors ${
                                     isCellFiltered
                                       ? 'bg-amber-500 text-white'
-                                      : 'bg-rose-50 text-rose-500 border border-rose-200 group-hover:bg-rose-500 group-hover:text-white'
+                                      : 'bg-rose-50 text-rose-600 border border-rose-200 group-hover:bg-rose-600 group-hover:text-white'
                                   }`}
                                 >
-                                  {tr.missingGap}
+                                  <Search className="w-3 h-3" />
                                 </span>
-                                <span className="text-[9px] text-rose-600 font-semibold mt-0.5 group-hover:underline flex items-center gap-0.5">
-                                  <Search className="w-2.5 h-2.5" />
+                                <span className="text-[11px] text-rose-700 font-medium mt-0.5 group-hover:underline">
                                   {tr.missingGap}
                                 </span>
                               </button>
@@ -162,9 +161,9 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                               <button
                                 type="button"
                                 onClick={() => onFilterByGap?.({ role: rs.role, season: s.id })}
-                                className={`inline-flex flex-col items-center group cursor-pointer p-1 rounded-xl transition-all hover:scale-105 active:scale-95 focus:outline-none ${
+                                className={`inline-flex flex-col items-center group cursor-pointer p-1 rounded-lg transition-[background-color,transform] active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-forest-600 ${
                                   isCellFiltered
-                                    ? 'ring-2 ring-amber-500 bg-amber-50 shadow-xs'
+                                    ? 'ring-2 ring-amber-500 bg-amber-50'
                                     : 'hover:bg-stone-100'
                                 }`}
                                 title={tr.clickToFillGap}
@@ -178,7 +177,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                                 >
                                   <Plus className="w-3 h-3 text-stone-400 group-hover:text-forest-600" />
                                 </span>
-                                <span className="text-[9px] text-stone-400 group-hover:text-forest-700 font-medium mt-0.5">
+                                <span className="text-[11px] text-stone-400 group-hover:text-forest-700 font-medium mt-0.5">
                                   —
                                 </span>
                               </button>
@@ -210,7 +209,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
               return (
                 <div
                   key={`${gap.role}-${gap.season}-${idx}`}
-                  className={`p-3 rounded-xl border transition-all text-xs flex flex-col justify-between ${
+                  className={`p-3 rounded-xl border transition text-xs flex flex-col justify-between ${
                     isGapActive
                       ? 'border-amber-400 bg-amber-100/60 ring-2 ring-amber-400/50'
                       : 'border-amber-200 bg-amber-50/50'
@@ -223,13 +222,13 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                         {translateSeason(gap.season, language)}: {translateRole(gap.role, language)}
                       </span>
                       <div className="flex items-center gap-1.5">
-                        <span className="px-1.5 py-0.2 rounded bg-amber-200 text-amber-900 text-[10px] font-bold">
+                        <span className="px-1.5 py-px rounded bg-amber-200 text-amber-900 text-[11px] font-bold">
                           {tr.temporalGap}
                         </span>
                         <button
                           type="button"
                           onClick={() => onFilterByGap?.({ role: gap.role, season: gap.season })}
-                          className="px-2 py-0.5 rounded bg-white hover:bg-amber-200 border border-amber-300 text-amber-950 text-[10px] font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
+                          className="px-2 py-0.5 rounded bg-white hover:bg-amber-200 border border-amber-300 text-amber-950 text-[11px] font-semibold flex items-center gap-1 transition-colors cursor-pointer"
                           title={tr.clickToFillGap}
                         >
                           <Filter className="w-2.5 h-2.5 text-amber-700" />
@@ -244,8 +243,8 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
 
                   {suggestedPlants.length > 0 && (
                     <div className="pt-2 border-t border-amber-200/60">
-                      <div className="text-[10px] font-bold text-amber-800 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                        <Sparkles className="w-3 h-3 text-amber-600" />
+                      <div className="text-[11px] font-bold text-amber-800 mb-1.5 flex items-center gap-1">
+                        <Sprout className="w-3 h-3 text-amber-600" />
                         {tr.recommendedAllies}
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -254,7 +253,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                             key={candidate.id}
                             type="button"
                             onClick={() => onAddPlant(candidate)}
-                            className="group px-2 py-1 rounded-lg bg-white border border-amber-300 hover:bg-forest-600 hover:text-white hover:border-forest-600 text-amber-950 text-[11px] font-medium shadow-2xs flex items-center gap-1 transition-all"
+                            className="group px-2 py-1 rounded-lg bg-white border border-amber-300 hover:bg-forest-600 hover:text-white hover:border-forest-600 text-amber-950 text-[11px] font-medium flex items-center gap-1 transition"
                             title={tr.seasonalCalendarAddToFillGap.replace('{plant}', getLoc(candidate.commonName, language)).replace('{season}', translateSeason(gap.season, language))}
                           >
                             <Plus className="w-3 h-3 text-forest-600 group-hover:text-white" />
@@ -289,7 +288,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
             <div>
               <div className="text-xs font-bold text-sky-950 flex items-center gap-2">
                 <span>{tr.redundantSectionTitle}</span>
-                <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-sky-100 text-sky-800 border border-sky-200">
+                <span className="text-[11px] font-semibold px-2 py-px rounded-full bg-sky-100 text-sky-800 border border-sky-200">
                   {redundantReports.length} {tr.seasonalCalendarOptimizable}
                 </span>
               </div>
@@ -303,7 +302,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
             {redundantReports.map((report) => (
               <div
                 key={report.plant.id}
-                className="p-3.5 rounded-xl border border-sky-200 bg-sky-50/50 space-y-2.5 text-xs flex flex-col justify-between shadow-2xs"
+                className="p-3.5 rounded-xl border border-sky-200 bg-sky-50/50 space-y-2.5 text-xs flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-1.5">
@@ -316,7 +315,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                         {getLoc(report.plant.commonName, language)}
                       </span>
                     </div>
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-sky-100 text-sky-800 border border-sky-300">
+                    <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-sky-100 text-sky-800 border border-sky-300">
                       {tr.redundantBadge}
                     </span>
                   </div>
@@ -329,7 +328,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                       {report.coveringPlants.map(cov => (
                         <span
                           key={cov.id}
-                          className="px-1.5 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-medium text-[10px] flex items-center gap-1 shadow-2xs"
+                          className="px-1.5 py-0.5 rounded bg-white border border-stone-200 text-stone-700 font-medium text-[11px] flex items-center gap-1"
                         >
                           <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: cov.color }} />
                           {getLoc(cov.commonName, language)}
@@ -342,8 +341,8 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                 <div className="space-y-2 pt-2 border-t border-sky-200/80">
                   {report.suggestedAlternativeForGaps.length > 0 && onSwapPlant && (
                     <div>
-                      <div className="text-[10px] font-bold text-sky-900 flex items-center gap-1 mb-1">
-                        <Sparkles className="w-3 h-3 text-sky-600" />
+                      <div className="text-[11px] font-bold text-sky-900 flex items-center gap-1 mb-1">
+                        <Sprout className="w-3 h-3 text-sky-600" />
                         <span>{tr.redundantSwapForUncovered}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
@@ -352,7 +351,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                             key={cand.id}
                             type="button"
                             onClick={() => onSwapPlant(report.plant.id, cand)}
-                            className="group px-2 py-1 rounded-lg bg-white border border-sky-300 hover:bg-forest-600 hover:text-white hover:border-forest-600 text-stone-800 text-[11px] font-medium shadow-2xs flex items-center gap-1 transition-all cursor-pointer"
+                            className="group px-2 py-1 rounded-lg bg-white border border-sky-300 hover:bg-forest-600 hover:text-white hover:border-forest-600 text-stone-800 text-[11px] font-medium flex items-center gap-1 transition cursor-pointer"
                             title={tr.seasonalCalendarSwapWith.replace('{plant}', getLoc(report.plant.commonName, language)).replace('{candidate}', getLoc(cand.commonName, language))}
                           >
                             <ArrowRightLeft className="w-3 h-3 text-sky-600 group-hover:text-white" />

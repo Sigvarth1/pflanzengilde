@@ -65,7 +65,7 @@ export const PlantThumbnail: React.FC<PlantThumbnailProps> = ({
     <div className={`relative ${className} ${roundedClassName} overflow-hidden flex-shrink-0 bg-stone-100 shadow-xs`}>
       {!isLoaded && (
         <div
-          className="absolute inset-0 flex items-center justify-center text-white text-[10px] font-bold animate-pulse"
+          className="absolute inset-0 flex items-center justify-center text-white text-[11px] font-bold"
           style={{ backgroundColor: fallbackColor }}
         >
           {initials}
@@ -76,7 +76,7 @@ export const PlantThumbnail: React.FC<PlantThumbnailProps> = ({
         srcSet={optimized2x !== optimizedSrc ? `${optimizedSrc} 1x, ${optimized2x} 2x` : undefined}
         alt={alt}
         loading={isHighPriority ? 'eager' : 'lazy'}
-        fetchPriority={isHighPriority ? 'high' : priority === 'low' ? 'low' : undefined}
+        {...{ fetchpriority: isHighPriority ? 'high' : priority === 'low' ? 'low' : undefined }}
         decoding={isHighPriority ? 'sync' : 'async'}
         onLoad={() => setLoadedSrc(src)}
         onError={() => setFailedSrc(src)}

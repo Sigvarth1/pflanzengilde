@@ -76,7 +76,7 @@ const SEASON_ROWS: { id: (typeof PHENO_SEASONS)[number]['id']; note?: L }[] = [
 ];
 
 const Refs: React.FC<{ ns: number[] }> = ({ ns }) => (
-  <span className="text-[10px] font-semibold text-sky-700">[{ns.join(', ')}]</span>
+  <span className="text-[11px] font-semibold text-stone-500">[{ns.join(', ')}]</span>
 );
 
 export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: string) => void }> = ({ language, onNavigate }) => {
@@ -88,8 +88,8 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl bg-gradient-to-br from-amber-50 via-white to-emerald-50 border border-stone-200 p-6 space-y-3">
-        <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-800">
+      <div className="rounded-3xl bg-stone-50 border border-stone-200 p-6 space-y-3">
+        <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-bold text-amber-800">
           <Flower2 className="w-3 h-3" />{g(L('Bumblebees', 'Hummeln'))}
         </span>
         <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">{g(L('Closing forage gaps: flowers for bumblebees all year', 'Trachtlücken schließen: Blüten für Hummeln das ganze Jahr'))}</h2>
@@ -129,7 +129,7 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
         {CLAIMS.map(c => {
           const Icon = c.icon;
           return (
-            <div key={c.id} id={c.id} className="overflow-hidden rounded-2xl bg-white border border-stone-200 shadow-xs scroll-mt-24 flex flex-col">
+            <div key={c.id} id={c.id} className="overflow-hidden rounded-2xl bg-white border border-stone-200 scroll-mt-24 flex flex-col">
               <div className={`h-1.5 bg-gradient-to-r ${TONE[c.tone].band}`} />
               <div className="p-5 space-y-2 flex-1 flex flex-col">
                 <div className="flex items-center gap-3">

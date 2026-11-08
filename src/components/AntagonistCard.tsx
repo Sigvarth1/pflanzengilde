@@ -13,7 +13,7 @@ import {
   MapPin,
   ShieldAlert,
   Info,
-  Sparkles
+  Sprout
 } from 'lucide-react';
 import { SourceList } from './SourceList';
 
@@ -88,7 +88,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
     return (
       <div
         key={conflict.id}
-        className={`rounded-2xl border p-4 sm:p-5 transition-all ${
+        className={`rounded-2xl border p-4 sm:p-5 transition ${
           isCrit
             ? 'border-rose-200 bg-rose-50/40 hover:border-rose-300'
             : isWarn
@@ -99,7 +99,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-3 mb-3 pb-3 border-b border-stone-200/60">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-1.5">
-              <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-md ${
+              <span className={`text-[11px] font-bold px-2 py-0.5 rounded-md ${
                 isCrit
                   ? 'bg-rose-600 text-white'
                   : isWarn
@@ -109,11 +109,11 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                 {isCrit ? tr.antagonistCriticalAlert : isWarn ? tr.antagonistWarningAlert : tr.antagonistInfoAlert}
               </span>
 
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">
+              <span className="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">
                 {conflict.type === 'INTERNAL_PROXIMITY' ? tr.antagonistInternalTag : tr.antagonistExternalTag}
               </span>
 
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-stone-800 text-white flex items-center gap-1">
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-stone-800 text-white flex items-center gap-1">
                 <span>{tr.antagonistBufferLabel}:</span>
                 <span>≥ {conflict.safeDistanceM} m</span>
               </span>
@@ -130,8 +130,8 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
           </div>
         </div>
 
-        <div className="mb-3.5 p-3 rounded-xl bg-white/90 border border-stone-200/80 shadow-2xs">
-          <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+        <div className="mb-3.5 p-3 rounded-xl bg-white/90 border border-stone-200/80">
+          <div className="text-[11px] font-bold text-stone-500 mb-2 flex items-center gap-1.5">
             <MapPin className="w-3.5 h-3.5 text-forest-600" />
             <span>{tr.antagonistAffectedInGuild} ({conflict.affectedPlants.length})</span>
           </div>
@@ -143,7 +143,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
               >
                 <div className="font-semibold text-stone-900 line-clamp-1">
                   {getLoc(plant.name, language)}
-                  <span className="text-[10px] font-normal italic text-stone-500 ml-1">
+                  <span className="text-[11px] font-normal italic text-stone-500 ml-1">
                     ({plant.botanicalName})
                   </span>
                 </div>
@@ -151,7 +151,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                   <span className="text-forest-700 font-bold">
                     {formatNumber(plant.distanceM, 1, language)} m
                   </span>
-                  <span className="text-stone-500 text-[10px]">
+                  <span className="text-stone-500 text-[11px]">
                     {getLoc(plant.cardinalDirection, language)}
                   </span>
                 </div>
@@ -207,66 +207,36 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200 shadow-sm transition-all">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-stone-100">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <div className={`p-2 rounded-xl ${
-              report.hasCritical
-                ? 'bg-rose-100 text-rose-700'
-                : report.hasWarning
-                ? 'bg-amber-100 text-amber-800'
-                : 'bg-emerald-100 text-emerald-800'
-            }`}>
-              {report.hasCritical ? (
-                <AlertOctagon className="w-5 h-5" />
-              ) : report.hasWarning ? (
-                <AlertTriangle className="w-5 h-5" />
-              ) : (
-                <ShieldCheck className="w-5 h-5" />
-              )}
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-                <span>{tr.antagonistsSectionTitle}</span>
-                {report.totalConflicts > 0 && (
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
-                    report.hasCritical
-                      ? 'bg-rose-100 text-rose-800 ring-1 ring-rose-300 animate-pulse'
-                      : 'bg-amber-100 text-amber-800'
-                  }`}>
-                    {report.totalConflicts} {report.totalConflicts === 1 ? tr.antagonistCardNoticeSingular : tr.antagonistCardNoticePlural}
-                  </span>
-                )}
-              </h2>
-              <p className="text-xs text-stone-500 mt-0.5">
-                {tr.antagonistsSectionSub}
-              </p>
-            </div>
-          </div>
+    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200/80">
+      <div className="flex items-start justify-between gap-4 mb-5 pb-4 border-b border-stone-100">
+        <div className="min-w-0">
+          <h2 className="text-lg font-semibold text-stone-900 flex items-center gap-2">
+            {report.hasCritical ? (
+              <AlertOctagon className="w-5 h-5 text-rose-600 shrink-0" strokeWidth={1.75} />
+            ) : report.hasWarning ? (
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" strokeWidth={1.75} />
+            ) : (
+              <ShieldCheck className="w-5 h-5 text-forest-600 shrink-0" strokeWidth={1.75} />
+            )}
+            <span>{tr.antagonistsSectionTitle}</span>
+          </h2>
+          <p className="text-sm text-stone-500 mt-0.5">
+            {tr.antagonistsSectionSub}
+          </p>
         </div>
 
-        <div className="self-start sm:self-center">
+        <div className="text-right shrink-0">
           {report.totalConflicts === 0 ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>{tr.antagonistCardFullyCompatible}</span>
-            </div>
-          ) : report.hasCritical ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold">
-              <AlertOctagon className="w-4 h-4 text-rose-600" />
-              <span>{tr.antagonistCriticalAlert}</span>
-            </div>
-          ) : report.hasWarning ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold">
-              <AlertTriangle className="w-4 h-4 text-amber-600" />
-              <span>{tr.antagonistWarningAlert}</span>
-            </div>
+            <div className="text-xs font-medium text-emerald-700 whitespace-nowrap">{tr.antagonistCardFullyCompatible}</div>
           ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 text-xs font-semibold">
-              <Info className="w-4 h-4 text-sky-600" />
-              <span>{tr.antagonistInfoAlert}</span>
-            </div>
+            <>
+              <div className={`text-2xl font-semibold tabular-nums ${report.hasCritical ? 'text-rose-700' : report.hasWarning ? 'text-amber-700' : 'text-stone-900'}`}>
+                {report.totalConflicts}
+              </div>
+              <div className="text-xs text-stone-500 whitespace-nowrap">
+                {report.totalConflicts === 1 ? tr.antagonistCardNoticeSingular : tr.antagonistCardNoticePlural}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -284,7 +254,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
       ) : (
         <div className="space-y-4">
           {internalConflicts.length > 0 ? (
-            <div className="rounded-2xl border border-rose-300 bg-rose-50/30 overflow-hidden transition-all shadow-2xs">
+            <div className="rounded-2xl border border-rose-300 bg-rose-50/30 overflow-hidden transition">
               <button
                 type="button"
                 onClick={() => setIsInternalExpanded(prev => !prev)}
@@ -316,14 +286,14 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                 <span className="font-bold">{tr.antagonistInternalTag}:</span>
                 <span>{tr.antagonistCardZeroConflicts}</span>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
+              <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">
                 0
               </span>
             </div>
           )}
 
           {landscapeConflicts.length > 0 && (
-            <div className={`rounded-2xl border ${landscapeTabStyles.container} overflow-hidden transition-all shadow-2xs`}>
+            <div className={`rounded-2xl border ${landscapeTabStyles.container} overflow-hidden transition`}>
               <button
                 type="button"
                 onClick={() => setIsLandscapeExpanded(prev => !prev)}
@@ -352,14 +322,14 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
         </div>
       )}
       {report.resolvedHarmonies && report.resolvedHarmonies.length > 0 && (
-        <div className="mt-4 rounded-2xl border border-emerald-300 bg-emerald-50/20 overflow-hidden transition-all shadow-2xs">
+        <div className="mt-4 rounded-2xl border border-emerald-300 bg-emerald-50/20 overflow-hidden transition">
           <button
             type="button"
             onClick={() => setIsHarmoniesExpanded(prev => !prev)}
             className="w-full flex items-center justify-between p-3.5 sm:p-4 text-left font-bold text-sm bg-emerald-50/90 hover:bg-emerald-100/70 text-emerald-950 transition-colors cursor-pointer select-none"
           >
             <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-emerald-600 shrink-0" />
+              <Sprout className="w-4 h-4 text-emerald-600 shrink-0" />
               <span className="font-bold">
                 {tr.antagonistCardAutoOptimizedSpacing}
               </span>
@@ -378,15 +348,15 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
               {report.resolvedHarmonies.map((harmony) => (
                 <div
                   key={harmony.id}
-                  className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 sm:p-5 transition-all shadow-2xs"
+                  className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 sm:p-5 transition"
                 >
                   <div className="flex flex-col md:flex-row md:items-start justify-between gap-2 mb-3 pb-2 border-b border-emerald-200/60">
                     <div>
                       <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                        <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-md bg-emerald-600 text-white">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-600 text-white">
                           {tr.antagonistCardOptimallySpaced}
                         </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-900 text-white flex items-center gap-1">
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-900 text-white flex items-center gap-1">
                           <span>{tr.antagonistBufferLabel}:</span>
                           <span>≥ {harmony.safeDistanceM} m</span>
                         </span>
@@ -400,8 +370,8 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                     </div>
                   </div>
 
-                  <div className="mb-3 p-3 rounded-xl bg-white/95 border border-emerald-200/80 shadow-2xs">
-                    <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <div className="mb-3 p-3 rounded-xl bg-white/95 border border-emerald-200/80">
+                    <div className="text-[11px] font-bold text-stone-500 mb-2 flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-forest-600" />
                       <span>{tr.antagonistAffectedInGuild} ({harmony.affectedPlants.length})</span>
                     </div>
@@ -413,7 +383,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                         >
                           <div className="font-semibold text-stone-900 line-clamp-1">
                             {getLoc(plant.name, language)}
-                            <span className="text-[10px] font-normal italic text-stone-500 ml-1">
+                            <span className="text-[11px] font-normal italic text-stone-500 ml-1">
                               ({plant.botanicalName})
                             </span>
                           </div>
@@ -421,7 +391,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
                             <span className="text-forest-700 font-bold">
                               {formatNumber(plant.distanceM, 1, language)} m
                             </span>
-                            <span className="text-stone-600 text-[10px] font-semibold">
+                            <span className="text-stone-600 text-[11px] font-semibold">
                               {getLoc(plant.cardinalDirection, language)}
                             </span>
                           </div>

@@ -90,7 +90,7 @@ export function generateGardenSvg(drawing: GardenDrawing, scale = chooseSvgScale
     const outer = gc.polygons[0]?.[0];
     if (outer) {
       const top = outer.reduce((b, p) => (p[1] > b[1] ? p : b), outer[0]);
-      out.push(`<text x="${X(top[0])}" y="${n(Number(Y(top[1])) - 1)}" text-anchor="middle" font-size="${n(fs * 0.9)}" fill="#14532d">${gc.species.code}</text>`);
+      out.push(`<text x="${X(top[0])}" y="${n(Number(Y(top[1])) - 1)}" text-anchor="middle" font-size="${n(fs * 0.9)}" fill="#2e3d25">${gc.species.code}</text>`);
     }
     return out;
   });
@@ -128,7 +128,7 @@ export function generateGardenSvg(drawing: GardenDrawing, scale = chooseSvgScale
 
   // Title, north arrow, scale bar and plant schedule
   const legend: string[] = [];
-  legend.push(`<text x="${ox}" y="${MARGIN + 7}" font-size="7" font-weight="bold" fill="#14532d">${esc(drawing.name)}</text>`);
+  legend.push(`<text x="${ox}" y="${MARGIN + 7}" font-size="7" font-weight="bold" fill="#2e3d25">${esc(drawing.name)}</text>`);
   legend.push(`<text x="${ox}" y="${MARGIN + 14}" font-size="3.2" fill="#57534e">${esc(tr.cadSvgSubtitle.replace('{scale}', `1:${scale}`).replace('{w}', fmt(W, 0)).replace('{h}', fmt(H, 0)))}</text>`);
   const nx = legendX + 8;
   const ny = oy + 4;

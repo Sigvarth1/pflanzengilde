@@ -27,7 +27,7 @@ export const ShiftHint: React.FC<{ language: Language; className?: string }> = (
   const tr = t(language);
   return (
     <div className={`flex items-center gap-2 text-[11px] text-stone-500 ${className}`}>
-      <kbd className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md border border-stone-300 border-b-2 bg-white text-stone-700 font-sans font-semibold text-[10px] shadow-2xs shrink-0">
+      <kbd className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md border border-stone-300 border-b-2 bg-white text-stone-700 font-sans font-semibold text-[11px] shrink-0">
         <span aria-hidden="true">⇧</span>
         <span>{tr.spotHintKey}</span>
       </kbd>
@@ -65,7 +65,7 @@ export const SpotLegend: React.FC<SpotLegendProps> = ({ language, entries, x, y,
       role="status"
     >
       <div className="font-bold text-stone-900">{tr.spotTitle}</div>
-      {subtitle && <div className="text-[10px] text-stone-500 mb-1">{subtitle}</div>}
+      {subtitle && <div className="text-[11px] text-stone-500 mb-1">{subtitle}</div>}
       {entries.length === 0 ? (
         <div className="text-stone-500 italic">{tr.spotNothing}</div>
       ) : (

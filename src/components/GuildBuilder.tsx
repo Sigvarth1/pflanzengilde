@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { ActiveGapFilter, ActivePestFilter, ClimateZone, GuildPlant, GuildRole, Language, SoilType, StarTree, getLoc } from '../types/guild';
 import { ACTIVE_GUILD_PLANTS } from '../data/guildPlants';
-import { Search, Check, Plus, AlertOctagon, Sparkles, Layers, Star, Mountain, Globe, X, ShieldCheck, AlertTriangle, FlaskConical, Sprout, Eye, EyeOff, Ban } from 'lucide-react';
+import { Search, Check, Plus, AlertOctagon, Sprout, Layers, Star, Mountain, Globe, X, ShieldCheck, AlertTriangle, FlaskConical, Eye, EyeOff, Ban } from 'lucide-react';
 import { IncompatibilityReason, getGuildIncompatibility, partitionGuildByCompatibility, summarizeIncompatibility } from '../core/compatibility';
 import { t, translateRole, translateLayer, translateZone } from '../i18n/translations';
 import { PlantThumbnail } from './PlantThumbnail';
@@ -198,14 +198,14 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
   }, [filteredPlants, selectedPlantIds, conflictsById]);
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm space-y-4">
+    <div className="bg-white rounded-2xl p-5 sm:p-6 border border-stone-200/80 space-y-4">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-stone-100">
         <div>
-          <h2 className="text-lg font-bold text-stone-900 flex items-center gap-2">
-            <Layers className="w-5 h-5 text-forest-600" />
+          <h2 className="text-lg font-semibold text-stone-900 flex items-center gap-2">
+            <Layers className="w-5 h-5 text-forest-600" strokeWidth={1.75} />
             {tr.step2Title}
           </h2>
-          <p className="text-xs text-stone-500">
+          <p className="text-sm text-stone-500 mt-0.5">
             {tr.step2Subtitle}
           </p>
         </div>
@@ -227,12 +227,12 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
             onClick={() => setFilterOnlyOptimalSoil(!filterOnlyOptimalSoil)}
             className={`px-2.5 py-1.5 text-xs rounded-lg border flex items-center gap-1 font-medium transition-colors cursor-pointer shrink-0 ${
               filterOnlyOptimalSoil
-                ? 'bg-emerald-100 border-emerald-300 text-emerald-900 font-bold shadow-2xs'
+                ? 'bg-forest-100 border-forest-300 text-forest-900 font-bold'
                 : 'bg-stone-50 border-stone-300 text-stone-700 hover:bg-stone-100'
             }`}
             title={tr.filterOptimalSoil}
           >
-            <Mountain className="w-3 h-3 text-emerald-600" />
+            <Mountain className="w-3 h-3 text-forest-700" />
             <span>{tr.filterOptimalSoil}</span>
           </button>
 
@@ -241,12 +241,12 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
             onClick={() => setFilterOnlyOptimalZone(!filterOnlyOptimalZone)}
             className={`px-2.5 py-1.5 text-xs rounded-lg border flex items-center gap-1 font-medium transition-colors cursor-pointer shrink-0 ${
               filterOnlyOptimalZone
-                ? 'bg-sky-100 border-sky-300 text-sky-900 font-bold shadow-2xs'
+                ? 'bg-forest-100 border-forest-300 text-forest-900 font-bold'
                 : 'bg-stone-50 border-stone-300 text-stone-700 hover:bg-stone-100'
             }`}
             title={tr.filterOptimalZone}
           >
-            <Globe className="w-3.5 h-3.5 text-sky-600" />
+            <Globe className="w-3.5 h-3.5 text-forest-700" />
             <span>{tr.filterOptimalZone}</span>
           </button>
         </div>
@@ -264,7 +264,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
           .filter((p): p is GuildPlant => !!p && (selectedPlantIds.has(p.id) || !conflictsById.has(p.id)));
 
         return (
-          <div className="mb-5 p-4 sm:p-5 bg-gradient-to-br from-emerald-50 via-teal-50/60 to-emerald-50 border border-emerald-300 rounded-2xl text-xs text-emerald-950 shadow-xs animate-fadeIn space-y-3.5">
+          <div className="mb-5 p-4 sm:p-5 bg-forest-50 border border-forest-200 rounded-2xl text-xs text-emerald-950 animate-fadeIn space-y-3.5">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-start sm:items-center gap-2.5">
                 <div className="p-2.5 bg-emerald-200/90 text-emerald-900 rounded-xl flex-shrink-0 shadow-2xs">
@@ -272,7 +272,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-1.5 font-bold text-stone-900">
-                    <span className="text-xs uppercase tracking-wider text-emerald-900">{tr.activePestBannerTitle}:</span>
+                    <span className="text-xs text-emerald-900">{tr.activePestBannerTitle}:</span>
                     <span className="px-2.5 py-0.5 rounded-lg bg-emerald-200/90 text-emerald-950 text-xs font-bold border border-emerald-300/80">
                       {activePestFilter.pestName}
                     </span>
@@ -287,7 +287,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
               <button
                 type="button"
                 onClick={onClearPestFilter}
-                className="self-start sm:self-auto px-3.5 py-1.5 bg-white hover:bg-stone-50 border border-emerald-300 hover:border-emerald-400 text-emerald-950 font-bold rounded-xl shadow-2xs transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer text-xs"
+                className="self-start sm:self-auto px-3.5 py-1.5 bg-white hover:bg-stone-50 border border-emerald-300 hover:border-emerald-400 text-emerald-950 font-bold rounded-xl transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer text-xs"
               >
                 <X className="w-3.5 h-3.5 text-stone-500" />
                 <span>{tr.clearPestFilter}</span>
@@ -295,8 +295,8 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
             </div>
 
             {mechanism && (
-              <div className="p-3 sm:p-3.5 rounded-xl bg-white/90 border border-emerald-200 shadow-2xs space-y-1.5">
-                <div className="flex items-center gap-1.5 font-bold text-emerald-900 text-[11px] uppercase tracking-wider">
+              <div className="p-3 sm:p-3.5 rounded-xl bg-white/90 border border-emerald-200 space-y-1.5">
+                <div className="flex items-center gap-1.5 font-bold text-emerald-900 text-[11px]">
                   <FlaskConical className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
                   <span>{tr.scientificMechanismTitle}</span>
                   {defense.evidence && <EvidenceTag level={defense.evidence} language={language} />}
@@ -305,18 +305,18 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                   {mechanism}
                 </p>
                 {defense.citations && <EvidenceCitations citations={defense.citations} title={tr.evidenceSourcesTitle} />}
-                <p className="text-[10px] text-stone-500 italic">{tr.evidenceBadgeNote}</p>
+                <p className="text-[11px] text-stone-500 italic">{tr.evidenceBadgeNote}</p>
               </div>
             )}
 
             {companionPlants.length > 0 && (
               <div className="pt-2 border-t border-emerald-200/60">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-bold text-emerald-900 flex items-center gap-1.5 uppercase tracking-wider">
+                  <span className="text-[11px] font-bold text-emerald-900 flex items-center gap-1.5">
                     <Sprout className="w-3.5 h-3.5 text-emerald-700 shrink-0" />
                     <span>{tr.effectiveCompanionsTitle} ({companionPlants.length})</span>
                   </span>
-                  <span className="text-[10px] text-emerald-800/80 font-medium hidden sm:inline">
+                  <span className="text-[11px] text-emerald-800/80 font-medium hidden sm:inline">
                     {tr.guildBuilderClickPlantForDetails}
                   </span>
                 </div>
@@ -326,7 +326,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                     return (
                       <div
                         key={companion.id}
-                        className="inline-flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-white hover:bg-stone-50/90 border border-emerald-200 hover:border-emerald-400 shadow-2xs transition-all text-xs group"
+                        className="inline-flex items-center gap-2 p-1.5 pr-2.5 rounded-xl bg-white hover:bg-stone-50/90 border border-emerald-200 hover:border-emerald-400 transition text-xs group"
                       >
                         <button
                           type="button"
@@ -344,13 +344,13 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                             <span className="font-bold text-stone-900 group-hover:text-emerald-800 transition-colors leading-tight">
                               {getLoc(companion.commonName, language)}
                             </span>
-                            <span className="text-[10px] text-stone-500 italic leading-tight">
+                            <span className="text-[11px] text-stone-500 italic leading-tight">
                               {companion.botanicalName}
                             </span>
                           </div>
                         </button>
                         {isAdded ? (
-                          <span className="ml-1 px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[10px] font-bold flex items-center gap-0.5 border border-emerald-200 shrink-0">
+                          <span className="ml-1 px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center gap-0.5 border border-emerald-200 shrink-0">
                             <Check className="w-2.5 h-2.5" />
                             <span>{tr.guildBuilderInGuild}</span>
                           </span>
@@ -358,7 +358,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                           <button
                             type="button"
                             onClick={() => onTogglePlant(companion)}
-                            className="ml-1 px-2 py-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold flex items-center gap-1 transition-all cursor-pointer shadow-2xs shrink-0"
+                            className="ml-1 px-2 py-1 rounded-md bg-forest-600 hover:bg-forest-700 text-white text-[11px] font-bold flex items-center gap-1 transition cursor-pointer shadow-2xs shrink-0"
                             title={tr.guildBuilderAddToGuild}
                           >
                             <Plus className="w-2.5 h-2.5" />
@@ -376,10 +376,10 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
       })()}
 
       {activeGapFilter && (
-        <div className="mb-4 p-3 sm:p-3.5 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-50 border border-amber-300 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-amber-950 shadow-xs animate-fadeIn">
+        <div className="mb-4 p-3 sm:p-3.5 bg-amber-50 border border-amber-300 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-amber-950 animate-fadeIn">
           <div className="flex items-start sm:items-center gap-2.5">
             <div className="p-2 bg-amber-200 text-amber-900 rounded-lg flex-shrink-0">
-              <Sparkles className="w-4 h-4" />
+              <Sprout className="w-4 h-4" />
             </div>
             <div>
               <div className="flex flex-wrap items-center gap-1.5 font-bold text-stone-900">
@@ -402,7 +402,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
           <button
             type="button"
             onClick={onClearGapFilter}
-            className="self-start sm:self-auto px-3 py-1.5 bg-white hover:bg-stone-50 border border-amber-300 hover:border-amber-400 text-amber-950 font-semibold rounded-lg shadow-2xs transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+            className="self-start sm:self-auto px-3 py-1.5 bg-white hover:bg-stone-50 border border-amber-300 hover:border-amber-400 text-amber-950 font-semibold rounded-lg transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
           >
             <X className="w-3.5 h-3.5 text-stone-500" />
             <span>{tr.clearGapFilter}</span>
@@ -418,7 +418,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
               key={tab.id}
               type="button"
               onClick={() => handleTabClick(tab.id)}
-              className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition-all ${
+              className={`px-3 py-1.5 rounded-lg whitespace-nowrap font-medium transition ${
                 isActive
                   ? 'bg-forest-700 text-white shadow-sm'
                   : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
@@ -472,16 +472,16 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
           return (
             <div
               key={plant.id}
-              className={`p-3.5 rounded-xl border transition-all flex flex-col justify-between ${
+              className={`p-3.5 rounded-xl border transition flex flex-col justify-between ${
                 isSelectedConflict
                   ? 'border-rose-400 bg-rose-50/60 ring-1 ring-rose-400/40'
                   : isBlocked
                   ? 'border-stone-200 bg-stone-50 opacity-60 grayscale'
                   : isSelected
-                  ? 'border-forest-600 bg-forest-50/40 ring-1 ring-forest-600/30'
+                  ? 'border-forest-600 bg-forest-50/50'
                   : fillsActiveGap
-                  ? 'border-amber-300 bg-amber-50/30 ring-1 ring-amber-300 hover:shadow-xs'
-                  : 'border-stone-200 bg-white hover:border-stone-300 hover:shadow-xs'
+                  ? 'border-amber-300 bg-amber-50/30 ring-1 ring-amber-300 '
+                  : 'border-stone-200 bg-white hover:border-stone-300 '
               }`}
             >
               <div>
@@ -499,58 +499,39 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold text-xs text-stone-900 truncate">{localizedName}</span>
-                        {isSelected && (
-                          <span
-                            className="px-1.5 py-0.2 rounded-md bg-forest-100 text-forest-800 border border-forest-300 text-[10px] font-bold flex items-center gap-0.5"
-                            title={tr.selectedBadge}
-                          >
-                            <Check className="w-2.5 h-2.5 text-forest-600" />
-                            <span>{tr.selectedBadge}</span>
-                          </span>
-                        )}
+                        <span className="font-semibold text-[13px] text-stone-900 truncate">{localizedName}</span>
                         {activePestFilter && activePestFilter.plantIds.includes(plant.id) && (
                           <span
-                            className="px-1.5 py-0.2 rounded-md bg-emerald-100 text-emerald-900 border border-emerald-300 text-[10px] font-bold flex items-center gap-0.5"
+                            className="px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-900 text-[11px] font-medium flex items-center gap-0.5"
                             title={`${tr.activePestBannerDesc} ${activePestFilter.pestName}`}
                           >
                             <ShieldCheck className="w-2.5 h-2.5 text-emerald-600" />
                             <span>{tr.keyPestCombatedBy}</span>
                           </span>
                         )}
-                        {!plant.climateZones?.includes(selectedZone) && (
-                          <span
-                            className="px-1.5 py-0.2 rounded-md bg-amber-100/90 text-amber-900 border border-amber-300 text-[10px] font-bold flex items-center gap-0.5"
-                            title={tr.zoneIncompatibleAlert}
-                          >
-                            <AlertTriangle className="w-2.5 h-2.5 text-amber-600" />
-                            <span>{tr.zoneIncompatibleBadge}</span>
-                          </span>
-                        )}
                         {fillsActiveGap && (
                           <span
-                            className="px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-900 border border-amber-300 text-[10px] font-bold flex items-center gap-0.5"
+                            className="px-1.5 py-0.5 rounded-md bg-amber-50 text-amber-900 text-[11px] font-medium flex items-center gap-0.5"
                             title={`${activeRoleName} (${activeSeasonName})`}
                           >
-                            <Sparkles className="w-2.5 h-2.5 text-amber-600" />
+                            <Sprout className="w-2.5 h-2.5 text-amber-600" />
                             <span>{tr.gapFilledSuccess}</span>
                           </span>
                         )}
                         {isRecommendedForTree && (
                           <span
-                            className="px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-900 text-[10px] font-bold flex items-center gap-0.5"
+                            className="text-[11px] font-medium text-forest-700 flex items-center gap-1"
                             title={`${tr.recommendedForTree} ${getLoc(selectedTree.commonName, language)}`}
                           >
-                            <Star className="w-2.5 h-2.5 text-amber-600 fill-amber-500" />
+                            <Star className="w-3 h-3" strokeWidth={1.75} />
                             <span>{tr.starTreeAlly}</span>
                           </span>
                         )}
                         {isSuperHero && (
                           <span
-                            className="px-1.5 py-0.2 rounded-md bg-stone-100 text-stone-800 text-[10px] font-bold flex items-center gap-0.5"
+                            className="text-[11px] font-medium text-stone-500 flex items-center gap-0.5"
                             title={tr.guildBuilderStacksRoles}
                           >
-                            <Sparkles className="w-2.5 h-2.5 text-amber-600" />
                             {plant.roles.length} {tr.rolesStacked}
                           </span>
                         )}
@@ -563,11 +544,11 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                     type="button"
                     disabled={isBlocked}
                     onClick={() => onTogglePlant(plant)}
-                    className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
+                    className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 transition ${
                       isSelectedConflict
-                        ? 'bg-rose-600 text-white shadow-xs hover:bg-rose-700'
+                        ? 'bg-rose-600 text-white hover:bg-rose-700'
                         : isSelected
-                        ? 'bg-forest-600 text-white shadow-xs'
+                        ? 'bg-forest-600 text-white'
                         : isBlocked
                         ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
                         : 'border border-stone-300 text-stone-600 hover:border-forest-500 hover:text-forest-600'
@@ -580,7 +561,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
 
                 {conflictReasons && (
                   <div
-                    className={`mt-2 flex items-start gap-1 text-[10px] font-medium ${isSelectedConflict ? 'text-rose-700' : 'text-stone-600'}`}
+                    className={`mt-2 flex items-start gap-1 text-[11px] font-medium ${isSelectedConflict ? 'text-rose-700' : 'text-stone-600'}`}
                     data-testid="compat-reason"
                   >
                     <AlertOctagon className="w-3 h-3 flex-shrink-0 mt-px" />
@@ -595,7 +576,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                   {plant.roles.map(role => (
                     <span
                       key={role}
-                      className="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-stone-100 text-stone-700"
+                      className="px-1.5 py-0.5 rounded-md text-[11px] font-medium bg-stone-100 text-stone-700"
                     >
                       {translateRole(role, language)}
                     </span>
@@ -606,19 +587,18 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                   {localizedNotes}
                 </p>
 
-                <div className="mt-2 pt-1.5 flex flex-wrap items-center justify-between gap-1 text-[10px] border-t border-stone-100/70">
+                <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-[11px]">
                   <span className="flex items-center gap-1">
-                    <span className="text-stone-500 font-medium">{tr.soilType}:</span>
                     {isOptimalSoil ? (
                       <span className="text-emerald-700 font-semibold flex items-center gap-0.5">
-                        <Check className="w-3 h-3 text-emerald-600" /> {tr.soilOptimal}
+                        <Check className="w-3 h-3" /> {tr.soilOptimal}
                       </span>
                     ) : isUnsuitableSoil ? (
                       <span className="text-rose-600 font-bold flex items-center gap-0.5">
                         <AlertOctagon className="w-3 h-3 text-rose-500" /> {tr.soilUnsuitable}
                       </span>
                     ) : (
-                      <span className="text-stone-600 font-medium">
+                      <span className="text-stone-500 font-medium">
                         {tr.soilTolerant}
                       </span>
                     )}
@@ -626,11 +606,11 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
 
                   <span className="flex items-center gap-1">
                     {plant.climateZones?.includes(selectedZone) ? (
-                      <span className="text-sky-700 font-semibold flex items-center gap-0.5">
-                        <Globe className="w-3 h-3 text-sky-600" /> {tr.climateMatch}
+                      <span className="text-stone-500 font-medium flex items-center gap-0.5">
+                        <Globe className="w-3 h-3" /> {tr.climateMatch}
                       </span>
                     ) : (
-                      <span className="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 font-medium text-[9px] flex items-center gap-0.5" title={tr.zoneIncompatibleAlert}>
+                      <span className="text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200 font-medium text-[11px] flex items-center gap-0.5" title={tr.zoneIncompatibleAlert}>
                         <AlertTriangle className="w-2.5 h-2.5 text-amber-600" /> {tr.zoneIncompatibleBadge}
                       </span>
                     )}
@@ -638,7 +618,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                 </div>
               </div>
 
-              <div className="mt-2.5 pt-2 border-t border-stone-100 flex items-center justify-between text-[10px] text-stone-500">
+              <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between text-[11px] text-stone-500">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-stone-700">{translateLayer(plant.layer, language)}</span>
                   <span className="text-forest-700 font-semibold">{translateZone(plant.preferredZone, language)}</span>
@@ -679,7 +659,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
             <button
               type="button"
               onClick={onClearPestFilter}
-              className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors cursor-pointer shadow-2xs"
+              className="px-3.5 py-1.5 bg-forest-600 hover:bg-forest-700 text-white rounded-lg font-medium transition-colors cursor-pointer shadow-2xs"
             >
               {tr.clearPestFilter}
             </button>

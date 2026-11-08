@@ -16,8 +16,8 @@ export const EvidenceTag: React.FC<{ level: EvidenceLevel; language: Language; c
   compact = false
 }) => (
   <span
-    className={`inline-flex items-center rounded-md border font-bold uppercase tracking-wider whitespace-nowrap ${
-      compact ? 'px-1 text-[8px]' : 'px-1.5 py-0.5 text-[9px]'
+    className={`inline-flex items-center rounded-md border font-bold whitespace-nowrap ${
+      compact ? 'px-1 text-[11px]' : 'px-1.5 py-0.5 text-[11px]'
     } ${TAG_STYLES[level]}`}
   >
     {evidenceLabel(level, language)}
@@ -27,8 +27,8 @@ export const EvidenceTag: React.FC<{ level: EvidenceLevel; language: Language; c
 export const EvidenceCitations: React.FC<{ citations: EvidenceCitation[]; title: string }> = ({ citations, title }) => {
   if (citations.length === 0) return null;
   return (
-    <div className="text-[10px] text-stone-500 leading-snug space-y-0.5">
-      <div className="flex items-center gap-1 font-semibold text-stone-600 uppercase tracking-wider">
+    <div className="text-[11px] text-stone-500 leading-snug space-y-0.5">
+      <div className="flex items-center gap-1 font-semibold text-stone-600">
         <BookOpen className="w-3 h-3 shrink-0" />
         <span>{title}</span>
       </div>

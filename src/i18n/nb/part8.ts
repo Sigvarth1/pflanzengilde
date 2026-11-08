@@ -86,7 +86,7 @@ export const nbPart8 = {
   guidesDryRolledOolongShowsDragonfly: 'Tørt blad «øyenstikkerhode» (rullede kjerner, den ene enden flat, den andre tett knyttet) eller «skrueform» (tettvridde, kompakte biter), med skimrende grønn «froskehud»- eller honningtonet «ålehud»-farge; dyp, livlig te (gullgul til rød); aroma med «yan»-preget til wuyi-fjellte eller «yin»-preget til tieguanyin, «høy blomsteraroma» og «honningsøt ettersmak»; smak «fløyelsmyk», «fyldig» eller «myk»; trukket blad med «røde kanter» – etter godt utført rysting klare røde kanter rundt en gulgrønn midte [^36].',
   guidesDeadLeavesBruisedTooViolently: '«Luftig» (løst viklede, lette kjerner) eller «falmet» tørt blad; matt te; «gammel/flat» eller «endimensjonal» aroma; «skarp» (for garvesyrerik) eller «grov» smak; blader uten stilk, og «døde blader/svarte blader» – for dårlig rysting gjør at døde blader løsner [^36].',
   guides5BlackTeaHongCha: '5. SVART TE (hong cha – småbladet kungfu / jin jun mei)',
-  guides85100FullEnzymaticOxidation: 'Full enzymatisk oksidasjon • ingen «drepe det grønne»!',
+  guides85100FullEnzymaticOxidation: 'Full enzymatisk oksidasjon • ingen «drepe det grønne»',
   guidesBlackTeaRubricPdf: 'Skjema for svart te (PDF)',
   guidesDeepIndoorWithering1218: 'Grundig visning innendørs (ca. 14–18 timer, til 60–70 % fukt):',
   guidesWither1Bud12: 'Vis skudd med 1 knopp og 1–2 blader til stilkene kan bøyes i U-form uten å knekke og bladene kjennes som mykt kalveskinn. Under visningen blir skuddene slappe når fuktigheten synker fra ca. 70–80 % til 60–70 %; 14–18 timer regnes som optimalt [^52].',
