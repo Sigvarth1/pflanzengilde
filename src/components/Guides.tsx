@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { GroundCoverGuide, RaisedBedGuide } from './RaisedBedGuide';
 import { ForageGapGuide } from './ForageGapGuide';
+import { HeroBanner } from './HeroBanner';
 
 interface GuidesProps {
   language: Language;
@@ -1244,17 +1245,15 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
   return (
     <div className="flex-1 w-full bg-stone-50 text-stone-900 font-sans selection:bg-forest-200 py-4 sm:py-6">
       <main className="max-w-5xl mx-auto px-4 sm:px-6 w-full space-y-8">
-        <div className="border-b border-stone-200 pb-8 text-center sm:text-left">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-forest-50 border border-forest-200 text-forest-800 text-xs font-semibold mb-3">
-            <BookOpen className="w-3.5 h-3.5 text-forest-600" />
-            <span>{tr.guidesPeerReviewedPermacultureScience}</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900 tracking-tight">
-            {tr.guidesTitle}
-          </h1>
-          <p className="text-sm sm:text-base text-stone-600 mt-2 max-w-3xl leading-relaxed">
-            {tr.guidesSubtitle}
-          </p>
+        <div className="pb-8">
+          <HeroBanner
+            compact
+            title={tr.heroGuidesTitle}
+            subtitle={tr.guidesSubtitle}
+            primaryLabel={tr.heroCta}
+            primaryDirection="out"
+            onPrimary={() => onNavigate('/')}
+          />
 
           <div className="mt-8 flex flex-wrap items-center gap-2 border-b border-stone-200 pb-px">
             {GUIDE_TABS.map(({ id, icon: TabIcon, label }) => (

@@ -1669,4 +1669,11 @@ export const de = {
   geoRefInvalid: 'Bitte gültige Koordinaten eingeben (Breite −85…85, Länge −180…180).',
   geoRefExport: 'GeoJSON exportieren',
   geoRefCancel: 'Abbrechen',
+
+  // Hero
+  heroTitle: 'Pflanzengilden auf Basis von Belegen, nicht Folklore',
+  heroSubtitle: 'Baum wählen, Begleiter nach ihrer Funktion ergänzen und einen metrischen Pflanzplan erhalten, der ungünstige Kombinationen markiert.',
+  heroCta: 'Baum wählen',
+  heroGuidesTitle: 'Die Wissenschaft hinter jeder Gilde',
+  heroSecondary: 'Ratgeber lesen',
 };

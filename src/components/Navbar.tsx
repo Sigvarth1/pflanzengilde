@@ -68,67 +68,67 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-stone-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 sm:gap-4">
-        <div className="flex items-center gap-2.5 sm:gap-6 shrink-0 min-w-0">
+    <header className="sticky top-0 z-40 bg-stone-100/85 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-6 shrink-0 min-w-0">
           <button
             type="button"
             onClick={() => onNavigate('/')}
             className="flex items-center space-x-2 sm:space-x-3 text-left focus:outline-none cursor-pointer group shrink-0"
             title={tr.appTitle}
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-forest-600 text-white flex items-center justify-center shadow-md shadow-forest-600/20 group-hover:scale-105 transition-transform shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-forest-400 text-stone-900 flex items-center justify-center group-hover:rotate-[-8deg] transition-transform duration-300 ease-out shrink-0">
               <Sprout className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div className="hidden sm:block shrink-0">
-              <div className="text-lg sm:text-xl font-extrabold text-stone-900 tracking-tight flex items-center gap-2 group-hover:text-forest-900 transition-colors whitespace-nowrap">
-                <span>Pflanzengilde<span className="text-forest-600">.de</span></span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-forest-100 text-forest-800 uppercase tracking-wider shrink-0">
+              <div className="text-lg sm:text-[22px] font-bold text-stone-900 tracking-[-0.03em] flex items-center gap-2 group-hover:text-forest-800 transition-colors whitespace-nowrap">
+                <span>pflanzengilde<span className="text-forest-500">.de</span></span>
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-white text-stone-600 tracking-[-0.01em] shrink-0">
                   {tr.badge}
                 </span>
               </div>
-              <p className="text-xs text-stone-500 whitespace-nowrap hidden lg:block font-normal">
-                {tr.appSubtitle}
-              </p>
             </div>
           </button>
 
-          <nav className="flex items-center bg-stone-100/90 p-0.5 sm:p-1 rounded-xl border border-stone-200 text-xs shrink-0">
+          <nav className="flex items-center bg-white p-1 rounded-full text-[13px] shrink-0">
             <button
               type="button"
               onClick={() => onNavigate('/')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1 sm:gap-1.5 whitespace-nowrap ${
+              aria-label={tr.navPlanner}
+              className={`px-2 sm:px-4 py-2 rounded-full font-semibold transition-colors duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
                 isPlanner
-                  ? 'bg-white text-forest-900 shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-forest-400 text-stone-900'
+                  : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
               }`}
             >
-              <Sprout className="w-3.5 h-3.5 text-forest-600 shrink-0" />
-              <span>{tr.navPlanner}</span>
+              <Sprout className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">{tr.navPlanner}</span>
             </button>
             <button
               type="button"
               onClick={() => onNavigate('/garten')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1 sm:gap-1.5 whitespace-nowrap ${
+              aria-label={tr.navGarden}
+              className={`px-2 sm:px-4 py-2 rounded-full font-semibold transition-colors duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
                 isGarden
-                  ? 'bg-white text-forest-900 shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-forest-400 text-stone-900'
+                  : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
               }`}
             >
-              <Grid className="w-3.5 h-3.5 text-forest-600 shrink-0" />
-              <span>{tr.navGarden}</span>
+              <Grid className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">{tr.navGarden}</span>
             </button>
             <button
               type="button"
               onClick={() => onNavigate('/guides')}
-              className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1 sm:gap-1.5 whitespace-nowrap ${
+              aria-label={tr.navGuides}
+              className={`px-2 sm:px-4 py-2 rounded-full font-semibold transition-colors duration-200 cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
                 currentPath.startsWith('/guides')
-                  ? 'bg-white text-forest-900 shadow-xs'
-                  : 'text-stone-600 hover:text-stone-900'
+                  ? 'bg-forest-400 text-stone-900'
+                  : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
               }`}
             >
-              <BookOpen className="w-3.5 h-3.5 text-forest-600 shrink-0" />
-              <span>{tr.navGuides}</span>
+              <BookOpen className="w-3.5 h-3.5 shrink-0" />
+              <span className="hidden sm:inline">{tr.navGuides}</span>
             </button>
           </nav>
         </div>
@@ -139,7 +139,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="hidden md:flex px-2.5 sm:px-3 py-1.5 rounded-lg border border-stone-300 text-xs font-medium text-stone-700 hover:bg-stone-50 items-center gap-1.5 transition-colors cursor-pointer"
+                className="hidden xl:flex px-4 py-2 rounded-full bg-white text-[13px] font-semibold text-stone-700 hover:bg-forest-50 hover:text-stone-900 items-center gap-1.5 transition-colors cursor-pointer"
                 title={tr.importPlan}
               >
                 <Upload className="w-3.5 h-3.5 text-stone-600 shrink-0" />
@@ -150,7 +150,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   type="button"
                   onClick={onShare}
-                  className="hidden sm:flex px-2.5 sm:px-3 py-1.5 rounded-lg border border-stone-300 text-xs font-medium text-stone-700 hover:bg-stone-50 hover:text-stone-900 items-center gap-1.5 transition-colors cursor-pointer shrink-0 shadow-2xs"
+                  className="hidden lg:flex px-4 py-2 rounded-full bg-white text-[13px] font-semibold text-stone-700 hover:bg-forest-50 hover:text-stone-900 items-center gap-1.5 transition-colors cursor-pointer shrink-0"
                   title={isGarden ? tr.navbarShareGarden : tr.shareGuildTitle}
                 >
                   <Share2 className="w-3.5 h-3.5 text-forest-600 shrink-0" />
@@ -164,7 +164,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   onClick={() => setOpenMenu(prev => prev === 'export' ? null : 'export')}
                   aria-expanded={openMenu === 'export'}
-                  className="px-2.5 sm:px-3 py-1.5 rounded-lg bg-forest-700 text-white text-xs font-medium hover:bg-forest-800 flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                  className="px-3.5 sm:px-5 py-2 rounded-full bg-forest-400 text-stone-900 text-[13px] font-semibold hover:bg-forest-300 flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5 shrink-0" />
                   <span className="hidden sm:inline">{tr.exportMenu}</span>
@@ -174,7 +174,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     openMenu === 'export' ? 'block' : 'hidden group-hover:block'
                   }`}
                 >
-                  <div className="bg-white border border-stone-200 rounded-xl shadow-xl py-1.5 relative before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']">
+                  <div className="bg-white rounded-2xl shadow-[0_18px_40px_-12px_rgba(60,49,91,0.28)] p-1.5 relative before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']">
                     <div className="px-3 py-1 text-[10px] font-bold text-stone-400 uppercase tracking-wider">
                       {isGarden ? tr.navbarExportGardenPlan : tr.exportPlan}
                     </div>
@@ -184,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onExportPdf();
                         setOpenMenu(null);
                       }}
-                      className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-forest-50 hover:text-forest-900 flex items-center gap-2.5 transition-colors cursor-pointer"
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 flex items-center gap-2.5 transition-colors cursor-pointer"
                     >
                       <FileText className="w-4 h-4 text-rose-600 shrink-0" />
                       <div>
@@ -202,7 +202,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onExportCalendar();
                         setOpenMenu(null);
                       }}
-                      className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-forest-50 hover:text-forest-900 flex items-center gap-2.5 transition-colors cursor-pointer"
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 flex items-center gap-2.5 transition-colors cursor-pointer"
                     >
                       <Calendar className="w-4 h-4 text-amber-600 shrink-0" />
                       <div>
@@ -220,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         onExportJson();
                         setOpenMenu(null);
                       }}
-                      className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-forest-50 hover:text-forest-900 flex items-center gap-2.5 transition-colors cursor-pointer"
+                      className="w-full text-left px-3 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 flex items-center gap-2.5 transition-colors cursor-pointer"
                     >
                       <FileJson className="w-4 h-4 text-emerald-600 shrink-0" />
                       <div>
@@ -250,7 +250,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                               window.dispatchEvent(new CustomEvent(event));
                               setOpenMenu(null);
                             }}
-                            className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-forest-50 hover:text-forest-900 flex items-center gap-2.5 transition-colors cursor-pointer"
+                            className="w-full text-left px-3 py-2 rounded-xl text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 flex items-center gap-2.5 transition-colors cursor-pointer"
                           >
                             <Icon className={`w-4 h-4 ${color} shrink-0`} />
                             <div>
@@ -268,18 +268,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 type="button"
                 onClick={onReset}
-                className="hidden md:block p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer shrink-0"
+                className="hidden xl:flex w-9 h-9 items-center justify-center rounded-full bg-white text-stone-500 hover:text-stone-900 hover:bg-forest-50 transition-colors cursor-pointer shrink-0"
                 title={tr.resetGuild}
               >
                 <RotateCcw className="w-4 h-4" />
               </button>
 
-              <div ref={mobileMenuRef} className="relative md:hidden shrink-0">
+              <div ref={mobileMenuRef} className="relative xl:hidden shrink-0">
                 <button
                   type="button"
                   onClick={() => setOpenMenu(prev => prev === 'mobile-more' ? null : 'mobile-more')}
                   aria-expanded={openMenu === 'mobile-more'}
-                  className="p-1.5 rounded-lg border border-stone-300 text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+                  className="w-9 h-9 flex items-center justify-center rounded-full bg-white text-stone-700 hover:bg-forest-50 transition-colors cursor-pointer"
                   title={tr.moreOptions}
                   aria-label={tr.moreOptions}
                 >
@@ -288,7 +288,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 {openMenu === 'mobile-more' && (
                   <div className="absolute right-0 top-full pt-1.5 w-52 z-50 animate-in fade-in zoom-in-95">
-                    <div className="bg-white border border-stone-200 rounded-2xl shadow-xl p-2 space-y-1">
+                    <div className="bg-white rounded-2xl shadow-[0_18px_40px_-12px_rgba(60,49,91,0.28)] p-2 space-y-1">
                       {onShare && (
                         <button
                           type="button"
@@ -331,17 +331,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                 )}
               </div>
 
-              <div className="hidden sm:block h-5 w-px bg-stone-200" />
+              
             </>
           )}
 
-          <div className="flex items-center bg-stone-100 rounded-lg p-0.5 border border-stone-200 text-xs shrink-0">
+          <div className="flex items-center bg-white rounded-full p-0.5 sm:p-1 text-xs shrink-0">
             <button
               type="button"
               onClick={() => setLanguage('de')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer ${
+              className={`px-2 sm:px-2.5 py-1.5 rounded-full font-semibold transition-colors cursor-pointer ${
                 language === 'de'
-                  ? 'bg-white text-stone-900 shadow-xs font-bold'
+                  ? 'bg-stone-900 text-cream font-bold'
                   : 'text-stone-500 hover:text-stone-900'
               }`}
             >
@@ -350,9 +350,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer ${
+              className={`px-2 sm:px-2.5 py-1.5 rounded-full font-semibold transition-colors cursor-pointer ${
                 language === 'en'
-                  ? 'bg-white text-stone-900 shadow-xs font-bold'
+                  ? 'bg-stone-900 text-cream font-bold'
                   : 'text-stone-500 hover:text-stone-900'
               }`}
             >
@@ -361,9 +361,9 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               type="button"
               onClick={() => setLanguage('nb')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition-all cursor-pointer ${
+              className={`px-2 sm:px-2.5 py-1.5 rounded-full font-semibold transition-colors cursor-pointer ${
                 language === 'nb'
-                  ? 'bg-white text-stone-900 shadow-xs font-bold'
+                  ? 'bg-stone-900 text-cream font-bold'
                   : 'text-stone-500 hover:text-stone-900'
               }`}
             >

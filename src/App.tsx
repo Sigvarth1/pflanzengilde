@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ActiveGapFilter, ActivePestFilter, ClimateZone, GuildPlant, Hemisphere, Language, PhenoSeason, SoilType, StarTree, TreeAgeMode, getLoc } from './types/guild';
 import { STAR_TREES } from './data/starTrees';
 import { GUILD_PLANTS } from './data/guildPlants';
+import { HeroBanner } from './components/HeroBanner';
 import { Navbar } from './components/Navbar';
 import { SiteConditionsBar } from './components/SiteConditionsBar';
 import { StarTreeSelector } from './components/StarTreeSelector';
@@ -633,7 +634,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-stone-100 flex flex-col font-sans text-stone-900 selection:bg-forest-200">
+    <div className="min-h-screen bg-stone-100 flex flex-col font-sans text-stone-900">
       <Navbar
         language={language}
         setLanguage={setLanguage}
@@ -694,6 +695,15 @@ export const App: React.FC = () => {
           />
         ) : (
           <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+            <HeroBanner
+              title={tr.heroTitle}
+              subtitle={tr.heroSubtitle}
+              primaryLabel={tr.heroCta}
+              onPrimary={() => document.getElementById('step-tree')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              secondaryLabel={tr.heroSecondary}
+              onSecondary={() => navigateTo('/guides')}
+            />
+
             <SiteConditionsBar
               language={language}
               selectedSoil={selectedSoil}
@@ -707,6 +717,7 @@ export const App: React.FC = () => {
               onSelectTreeAge={setTreeAge}
             />
 
+            <div id="step-tree" className="scroll-mt-24" />
             <StarTreeSelector
               language={language}
               selectedSoil={selectedSoil}
@@ -814,8 +825,8 @@ export const App: React.FC = () => {
         </React.Suspense>
       )}
 
-      <footer className="mt-12 py-6 border-t border-stone-200 bg-white text-xs text-stone-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+      <footer className="mt-16 pb-8 px-3 sm:px-6 lg:px-8 text-xs text-stone-500">
+        <div className="max-w-7xl mx-auto rounded-[28px] bg-white px-6 py-6 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <p>
             {tr.footerText}
           </p>
@@ -826,7 +837,7 @@ export const App: React.FC = () => {
                 e.preventDefault();
                 navigateTo('/');
               }}
-              className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+              className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
             >
               {tr.navPlanner}
             </a>
@@ -837,7 +848,7 @@ export const App: React.FC = () => {
                 e.preventDefault();
                 navigateTo('/garten');
               }}
-              className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+              className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
             >
               {tr.navGarden}
             </a>
@@ -848,7 +859,7 @@ export const App: React.FC = () => {
                 e.preventDefault();
                 navigateTo('/guides');
               }}
-              className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+              className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
             >
               {tr.navGuides}
             </a>
@@ -859,7 +870,7 @@ export const App: React.FC = () => {
                 e.preventDefault();
                 navigateTo('/credits');
               }}
-              className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+              className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
             >
               {tr.photoCreditsTitle}
             </a>
@@ -872,7 +883,7 @@ export const App: React.FC = () => {
                     e.preventDefault();
                     navigateTo('/impressum');
                   }}
-                  className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+                  className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
                 >
                   {tr.impressumLink}
                 </a>
@@ -887,7 +898,7 @@ export const App: React.FC = () => {
                     e.preventDefault();
                     navigateTo('/datenschutz');
                   }}
-                  className="text-stone-500 hover:text-forest-700 underline font-medium transition-colors"
+                  className="text-stone-500 hover:text-stone-900 font-medium transition-colors"
                 >
                   {tr.appPrivacyLink}
                 </a>

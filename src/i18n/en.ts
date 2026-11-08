@@ -1669,4 +1669,11 @@ export const en = {
   geoRefInvalid: 'Please enter valid coordinates (latitude −85…85, longitude −180…180).',
   geoRefExport: 'Export GeoJSON',
   geoRefCancel: 'Cancel',
+
+  // Hero
+  heroTitle: 'Plant guilds built on evidence, not folklore',
+  heroSubtitle: 'Pick a tree, add companions by what they do, and get a metric planting plan that flags bad combinations.',
+  heroCta: 'Choose your tree',
+  heroGuidesTitle: 'The science behind every guild',
+  heroSecondary: 'Read the guides',
 };
