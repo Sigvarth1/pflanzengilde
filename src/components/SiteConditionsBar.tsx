@@ -183,14 +183,14 @@ export const SiteConditionsBar: React.FC<SiteConditionsBarProps> = ({
 
               <div className="relative z-10 flex items-center justify-between gap-1 mb-2 w-full">
                 {treePrefers ? (
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/90 text-[11px] text-emerald-800 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-                    <span>{tr.soilOptimal}</span>
+                  <span title={tr.soilOptimal} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/90 text-[11px] text-emerald-800 font-medium whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0" />
+                    <span>{tr.soilChipGood}</span>
                   </span>
                 ) : treeStruggles ? (
-                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/90 text-[11px] text-rose-800 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-rose-600" />
-                    <span>{tr.soilUnsuitable}</span>
+                  <span title={tr.soilUnsuitable} className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/90 text-[11px] text-rose-800 font-medium whitespace-nowrap">
+                    <span className="w-1.5 h-1.5 rounded-full bg-rose-600 shrink-0" />
+                    <span>{tr.soilChipBad}</span>
                   </span>
                 ) : (
                   <span />
@@ -211,7 +211,8 @@ export const SiteConditionsBar: React.FC<SiteConditionsBarProps> = ({
                   {soil.label}
                 </div>
                 <div
-                  className={`text-[11px] line-clamp-1 mt-0.5 ${
+                  title={soil.ph}
+                  className={`text-[11px] leading-snug line-clamp-2 mt-0.5 ${
                     isSelected ? 'text-forest-800 font-medium' : 'text-stone-600 font-medium'
                   }`}
                 >

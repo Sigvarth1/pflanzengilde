@@ -237,11 +237,11 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
         <div className="space-y-2">
           <Badge tone="amber"><Fence className="w-3 h-3" />{g(L('Raised beds', 'Hochbeete'))}</Badge>
           <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">{g(L('Building raised beds', 'Hochbeete bauen'))}</h2>
-          <p className="text-sm text-stone-600 leading-relaxed">{g(L('Ways to build a raised bed, what each method is good for, and what the planner assumes when you draw a bed in the garden grid. Numbers in brackets refer to the sources at the bottom.', 'Wege, ein Hochbeet zu bauen, wofür sich jede Bauweise eignet und wovon der Planer ausgeht, wenn du im Gartenraster ein Beet zeichnest. Zahlen in Klammern verweisen auf die Quellen unten.'))}</p>
+          <p className="text-sm text-stone-600 leading-relaxed max-w-[34rem]">{g(L('Ways to build a raised bed, what each method is good for, and what the planner assumes when you draw a bed in the garden grid. Numbers in brackets refer to the sources at the bottom.', 'Wege, ein Hochbeet zu bauen, wofür sich jede Bauweise eignet und wovon der Planer ausgeht, wenn du im Gartenraster ein Beet zeichnest. Zahlen in Klammern verweisen auf die Quellen unten.'))}</p>
         </div>
         <div className="rounded-2xl bg-white/80 border border-stone-200 p-2">
           <BedCrossSection language={language} className="w-full h-auto" />
-          <p className="text-[11px] text-stone-400 text-center">{g(L('Schematic; values from the sections below', 'Schema; Werte aus den Abschnitten unten'))} <SourceRefs ns={[5, 18, 19, 20, 21]} /></p>
+          <p className="text-[11px] text-stone-500 text-center">{g(L('Schematic; values from the sections below', 'Schema; Werte aus den Abschnitten unten'))} <SourceRefs ns={[5, 18, 19, 20, 21]} /></p>
         </div>
       </div>
 
@@ -348,7 +348,7 @@ export const RaisedBedGuide: React.FC<{ language: Language }> = ({ language }) =
         <div className="flex flex-wrap gap-2">
           {ratingCounts.map(({ k, n }) => (
             <span key={k} className="inline-flex items-center gap-1.5 rounded-full bg-stone-50 border border-stone-200 px-2.5 py-1 text-xs font-semibold text-stone-700">
-              <span className={`w-2.5 h-2.5 rounded-full ${RATING_DOT[k]}`} />{g(RATING_LABEL[k])}<span className="text-stone-400">{n}</span>
+              <span className={`w-2.5 h-2.5 rounded-full ${RATING_DOT[k]}`} />{g(RATING_LABEL[k])}<span className="text-stone-500">{n}</span>
             </span>
           ))}
         </div>
@@ -531,7 +531,7 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
         <div className="rounded-2xl border border-stone-200 p-4 space-y-3 bg-white">
           <div className="flex items-center gap-2"><CalendarRange className="w-4 h-4 text-forest-700" /><span className="text-sm font-bold text-stone-900">{g(L('Different times, same ground', 'Verschiedene Zeiten, gleicher Boden'))}</span></div>
           <SeasonTimeline language={language} />
-          <p className="text-[11px] text-stone-400">{g(L('Schematic months for Central Europe', 'Schematische Monate für Mitteleuropa'))}</p>
+          <p className="text-[11px] text-stone-500">{g(L('Schematic months for Central Europe', 'Schematische Monate für Mitteleuropa'))}</p>
           <p className="text-sm text-stone-700">{g(L('Plants that use the ground at different times overlap: spring bulbs under summer covers (by analogy with woodland spring flowers), as long as the cover is at most half as tall as the bulb flower (a rule of thumb from bulb growers, not a measured threshold); winter covers with summer covers (planning judgement), except subterranean clover next to a closed carpet, which competes with its reseeding.', 'Pflanzen, die den Boden zu verschiedenen Zeiten nutzen, überlappen: Frühjahrszwiebeln unter Sommerbodendeckern (in Analogie zu Frühjahrsblühern im Wald), solange der Bodendecker höchstens halb so hoch ist wie die Zwiebelblüte (Faustregel aus dem Zwiebelhandel, kein gemessener Schwellenwert); Winter- mit Sommerbegrünung (Planungsentscheidung), außer Bodenfrüchtigem Klee neben einem geschlossenen Teppich, der mit seiner Selbstaussaat konkurriert.'))}</p>
         </div>
 
@@ -563,7 +563,7 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
                       <Badge tone="stone">{g(EVIDENCE_LABEL[r.evidence])}</Badge>
                     </div>
                     <p className="text-xs text-stone-600 leading-snug">{g(r.reason)}</p>
-                    <p className="text-[11px] text-stone-400">{r.sources.map(src => src.split(' (')[0].split('.')[0] + (src.match(/\((\d{4}|n\.d\.)\)/)?.[0] ? ` ${src.match(/\((\d{4}|n\.d\.)\)/)?.[0]}` : '')).join('; ')}</p>
+                    <p className="text-[11px] text-stone-500">{r.sources.map(src => src.split(' (')[0].split('.')[0] + (src.match(/\((\d{4}|n\.d\.)\)/)?.[0] ? ` ${src.match(/\((\d{4}|n\.d\.)\)/)?.[0]}` : '')).join('; ')}</p>
                   </div>
                 </div>
               );

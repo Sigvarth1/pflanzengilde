@@ -31,6 +31,11 @@
     letter-spacing: -0.03em;
   }
 
+  ::placeholder {
+    color: #716754;
+    opacity: 1;
+  }
+
   ::selection {
     background: #c9d9b8;
     color: var(--ink);

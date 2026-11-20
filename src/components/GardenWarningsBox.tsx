@@ -92,9 +92,9 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
       <div role="button" tabIndex={0} aria-expanded={isOpen('card')} onClick={() => toggle('card')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('card'); } }} className="cursor-pointer select-none flex items-center justify-between pb-3 border-b border-stone-100">
         <div className="flex items-center gap-2"><CollapseChevron open={isOpen('card')} />
           <ShieldCheck className="w-5 h-5 text-forest-700" />
-          <h3 className="text-sm font-bold text-stone-900">
+          <h2 className="text-sm font-bold text-stone-900">
             {tr.gardenWarningsTitle}
-          </h3>
+          </h2>
         </div>
         {conflicts.length > 0 ? (
           <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200">
@@ -113,7 +113,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
       <div className="space-y-2.5">
         <div role="button" tabIndex={0} aria-expanded={isOpen('compat')} onClick={() => toggle('compat')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('compat'); } }} className="cursor-pointer select-none text-xs font-bold text-stone-700 flex items-center justify-between">
           <span className="flex items-center gap-1.5"><CollapseChevron open={isOpen('compat')} />{tr.gardenWarningsCompatHeading}</span>
-          <span className="text-[11px] font-normal text-stone-400">
+          <span className="text-[11px] font-normal text-stone-500">
             {conflicts.length} {tr.gardenWarningsDetected}
           </span>
         </div>
@@ -269,7 +269,7 @@ export const GardenWarningsBox: React.FC<GardenWarningsBoxProps> = ({
               <Sprout className="w-3 h-3" />
               <span>Auto: {autoShadeEnabled ? tr.gardenWarningsOn : tr.gardenWarningsOff}</span>
             </button>
-            <span className="text-[11px] font-normal text-stone-400">
+            <span className="text-[11px] font-normal text-stone-500">
               {shadePockets.length} {tr.gardenWarningsOverlaps}
             </span>
           </div>

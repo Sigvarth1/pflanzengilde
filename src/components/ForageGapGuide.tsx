@@ -93,7 +93,7 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
           <Flower2 className="w-3 h-3" />{g(L('Bumblebees', 'Hummeln'))}
         </span>
         <h2 className="text-2xl font-extrabold text-stone-900 tracking-tight">{g(L('Closing forage gaps: flowers for bumblebees all year', 'Trachtlücken schließen: Blüten für Hummeln das ganze Jahr'))}</h2>
-        <p className="text-sm text-stone-600 leading-relaxed max-w-3xl">
+        <p className="text-sm text-stone-600 leading-relaxed max-w-[34rem]">
           {g(L(
             'Bumblebee colonies need nectar and pollen across their entire flight season [1]. Research on farmland found stretches of the year when supply falls short. This guide shows where, and how to check your own planting for the same holes. Numbers in brackets refer to the sources at the bottom.',
             'Hummelvölker brauchen während ihrer gesamten Flugzeit Nektar und Pollen [1]. Forschung auf Agrarland fand Zeiten im Jahr, in denen das Angebot nicht reicht. Dieser Leitfaden zeigt, wann, und wie du deine eigene Pflanzung auf dieselben Lücken prüfst. Zahlen in Klammern verweisen auf die Quellen unten.'
@@ -138,7 +138,7 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
                   <Badge tone="sky">{g(L('Evidence: moderate', 'Evidenz: moderat'))}</Badge>
                 </div>
                 {c.visual && <div className="rounded-xl bg-stone-50 border border-stone-100 p-2"><ForageGapTimeline language={language} /></div>}
-                <p className="text-sm text-stone-700 leading-relaxed">{g(c.text)} <Refs ns={c.refs} /></p>
+                <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">{g(c.text)} <Refs ns={c.refs} /></p>
                 <p className="mt-auto text-xs text-stone-600 leading-relaxed flex gap-1.5">
                   <Info className="w-3.5 h-3.5 shrink-0 mt-0.5 text-stone-400" />
                   <span><strong>{g(L('Limits: ', 'Grenzen: '))}</strong>{g(c.limit)}</span>
@@ -193,7 +193,7 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
 
       <div id="forage-gaps-check" className="rounded-2xl bg-white border border-stone-200 p-5 space-y-2 scroll-mt-24">
         <h3 className="flex items-center gap-2 font-bold text-stone-900"><Link2 className="w-4 h-4 text-forest-600" />{g(L('Check your own planting', 'Prüfe deine eigene Pflanzung'))}</h3>
-        <p className="text-sm text-stone-700 leading-relaxed">
+        <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
           {g(L(
             'The guild planner flags a "Pollinator Magnet" season with no flowering companion (early spring, late spring, summer, autumn) and suggests plants for it. Use it to see whether your guild has a hole in the seasons above. The check is a coarse planner heuristic; it is not itself backed by the studies cited here.',
             'Der Gilden-Planer meldet eine „Bestäuber- & Nützlingsmagnet“-Jahreszeit ohne blühende Begleitpflanze (Vorfrühling, Spätfrühling, Sommer, Herbst) und schlägt Pflanzen dafür vor. So siehst du, ob deine Gilde in den obigen Jahreszeiten eine Lücke hat. Die Prüfung ist eine grobe Planer-Heuristik; sie selbst wird von den hier zitierten Studien nicht gestützt.'

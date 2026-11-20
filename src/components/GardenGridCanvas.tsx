@@ -511,7 +511,7 @@ export const GardenGridCanvas: React.FC<GardenGridCanvasProps> = ({
             <span className="w-2.5 h-2.5 rounded-full bg-forest-600" />
             {tr.gardenGridTitle}
           </span>
-          <span className="text-[11px] text-stone-400 font-mono hidden sm:inline">
+          <span className="text-[11px] text-stone-500 font-mono hidden sm:inline">
             {tr.gardenGridScaleHint}
           </span>
         </div>

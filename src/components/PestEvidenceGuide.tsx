@@ -121,7 +121,7 @@ export const PestEvidenceGuide: React.FC<{ language: Language }> = ({ language }
         <h2 className="text-2xl font-bold text-stone-900">
           {tr.pestEvidenceTitle}
         </h2>
-        <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+        <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
           {tr.pestEvidenceIntro}
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4">

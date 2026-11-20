@@ -1236,7 +1236,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                   <div className="font-bold text-sm text-forest-300 leading-snug truncate">
                     {getLoc(plant.commonName, language)}
                   </div>
-                  <div className="text-[11px] text-stone-400 italic truncate">
+                  <div className="text-[11px] text-stone-500 italic truncate">
                     {plant.botanicalName}
                   </div>
                   <div className="text-[11px] text-stone-300 mt-0.5">
@@ -1278,7 +1278,7 @@ export const GardenPlanCanvas: React.FC<GardenPlanCanvasProps> = ({
                     </span>
                   ))}
                 </div>
-                <p className="mt-1 text-[11px] text-stone-400 leading-tight">
+                <p className="mt-1 text-[11px] text-stone-500 leading-tight">
                   {getLoc(plant.notes, language)}
                 </p>
               </div>

@@ -27,7 +27,7 @@ export const GoogleImagesButton: React.FC<GoogleImagesButtonProps> = ({
       onClick={(e) => e.stopPropagation()}
       title={title}
       aria-label={accessibleLabel}
-      className={`inline-flex items-center gap-1 text-[11px] font-medium transition-colors cursor-pointer select-none ${
+      className={`inline-flex items-center gap-1 text-[11px] font-medium transition-colors cursor-pointer select-none py-1 -my-1 ${
         iconOnly
           ? 'p-1 rounded-md text-stone-500 hover:text-forest-700 hover:bg-forest-50'
           : 'px-2 py-1 rounded-lg bg-stone-100 hover:bg-forest-50 text-stone-600 hover:text-forest-800 border border-stone-200 hover:border-forest-200'

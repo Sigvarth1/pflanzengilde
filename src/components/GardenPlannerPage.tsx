@@ -928,7 +928,8 @@ export const GardenPlannerPage: React.FC<GardenPlannerPageProps> = ({
   }, [handleExportPdf, handleExportJson, handleExportCalendar, handleResetGarden, handleExportDesign, handleOpenGeoJson]);
 
   return (
-    <div className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5 space-y-3">
+    <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-3 sm:py-5 space-y-3">
+      <h1 className="sr-only">{tr.gardenGridTitle}</h1>
       {toast && (
         <div
           className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl shadow-lg border text-sm flex items-center space-x-2 transition ${
@@ -1081,6 +1082,6 @@ export const GardenPlannerPage: React.FC<GardenPlannerPageProps> = ({
           infrastructure={infrastructure}
         />
       )}
-    </div>
+    </main>
   );
 };

@@ -130,7 +130,7 @@ export const SpacingWarningBanner: React.FC<SpacingWarningBannerProps> = ({
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: pA.color }} />
                     <span>{getLoc(pA.commonName, language)}</span>
                   </span>
-                  <span className="text-stone-400 font-normal">✕</span>
+                  <span className="text-stone-500 font-normal">✕</span>
                   <span className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: pB.color }} />
                     <span>{getLoc(pB.commonName, language)}</span>

@@ -62,6 +62,8 @@ export const en = {
   soilOptimal: 'Optimal for your soil',
   soilTolerant: 'Tolerant in your soil',
   soilUnsuitable: 'Caution: Struggles in this soil',
+  soilChipGood: 'Suits the tree',
+  soilChipBad: 'Struggles',
   soilTreeOnSoil: '{tree} on {soil}',
   soilMoundAdvisory: 'Recommendation: Plant on a 30–50 cm raised mound/berm to protect root collar from waterlogging.',
   soilCalcifugeAlert: 'Calcifuge warning: High lime/calcium causes severe chlorosis. Requires acidic amendments or container culture.',

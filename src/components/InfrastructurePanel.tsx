@@ -81,7 +81,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
         <CollapseChevron open={isOpen('card')} className="w-4 h-4 text-stone-400 shrink-0" />
         <Fence className="w-4 h-4 text-forest-600" strokeWidth={1.75} />
         <div>
-          <h3 className="text-sm font-bold text-stone-900">{tr.infraTitle}</h3>
+          <h2 className="text-sm font-bold text-stone-900">{tr.infraTitle}</h2>
           <p className="text-[11px] text-stone-500">{tr.infraSubtitle}</p>
         </div>
       </div>
@@ -102,7 +102,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
             <button type="button" className="font-semibold text-stone-800 cursor-pointer" onClick={() => onSelectShape('outline')} title={tr.infraSelect}>
               {label(infrastructure.outline.kind === 'POLYGON' ? 'LASSO' : infrastructure.outline.kind)} · {area(infrastructure.outline)}
             </button>
-            <button type="button" onClick={() => onDeleteShape('outline')} className="text-stone-400 hover:text-rose-600 cursor-pointer" title={tr.infraDelete}>
+            <button type="button" onClick={() => onDeleteShape('outline')} className="text-stone-500 hover:text-rose-600 cursor-pointer" title={tr.infraDelete}>
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -140,7 +140,7 @@ export const InfrastructurePanel: React.FC<InfrastructurePanelProps> = ({
                   />
                   cm
                 </label>
-                <button type="button" onClick={() => onDeleteShape(b.id)} className="text-stone-400 hover:text-rose-600 cursor-pointer" title={tr.infraDelete}>
+                <button type="button" onClick={() => onDeleteShape(b.id)} className="text-stone-500 hover:text-rose-600 cursor-pointer" title={tr.infraDelete}>
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </li>

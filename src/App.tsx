@@ -588,7 +588,7 @@ export const App: React.FC = () => {
               showActionBtn={true}
               actionUrl={`https://pflanzengilde.de/garten/?garden=${gardenCode}`}
             />
-            <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-400">
+            <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-500">
               {Impressum && (
                 <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
                   {embedTr.impressumLink}
@@ -615,7 +615,7 @@ export const App: React.FC = () => {
             showActionBtn={true}
             actionUrl={`https://pflanzengilde.de/?tree=${selectedTree.id}`}
           />
-          <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-400">
+          <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-500">
             {Impressum && (
               <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
                 {tr.impressumLink}
@@ -694,6 +694,7 @@ export const App: React.FC = () => {
           />
         ) : (
           <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+            <h1 className="sr-only">{tr.embedCardTagline}</h1>
             <SiteConditionsBar
               language={language}
               selectedSoil={selectedSoil}

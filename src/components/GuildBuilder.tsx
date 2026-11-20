@@ -499,7 +499,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                     />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-semibold text-[13px] text-stone-900 truncate">{localizedName}</span>
+                        <span className="font-semibold text-[13px] leading-snug text-stone-900 line-clamp-2">{localizedName}</span>
                         {activePestFilter && activePestFilter.plantIds.includes(plant.id) && (
                           <span
                             className="px-1.5 py-0.5 rounded-md bg-emerald-50 text-emerald-900 text-[11px] font-medium flex items-center gap-0.5"
@@ -632,7 +632,7 @@ export const GuildBuilder: React.FC<GuildBuilderProps> = ({
                   <button
                     type="button"
                     onClick={() => onOpenPlantModal(plant)}
-                    className="text-stone-600 hover:text-forest-700 underline font-medium"
+                    className="text-stone-600 hover:text-forest-700 underline font-medium py-1.5 -my-1.5 px-1 -mx-1"
                   >
                     {tr.details}
                   </button>

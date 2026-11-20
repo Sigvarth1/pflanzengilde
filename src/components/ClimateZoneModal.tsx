@@ -163,7 +163,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+            className="p-1.5 sm:p-2 rounded-xl text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
             aria-label={tr.closeBtn}
           >
             <X className="w-5 h-5" />
@@ -189,7 +189,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
                 >
                   {displayRegion.usda}
                 </span>
-                <span className="text-xs text-stone-400 font-mono shrink-0 hidden sm:inline">
+                <span className="text-xs text-stone-500 font-mono shrink-0 hidden sm:inline">
                   {getLoc(displayRegion.latRange, language)}
                 </span>
               </div>
@@ -203,7 +203,7 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
           <div className="flex items-center gap-2 shrink-0 border-t md:border-t-0 md:border-l border-stone-800 pt-2 md:pt-0 md:pl-4">
             <Compass className="w-4 h-4 text-forest-300 shrink-0" />
             <div className="text-xs">
-              <div className="text-[11px] sm:text-xs text-stone-400 font-medium whitespace-nowrap">
+              <div className="text-[11px] sm:text-xs text-stone-500 font-medium whitespace-nowrap">
                 {tr.hemisphereDerivedNote}
               </div>
               <div className="font-bold text-stone-200 whitespace-nowrap">
@@ -214,12 +214,12 @@ export const ClimateZoneModal: React.FC<ClimateZoneModalProps> = ({
         </div>
 
         <div className="bg-stone-950 rounded-xl sm:rounded-2xl p-2 sm:p-3 border border-stone-800 shadow-inner relative overflow-hidden">
-          <div className="flex items-center justify-between text-xs text-stone-400 mb-1.5 px-2">
+          <div className="flex items-center justify-between text-xs text-stone-500 mb-1.5 px-2">
             <span className="font-semibold text-stone-300 flex items-center gap-1.5 text-[11px] sm:text-xs">
               <Globe className="w-3.5 h-3.5 text-forest-400" />
               {tr.worldMapTitle}
             </span>
-            <span className="text-[11px] sm:text-xs text-stone-400 font-mono">
+            <span className="text-[11px] sm:text-xs text-stone-500 font-mono">
               {tr.mapRegionHoverHint}
             </span>
           </div>

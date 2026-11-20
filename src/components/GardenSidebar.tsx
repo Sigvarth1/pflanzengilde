@@ -151,9 +151,9 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
         <div role="button" tabIndex={0} aria-expanded={isOpen('card')} onClick={() => toggle('card')} onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle('card'); } }} className="cursor-pointer select-none flex items-center justify-between pb-3 border-b border-stone-100">
           <div className="flex items-center gap-2"><CollapseChevron open={isOpen('card')} />
             <Trees className="w-5 h-5 text-forest-700" />
-            <h3 className="text-sm font-semibold text-stone-900">
+            <h2 className="text-sm font-semibold text-stone-900">
               {tr.gardenSidebarTitle}
-            </h3>
+            </h2>
           </div>
           <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-forest-50 text-forest-800 border border-forest-200">
             {starPlants.length} {tr.gardenSidebarInPlan}
@@ -246,7 +246,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                     </div>
                     <div className="text-[11px] text-stone-500 flex items-center justify-between w-full">
                       <span className="italic truncate">{tmpl.sourceName}</span>
-                      <span className="font-mono text-stone-400">r={tmpl.starTree.matureRadiusM}m</span>
+                      <span className="font-mono text-stone-500">r={tmpl.starTree.matureRadiusM}m</span>
                     </div>
                   </button>
                 ))
@@ -268,7 +268,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
 {isOpen('stars') && (<>
 
           {starPlants.length === 0 ? (
-            <div className="p-3 text-center text-xs text-stone-400 bg-stone-50 rounded-xl border border-stone-100">
+            <div className="p-3 text-center text-xs text-stone-500 bg-stone-50 rounded-xl border border-stone-100">
               {tr.gardenSidebarNoStarPlants}
             </div>
           ) : (
@@ -327,7 +327,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <button
                           type="button"
                           onClick={() => onOpenPlantDetailModal?.(starTreeToGuildPlant(tree))}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-forest-700 hover:bg-forest-50 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg text-stone-500 hover:text-forest-700 hover:bg-forest-50 transition-colors cursor-pointer"
                           title={tr.gardenSidebarViewDetails}
                         >
                           <Info className="w-3.5 h-3.5" />
@@ -335,7 +335,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <button
                           type="button"
                           onClick={() => toggleTreeSpecies(tree.id)}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
                           title={tr.gardenSidebarToggleInstances}
                         >
                           {isExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
@@ -361,7 +361,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                               }`}
                             >
                               <div className="flex items-center gap-1.5 min-w-0">
-                                <span className="font-mono text-[11px] text-stone-400 font-bold">#{idx + 1}</span>
+                                <span className="font-mono text-[11px] text-stone-500 font-bold">#{idx + 1}</span>
                                 <span className="font-mono text-[11px] text-stone-600">
                                   ({inst.xM > 0 ? `+${inst.xM}` : inst.xM}m, {inst.yM > 0 ? `+${inst.yM}` : inst.yM}m)
                                 </span>
@@ -371,7 +371,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onDuplicateStarPlant(inst.instanceId)}
-                                  className="p-1 rounded text-stone-400 hover:text-stone-700 hover:bg-stone-200 cursor-pointer"
+                                  className="p-1 rounded text-stone-500 hover:text-stone-700 hover:bg-stone-200 cursor-pointer"
                                   title={tr.gardenSidebarDuplicate}
                                 >
                                   <Copy className="w-3 h-3" />
@@ -379,7 +379,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onRemoveStarPlant(inst.instanceId)}
-                                  className="p-1 rounded text-stone-400 hover:text-rose-600 hover:bg-rose-50 cursor-pointer"
+                                  className="p-1 rounded text-stone-500 hover:text-rose-600 hover:bg-rose-50 cursor-pointer"
                                   title={tr.gardenSidebarRemove}
                                 >
                                   <Trash2 className="w-3 h-3" />
@@ -411,7 +411,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
 {isOpen('companions') && (<>
 
           {companions.length === 0 ? (
-            <div className="p-3 text-center text-xs text-stone-400 bg-stone-50 rounded-xl border border-stone-100">
+            <div className="p-3 text-center text-xs text-stone-500 bg-stone-50 rounded-xl border border-stone-100">
               {tr.gardenSidebarNoCompanions}
             </div>
           ) : (
@@ -464,7 +464,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <button
                           type="button"
                           onClick={() => onOpenPlantDetailModal?.(plant)}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-forest-700 hover:bg-forest-50 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg text-stone-500 hover:text-forest-700 hover:bg-forest-50 transition-colors cursor-pointer"
                           title={tr.gardenSidebarViewDetails}
                         >
                           <Info className="w-3.5 h-3.5" />
@@ -472,7 +472,7 @@ export const GardenSidebar: React.FC<GardenSidebarProps> = ({
                         <button
                           type="button"
                           onClick={() => toggleCompanionSpecies(plant.id)}
-                          className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+                          className="p-1.5 rounded-lg text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
                           title={tr.gardenSidebarToggleCoords}
                         >
                           {isExpanded ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}

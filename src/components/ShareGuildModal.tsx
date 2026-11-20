@@ -145,7 +145,7 @@ export const ShareGuildModal: React.FC<ShareGuildModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+            className="p-1.5 rounded-xl text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
             aria-label={tr.closeBtn}
           >
             <X className="w-5 h-5" />

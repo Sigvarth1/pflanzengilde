@@ -125,7 +125,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                     className="w-full text-left px-3 py-2 text-xs text-stone-700 hover:bg-stone-100 hover:text-stone-900 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                   >
                     <span className="font-semibold">{tr.presetApple}</span>
-                    <span className="text-[11px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetAppleSub}</span>
+                    <span className="text-[11px] text-stone-500 bg-stone-100 px-1.5 py-0.5 rounded">{tr.presetAppleSub}</span>
                   </button>
                   <button
                     type="button"
@@ -386,7 +386,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                       )}
                     </div>
                   </div>
-                  <div className="font-semibold text-[13px] text-stone-900 line-clamp-1">
+                  <div className="font-semibold text-[13px] leading-snug text-stone-900 line-clamp-2">
                     {localizedName}
                   </div>
                   <div className="text-[11px] text-stone-500 italic line-clamp-1">
@@ -462,7 +462,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
         <div className="md:col-span-5 space-y-2 border-t md:border-t-0 md:border-l border-stone-200 pt-3 md:pt-0 md:pl-4 text-xs">
           <div className="grid grid-cols-2 gap-2">
             <div className="p-2 rounded-lg bg-white border border-stone-200/80 space-y-0.5">
-              <div className="text-[11px] text-stone-400 font-semibold flex items-center gap-1 ">
+              <div className="text-[11px] text-stone-500 font-semibold flex items-center gap-1 ">
                 <Sun className="w-3 h-3 text-amber-500" />
                 {tr.lightPref}
               </div>
@@ -471,7 +471,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
               </div>
             </div>
             <div className="p-2 rounded-lg bg-white border border-stone-200/80 space-y-0.5">
-              <div className="text-[11px] text-stone-400 font-semibold flex items-center gap-1 ">
+              <div className="text-[11px] text-stone-500 font-semibold flex items-center gap-1 ">
                 <Droplet className="w-3 h-3 text-blue-500" />
                 {tr.rootHabit}
               </div>
@@ -487,7 +487,7 @@ export const StarTreeSelector: React.FC<StarTreeSelectorProps> = ({
                 <Bug className="w-3 h-3 text-rose-500" />
                 {tr.keyPests}
               </span>
-              <span className="text-[11px] text-stone-400 lowercase font-normal">
+              <span className="text-[11px] text-stone-500 lowercase font-normal">
                 {tr.starSelectorClickToFilterDefense}
               </span>
             </div>

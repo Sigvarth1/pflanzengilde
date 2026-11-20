@@ -161,6 +161,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   onClick={() => setOpenMenu(prev => prev === 'export' ? null : 'export')}
                   aria-expanded={openMenu === 'export'}
+                  aria-label={tr.exportMenu}
                   className="h-9 px-3 sm:px-4 rounded-lg bg-forest-700 text-cream text-sm font-medium hover:bg-forest-800 flex items-center gap-2 transition-colors cursor-pointer"
                 >
                   <Download className="w-4 h-4 shrink-0" strokeWidth={1.75} />

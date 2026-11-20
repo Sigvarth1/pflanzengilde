@@ -92,7 +92,7 @@ export const GuildEmbedCard: React.FC<GuildEmbedCardProps> = ({
               </span>
             ))}
             {selectedPlants.length > 4 && (
-              <span className="px-1.5 py-0.5 rounded-md bg-stone-800/80 text-[11px] text-stone-400 font-medium">
+              <span className="px-1.5 py-0.5 rounded-md bg-stone-800/80 text-[11px] text-stone-500 font-medium">
                 +{selectedPlants.length - 4} {tr.embedCardMore}
               </span>
             )}
@@ -114,7 +114,7 @@ export const GuildEmbedCard: React.FC<GuildEmbedCardProps> = ({
             <div className="text-lg sm:text-xl font-bold tracking-tight text-white leading-snug group-hover:text-forest-300 transition-colors">
               Pflanzengilde<span className="text-emerald-400">.de</span>
             </div>
-            <div className="text-[11px] sm:text-xs text-stone-400 font-medium">
+            <div className="text-[11px] sm:text-xs text-stone-500 font-medium">
               {tr.embedCardTagline}
             </div>
           </div>

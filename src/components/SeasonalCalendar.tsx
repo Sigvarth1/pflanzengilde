@@ -74,7 +74,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
       <div className="overflow-x-auto -mx-5 sm:mx-0">
         <table className="w-full min-w-[640px] text-left text-xs border-collapse">
           <thead>
-            <tr className="border-b border-stone-200 text-stone-400">
+            <tr className="border-b border-stone-200 text-stone-500">
               <th className="sticky left-0 z-10 bg-white py-2 pl-5 sm:pl-3 pr-3 font-medium text-stone-600 w-40 sm:w-48">{tr.functionalRole}</th>
               {PHENO_SEASONS.map(s => (
                 <th
@@ -84,7 +84,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                   }`}
                 >
                   <div className="font-semibold">{getLoc(s.label, language)}</div>
-                  <div className="text-[11px] text-stone-400 font-normal">{getLoc(s.months, language)}</div>
+                  <div className="text-[11px] text-stone-500 font-normal">{getLoc(s.months, language)}</div>
                 </th>
               ))}
             </tr>
@@ -96,7 +96,7 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                 <tr key={rs.role}>
                   <td className="sticky left-0 z-10 bg-white py-3 pl-5 sm:pl-3 pr-3 font-medium text-stone-800">
                     <div>{getLoc(rs.displayName, language)}</div>
-                    <div className="text-[11px] text-stone-400 font-normal">
+                    <div className="text-[11px] text-stone-500 font-normal">
                       {hasAnyPlant ? translateRole(rs.role, language) : tr.noPlantChosenYet}
                     </div>
                   </td>
@@ -172,12 +172,12 @@ export const SeasonalCalendar: React.FC<SeasonalCalendarProps> = ({
                                   className={`w-6 h-6 rounded-full border flex items-center justify-center font-bold text-xs transition-colors ${
                                     isCellFiltered
                                       ? 'bg-amber-100 text-amber-800 border-amber-300'
-                                      : 'bg-stone-100 text-stone-400 border-stone-200 group-hover:border-forest-400 group-hover:bg-forest-50 group-hover:text-forest-700'
+                                      : 'bg-stone-100 text-stone-500 border-stone-200 group-hover:border-forest-400 group-hover:bg-forest-50 group-hover:text-forest-700'
                                   }`}
                                 >
                                   <Plus className="w-3 h-3 text-stone-400 group-hover:text-forest-600" />
                                 </span>
-                                <span className="text-[11px] text-stone-400 group-hover:text-forest-700 font-medium mt-0.5">
+                                <span className="text-[11px] text-stone-500 group-hover:text-forest-700 font-medium mt-0.5">
                                   —
                                 </span>
                               </button>

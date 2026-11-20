@@ -180,7 +180,7 @@ export const GardenEmbedCard: React.FC<GardenEmbedCardProps> = ({
               <Grid className="w-3 h-3" />
               <span>{tr.shareGardenMultiGuildPlan}</span>
             </span>
-            <span className="text-[11px] text-stone-400 font-mono">
+            <span className="text-[11px] text-stone-500 font-mono">
               {soil} • {zone}
             </span>
           </div>
@@ -222,7 +222,7 @@ export const GardenEmbedCard: React.FC<GardenEmbedCardProps> = ({
               </span>
             ))}
             {uniqueCompanions.length > 6 && (
-              <span className="px-2 py-0.5 rounded-md bg-stone-800 text-[11px] text-stone-400">
+              <span className="px-2 py-0.5 rounded-md bg-stone-800 text-[11px] text-stone-500">
                 +{uniqueCompanions.length - 6} {tr.embedCardMore}
               </span>
             )}
@@ -376,7 +376,7 @@ export const ShareGardenModal: React.FC<ShareGardenModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
+            className="p-1.5 rounded-xl text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors cursor-pointer"
             aria-label={tr.closeBtn}
           >
             <X className="w-5 h-5" />

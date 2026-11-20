@@ -53,7 +53,7 @@ const CreditList: React.FC<{ title: string; rows: CreditRow[]; tr: Tr }> = ({ ti
   return (
     <section className="space-y-2">
       <h2 className="text-sm font-bold text-stone-500">
-        {title} <span className="font-medium text-stone-400">({rows.length})</span>
+        {title} <span className="font-medium text-stone-500">({rows.length})</span>
       </h2>
       <ul className="divide-y divide-stone-200 rounded-2xl border border-stone-200 bg-white">
         {rows.map(({ key, anchor, name, latin, credit }) => (
@@ -72,7 +72,7 @@ const CreditList: React.FC<{ title: string; rows: CreditRow[]; tr: Tr }> = ({ ti
               <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer" className={linkClass}>
                 {credit.sourceName}
               </a>
-              <span className="block text-[11px] text-stone-400 truncate" title={credit.title}>
+              <span className="block text-[11px] text-stone-500 truncate" title={credit.title}>
                 {credit.title}
               </span>
             </div>

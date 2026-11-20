@@ -62,6 +62,8 @@ export const nbPart1 = {
   soilOptimal: 'Optimal for jorda di',
   soilTolerant: 'Tåler jorda di',
   soilUnsuitable: 'Obs: Sliter i denne jorda',
+  soilChipGood: 'Passer treet',
+  soilChipBad: 'Sliter',
   soilTreeOnSoil: '{tree} på {soil}',
   soilMoundAdvisory: 'Anbefaling: Plant på en 30–50 cm høy haug/voll for å beskytte rothalsen mot vannmetning.',
   soilCalcifugeAlert: 'Advarsel for kalkskye planter: Mye kalk gir alvorlig klorose. Krever forsuring av jorda eller dyrking i krukke.',

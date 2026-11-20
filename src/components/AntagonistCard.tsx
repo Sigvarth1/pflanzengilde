@@ -62,14 +62,14 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
       header: 'bg-rose-50/90 hover:bg-rose-100/70 border-rose-200/80 text-rose-950',
       badge: 'bg-rose-600 text-white',
       icon: <AlertOctagon className="w-4 h-4 text-rose-600 shrink-0" />,
-      chevron: 'text-rose-600'
+      chevron: 'text-rose-700'
     },
     WARNING: {
       container: 'border-amber-200 bg-amber-50/20',
       header: 'bg-amber-50/90 hover:bg-amber-100/70 border-amber-200/80 text-amber-950',
       badge: 'bg-amber-600 text-white',
       icon: <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />,
-      chevron: 'text-amber-600'
+      chevron: 'text-amber-700'
     },
     INFO: {
       container: 'border-sky-200 bg-sky-50/20',
@@ -125,7 +125,7 @@ export const AntagonistCard: React.FC<AntagonistCardProps> = ({
 
             <div className="text-xs text-stone-600 font-medium mt-0.5 flex flex-wrap items-center gap-1">
               <span className="font-bold text-stone-800">{getLoc(conflict.antagonistName, language)}</span>
-              <span className="text-stone-400 italic">({conflict.antagonistBotanical})</span>
+              <span className="text-stone-500 italic">({conflict.antagonistBotanical})</span>
             </div>
           </div>
         </div>

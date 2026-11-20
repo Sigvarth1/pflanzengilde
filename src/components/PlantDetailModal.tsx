@@ -170,7 +170,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
             type="button"
             onClick={onClose}
             aria-label={tr.closeBtn}
-            className="p-1.5 sm:p-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl text-stone-500 hover:text-stone-700 hover:bg-stone-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -196,7 +196,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           </div>
         </div>
         {photoCredit && (
-          <p className="mb-4 text-[11px] sm:text-xs text-stone-400 leading-snug text-right break-words">
+          <p className="mb-4 text-[11px] sm:text-xs text-stone-500 leading-snug text-right break-words">
             {tr.photoCreditPhoto}: {photoCredit.author},{' '}
             {photoCredit.licenseUrl ? (
               <a href={photoCredit.licenseUrl} target="_blank" rel="noopener noreferrer license" className="underline hover:text-stone-600">
@@ -214,7 +214,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
         )}
 
         <div className="mb-4">
-          <label className="text-[11px] sm:text-xs font-bold text-stone-400 block mb-1.5">
+          <label className="text-[11px] sm:text-xs font-bold text-stone-500 block mb-1.5">
             {tr.modalRolesTitle}
           </label>
           <div className="flex flex-wrap gap-1 sm:gap-1.5">
@@ -240,7 +240,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-5 text-xs">
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+            <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
               <Layers className="w-3.5 h-3.5" />
               {tr.layer}
             </div>
@@ -248,7 +248,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+            <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
               <Sun className="w-3.5 h-3.5" />
               {tr.modalSector}
             </div>
@@ -256,7 +256,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+            <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
               <Shield className="w-3.5 h-3.5" />
               {tr.modalZone}
             </div>
@@ -264,17 +264,17 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5">{tr.modalSpreadHeight}</div>
+            <div className="text-stone-500 font-medium mb-0.5">{tr.modalSpreadHeight}</div>
             <div className="font-bold text-stone-800">{formatNumber(plant.spreadM, 1, language)} m / {formatNumber(plant.heightM, 1, language)} m</div>
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5">{tr.modalDistance}</div>
+            <div className="text-stone-500 font-medium mb-0.5">{tr.modalDistance}</div>
             <div className="font-bold text-stone-800">{formatNumber(plant.minDistanceM, 1, language)} – {formatNumber(plant.maxDistanceM, 1, language)} m</div>
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+            <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
               <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
               {tr.modalJuglone}
             </div>
@@ -284,7 +284,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
           </div>
 
           <div className="p-3 rounded-xl border border-stone-200">
-            <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+            <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
               <Globe className="w-3.5 h-3.5 text-stone-500" />
               {tr.climateZone}
             </div>
@@ -295,7 +295,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
 
           {plant.plantingTime && (
             <div className="p-3 rounded-xl border border-stone-200 col-span-2 sm:col-span-1">
-              <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+              <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
                 <Calendar className="w-3.5 h-3.5 text-emerald-600" />
                 {tr.plantingTime}
               </div>
@@ -307,7 +307,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
 
           {plant.harvestTime && (
             <div className="p-3 rounded-xl border border-stone-200 col-span-2 sm:col-span-2">
-              <div className="text-stone-400 font-medium mb-0.5 flex items-center gap-1">
+              <div className="text-stone-500 font-medium mb-0.5 flex items-center gap-1">
                 <Scissors className="w-3.5 h-3.5 text-amber-600" />
                 {tr.harvestTime}
               </div>
@@ -344,7 +344,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
             ))}
             {plant.unsuitableSoils.length > 0 && (
               <>
-                <span className="text-[11px] text-stone-400 font-medium ml-1">{tr.plantDetailUnsuitable}</span>
+                <span className="text-[11px] text-stone-500 font-medium ml-1">{tr.plantDetailUnsuitable}</span>
                 {plant.unsuitableSoils.map(s => (
                   <span
                     key={s}
@@ -560,7 +560,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
         </div>
 
         <div className="mb-6">
-          <label className="text-xs font-bold text-stone-400 block mb-2 flex items-center gap-1.5">
+          <label className="text-xs font-bold text-stone-500 block mb-2 flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5 text-forest-600" />
             {tr.modalPhenologyTitle}
           </label>
@@ -584,7 +584,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
                   >
                     <div className="font-medium text-stone-800 w-40 sm:w-44 shrink-0">
                       <div>{getLoc(s.label, language)}</div>
-                      <div className="text-[11px] text-stone-400 font-normal">{getLoc(s.months, language)}</div>
+                      <div className="text-[11px] text-stone-500 font-normal">{getLoc(s.months, language)}</div>
                     </div>
 
                     <div className="flex flex-wrap gap-1.5 justify-end">
@@ -619,7 +619,7 @@ export const PlantDetailModal: React.FC<PlantDetailModalProps> = ({
                         </span>
                       )}
                       {!isFlowering && !hasFoliage && !isChopDrop && !isPestDefense && !isPlanting && !isHarvest && (
-                        <span className="text-[11px] text-stone-400 italic">{tr.dormantTag}</span>
+                        <span className="text-[11px] text-stone-500 italic">{tr.dormantTag}</span>
                       )}
                     </div>
                   </div>

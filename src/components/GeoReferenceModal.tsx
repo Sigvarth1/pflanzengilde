@@ -108,7 +108,7 @@ export const GeoReferenceModal: React.FC<GeoReferenceModalProps> = ({ language, 
             </div>
             <h2 id="geo-ref-title" className="font-bold text-stone-900">{tr.geoRefTitle}</h2>
           </div>
-          <button type="button" onClick={onCancel} className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100" aria-label={tr.geoRefCancel}>
+          <button type="button" onClick={onCancel} className="p-1.5 rounded-lg text-stone-500 hover:text-stone-700 hover:bg-stone-100" aria-label={tr.geoRefCancel}>
             <X className="w-5 h-5" />
           </button>
         </div>

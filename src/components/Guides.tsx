@@ -1277,14 +1277,14 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <Sprout className="w-6 h-6 text-forest-600" />
                 <span>{tr.guidesEcologicalMechanics9PlantRoles}</span>
               </h2>
-              <p className="text-sm text-stone-600 leading-relaxed">
+              <p className="text-sm text-stone-600 leading-relaxed max-w-[34rem]">
                 {tr.guidesNaturalEcosystemsPlantsDoNot}
               </p>
 
               <div className="grid grid-cols-1 gap-4 pt-2">
                 {roles.map(({ id, icon: RoleIcon, iconClass, title, tag, tagClass, body }, i) => (
                   <div key={id} id={id} className="p-5 sm:p-6 rounded-2xl bg-stone-50 border border-stone-200/70 space-y-3 scroll-mt-24">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
                       <h3 className="text-base font-semibold text-stone-900 flex items-center gap-2.5">
                         <RoleIcon className={`w-4 h-4 ${iconClass}`} />
                         {`${i + 1}. `}{title}
@@ -1293,7 +1293,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                         {tag}
                       </span>
                     </div>
-                    <p className="text-sm text-stone-700 leading-relaxed">
+                    <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                       {body}
                     </p>
                   </div>
@@ -1310,19 +1310,19 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <TreePine className="w-6 h-6 text-forest-600" />
                 <span>{tr.guidesStepStepGuildDesignMasterclass}</span>
               </h2>
-              <p className="text-sm text-stone-600 leading-relaxed">
+              <p className="text-sm text-stone-600 leading-relaxed max-w-[34rem]">
                 {tr.guidesSuccessfulPermacultureGuildEngineered}
               </p>
 
               <div className="space-y-6 pt-2">
                 <GuideStep id="guide-star-plants" step={1} title={tr.guidesSelectKeystoneStarPlant}>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesDetermineMatureCanopyRadiusR} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
 
                 <GuideStep id="guide-sectors" step={2} title={tr.guidesSolarSectoringAspectOrientation}>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesNorthernHemisphereSouthernArcReceives} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
@@ -1344,13 +1344,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 </GuideStep>
 
                 <GuideStep id="guide-harvest-ladder" step={4} title={tr.guidesPreserveSouthwestHarvestWedge215}>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     {tr.guidesNeverPlantThornyBerryShrubs}
                   </p>
                 </GuideStep>
 
                 <GuideStep id="guide-soil-succession" step={5} title={tr.guidesSoilTextureMatchingEcological}>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesMatchPlantsYourSoilTexture} onFootnote={scrollToFootnote} />
                   </p>
                 </GuideStep>
@@ -1371,7 +1371,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guidesTabChopAndDrop}
                 </h2>
-                <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
                   {tr.guidesChopDropEnginePermacultureFertility}
                 </p>
               </div>
@@ -1772,7 +1772,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guidesAllelopathyRootExudatesSoilAntagonisms}
                 </h2>
-                <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
                   <RichText text={tr.guidesWhileMostPermacultureCompanions} onFootnote={scrollToFootnote} />
                 </p>
               </div>
@@ -1795,7 +1795,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       {tr.guidesBuffer200MTrees}
                     </span>
                   </div>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesOurCentralStarTreePersian} onFootnote={scrollToFootnote} />
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
@@ -1835,7 +1835,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       {tr.guidesAutoSolvedPlannerBuffer1}
                     </span>
                   </div>
-                  <p className="text-sm text-stone-700 leading-relaxed">
+                  <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesAlliumSpeciesOurCatalogChives} onFootnote={scrollToFootnote} />
                   </p>
                   <div className="p-3.5 rounded-xl bg-emerald-50/90 border border-emerald-200 text-xs text-emerald-950">
@@ -1934,7 +1934,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guides1ShadeDynamicsSolarSectors}
                 </h2>
-                <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
                   <RichText text={tr.guidesAsTreeCrownsExpandMultiple} onFootnote={scrollToFootnote} />
                 </p>
               </div>
@@ -1990,7 +1990,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                 <h2 className="text-2xl font-semibold text-stone-900">
                   {tr.guides2DualRoleStarPlants}
                 </h2>
-                <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
                   {tr.guidesMultiTreeFoodForestNot}
                 </p>
               </div>
@@ -2058,7 +2058,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <h2 className="text-2xl font-semibold text-stone-900">
                     {tr.guidesChineseTeaBushCamelliaSinensis}
                   </h2>
-                  <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-3xl">
+                  <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesEveryTrueTeaEarthGreen} onFootnote={scrollToFootnote} slots={[<code>tree-tea-sinensis</code>, <code>plant-tea-sinensis</code>]} />
                   </p>
                 </div>
@@ -2157,7 +2157,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     {tr.guides1EvolutionaryEcologyLeafBiochemistry}
                   </span>
                 </h3>
-                <p className="text-sm text-stone-700 leading-relaxed">
+                <p className="text-sm text-stone-700 leading-relaxed max-w-[34rem]">
                   <RichText text={tr.guidesWholeGenomeSequencingDemonstratesThat} onFootnote={scrollToFootnote} />
                 </p>
 
@@ -2801,7 +2801,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <h2 className="text-2xl font-semibold text-stone-900">
                     {tr.guidesAssamYunnanLargeLeafTea}
                   </h2>
-                  <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-3xl">
+                  <p className="text-sm text-stone-600 mt-1.5 leading-relaxed max-w-[34rem]">
                     <RichText text={tr.guidesWhileCamelliaSinensisVarSinensis} onFootnote={scrollToFootnote} slots={[<code>tree-tea-assamica</code>]} />
                   </p>
                 </div>
@@ -3057,7 +3057,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   <BookmarkCheck className="w-6 h-6 text-forest-600" />
                   <span>{tr.guidesTabSources}</span>
                 </h2>
-                <p className="text-sm text-stone-600 mt-1 max-w-3xl leading-relaxed">
+                <p className="text-sm text-stone-600 mt-1 leading-relaxed max-w-[34rem]">
                   {tr.guidesAllBotanicalMechanicsRootSpatial}
                 </p>
               </div>

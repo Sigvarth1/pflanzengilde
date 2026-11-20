@@ -62,6 +62,8 @@ export const de = {
   soilOptimal: 'Optimal für deinen Boden',
   soilTolerant: 'Verträglich in deinem Boden',
   soilUnsuitable: 'Achtung: Empfindlich bei diesem Boden',
+  soilChipGood: 'Passt zum Baum',
+  soilChipBad: 'Empfindlich',
   soilTreeOnSoil: '{tree} auf {soil}',
   soilMoundAdvisory: 'Empfehlung: Pflanze auf einen Erdhügel / Berm (30-50 cm), um den Wurzelhals vor Staunässe zu schützen.',
   soilCalcifugeAlert: 'Kalkfliehend: Hoher Kalkgehalt führt zu Chlorose. Erfordert saure Bodenverbesserung oder Pflanzkübel.',

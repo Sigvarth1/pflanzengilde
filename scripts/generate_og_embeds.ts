@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { STAR_TREES } from '../src/data/starTrees';
 import { ACTIVE_GUILD_PLANTS } from '../src/data/guildPlants';
+import { getLoc, type Language } from '../src/types/guild';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,49 @@ fs.mkdirSync(publicOgDir, { recursive: true });
 const onlyArg = process.argv.find(arg => arg.startsWith('--only='));
 const onlyIds = onlyArg ? new Set(onlyArg.slice('--only='.length).split(',').map(id => id.trim()).filter(Boolean)) : null;
 const shouldGenerate = (id: string) => !onlyIds || onlyIds.has(id);
+
+// Card language: `--lang=de|en|nb` or OG_LANG; this Norwegian fork defaults to nb
+const langArg = process.argv.find(arg => arg.startsWith('--lang='))?.slice('--lang='.length) ?? process.env.OG_LANG ?? 'nb';
+const LANG: Language = langArg === 'de' || langArg === 'en' ? langArg : 'nb';
+
+const OG_COPY: Record<Language, Record<string, string>> = {
+  de: {
+    guildBadge: 'Permakultur-Gilde', guildTagline: 'Interaktiver Permakultur-Gildenplaner',
+    apple: 'Apfelbaum', linden: 'Winterlinde', pear: 'Kulturbirne',
+    legendStars: 'Leitbäume', legendCompanions: 'Begleitpflanzen', legendCad: 'CAD-Abstände (m)',
+    gardenBadge: '2D-Permakultur-Gartenplan', gardenTitle1: 'Permakultur-', gardenTitle2: 'Gartenplan',
+    gardenSub: 'Mehrbaum-Raster & Begleitpflanzen-Optimierung',
+    gardenBullet1: '• Maßstabsgetreue Baum-Koordinaten & Abstände',
+    gardenBullet2: '• Intelligente Begleitpflanzen-Teilung zwischen Gilden',
+    gardenBullet3: '• Allelopathie-Prüfung, PDF-Plan & Einkaufsliste',
+    starCount: 'Leitpflanzen', companionCount: 'Begleitpflanzen', gardenTagline: 'Interaktiver Permakultur-Gartenplaner',
+  },
+  en: {
+    guildBadge: 'Permaculture guild', guildTagline: 'Interactive permaculture guild planner',
+    apple: 'Apple', linden: 'Linden', pear: 'Pear',
+    legendStars: 'Star trees', legendCompanions: 'Companions', legendCad: 'CAD distances (m)',
+    gardenBadge: '2D permaculture garden plan', gardenTitle1: 'Permaculture', gardenTitle2: 'garden plan',
+    gardenSub: 'Multi-tree grid & shared companions',
+    gardenBullet1: '• True-to-scale tree coordinates & spacing',
+    gardenBullet2: '• Companions shared between neighbouring guilds',
+    gardenBullet3: '• Allelopathy check, PDF plan & shopping list',
+    starCount: 'star plants', companionCount: 'companions', gardenTagline: 'Interactive permaculture garden planner',
+  },
+  nb: {
+    guildBadge: 'Permakulturlaug', guildTagline: 'Interaktiv planlegger for permakulturlaug',
+    apple: 'Epletre', linden: 'Lind', pear: 'Pære',
+    legendStars: 'Hovedtrær', legendCompanions: 'Følgeplanter', legendCad: 'CAD-avstander (m)',
+    gardenBadge: '2D-hageplan for permakultur', gardenTitle1: 'Hageplan for', gardenTitle2: 'permakultur',
+    gardenSub: 'Rutenett med flere trær og delte følgeplanter',
+    gardenBullet1: '• Trær plassert i riktig målestokk med avstander',
+    gardenBullet2: '• Følgeplanter deles mellom nabolaug',
+    gardenBullet3: '• Allelopatisjekk, PDF-plan og planteliste',
+    starCount: 'stjerneplanter', companionCount: 'følgeplanter', gardenTagline: 'Interaktiv hageplanlegger for permakultur',
+  },
+};
+const C = (key: string) => escapeXml(OG_COPY[LANG][key]);
+// Distance label in the card language: 5.0m (en) or 5,0 m (de, nb)
+const M = (metres: string) => (LANG === 'en' ? `${metres}m` : `${metres.replace('.', ',')} m`);
 
 // Counts shown on the garden card come from the data, so they can't go stale
 const starPlantCount = STAR_TREES.length;
@@ -82,7 +126,7 @@ function createSvgOverlay(title: string, botanical: string, description: string)
 
   <!-- Permaculture Badge -->
   <rect x="70" y="65" width="250" height="34" rx="17" fill="#2e3d25" fill-opacity="0.95" stroke="#86a66a" stroke-width="1.5" />
-  <text x="195" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#c9d9b8">Permakultur-Gilde</text>
+  <text x="195" y="87" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#c9d9b8">${C('guildBadge')}</text>
 
   <!-- Title & Botanical Name -->
   <text x="70" y="155" font-family="Arial, Helvetica, sans-serif" font-size="52" font-weight="bold" fill="#ffffff">${escapeXml(title)}</text>
@@ -103,7 +147,7 @@ function createSvgOverlay(title: string, botanical: string, description: string)
     </g>
     <!-- Brand Typography -->
     <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#a8c08f">.de</tspan></text>
-    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">Interaktiver Permakultur-Gildenplaner</text>
+    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">${C('guildTagline')}</text>
   </g>
 </svg>
 `.trim();
@@ -156,9 +200,9 @@ async function generateAll() {
   for (const tree of STAR_TREES) {
     if (!shouldGenerate(tree.id)) continue;
     const outPath = path.join(publicOgDir, `${tree.id}.jpg`);
-    const title = tree.commonName.de;
+    const title = getLoc(tree.commonName, LANG);
     const botanical = tree.botanicalName;
-    const desc = tree.description.de;
+    const desc = getLoc(tree.description, LANG);
 
     let bgBuffer: Buffer;
     const imgBuf = await fetchImageBuffer(tree.imageUrl);
@@ -237,15 +281,15 @@ async function generateAll() {
 
     <!-- Distance Pill 1 (5.0m) -->
     <rect x="220" y="148" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
-    <text x="253" y="166" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">5.0m</text>
+    <text x="253" y="166" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">${M('5.0')}</text>
 
     <!-- Distance Pill 2 (4.8m) -->
     <rect x="155" y="252" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
-    <text x="188" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">4.8m</text>
+    <text x="188" y="270" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">${M('4.8')}</text>
 
     <!-- Distance Pill 3 (5.2m) -->
     <rect x="275" y="262" width="66" height="26" rx="8" fill="#090d0a" stroke="#635a4b" stroke-width="1.5" />
-    <text x="308" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">5.2m</text>
+    <text x="308" y="280" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#fbfaf6">${M('5.2')}</text>
 
     <!-- Companion Plant Dots Around & Between Star Trees -->
     <!-- Tree 1 Companions -->
@@ -270,46 +314,46 @@ async function generateAll() {
     <!-- Star Tree 1: Apfelbaum -->
     <circle cx="145" cy="155" r="24" fill="#ef4444" fill-opacity="0.22" />
     <circle cx="145" cy="155" r="15" fill="#ef4444" stroke="#ffffff" stroke-width="3" />
-    <text x="145" y="195" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fecaca">Apfelbaum</text>
+    <text x="145" y="195" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fecaca">${C('apple')}</text>
 
     <!-- Star Tree 2: Winterlinde -->
     <circle cx="365" cy="175" r="24" fill="#65a30d" fill-opacity="0.22" />
     <circle cx="365" cy="175" r="15" fill="#65a30d" stroke="#ffffff" stroke-width="3" />
-    <text x="365" y="215" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#d9f99d">Winterlinde</text>
+    <text x="365" y="215" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#d9f99d">${C('linden')}</text>
 
     <!-- Star Tree 3: Kulturbirne -->
     <circle cx="240" cy="375" r="24" fill="#eab308" fill-opacity="0.22" />
     <circle cx="240" cy="375" r="15" fill="#eab308" stroke="#ffffff" stroke-width="3" />
-    <text x="240" y="412" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fef08a">Kulturbirne</text>
+    <text x="240" y="412" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fef08a">${C('pear')}</text>
 
     <!-- Bottom Map Legend Bar -->
     <rect x="22" y="478" width="451" height="42" rx="12" fill="#142419" stroke="#264530" stroke-width="1" />
     <circle cx="46" cy="499" r="6" fill="#ef4444" />
-    <text x="58" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">Leitbäume</text>
+    <text x="58" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">${C('legendStars')}</text>
     <circle cx="155" cy="499" r="6" fill="#9333ea" />
-    <text x="167" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">Begleitpflanzen</text>
-    <text x="455" y="504" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#c9d9b8">CAD-Abstände (m)</text>
+    <text x="167" y="504" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#e7e1d5">${C('legendCompanions')}</text>
+    <text x="455" y="504" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#c9d9b8">${C('legendCad')}</text>
   </g>
 
   <!-- LEFT SIDE: Badge, Title, Subtitle, Features, and Brand Logo -->
   <rect x="65" y="60" width="310" height="36" rx="18" fill="#2e3d25" stroke="#86a66a" stroke-width="1.5" />
-  <text x="220" y="83" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">2D-Permakultur-Gartenplan</text>
+  <text x="220" y="83" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${C('gardenBadge')}</text>
 
-  <text x="65" y="152" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#ffffff">Permakultur-</text>
-  <text x="65" y="208" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#a8c08f">Gartenplan</text>
+  <text x="65" y="152" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#ffffff">${C('gardenTitle1')}</text>
+  <text x="65" y="208" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="bold" fill="#a8c08f">${C('gardenTitle2')}</text>
 
-  <text x="65" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" font-style="italic" fill="#d9e4cc">Mehrbaum-Raster &amp; Begleitpflanzen-Optimierung</text>
+  <text x="65" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" font-style="italic" fill="#d9e4cc">${C('gardenSub')}</text>
 
-  <text x="65" y="308" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Maßstabsgetreue Baum-Koordinaten &amp; Abstände</text>
-  <text x="65" y="346" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Intelligente Begleitpflanzen-Teilung zwischen Gilden</text>
-  <text x="65" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">• Allelopathie-Prüfung, PDF-Plan &amp; Einkaufsliste</text>
+  <text x="65" y="308" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">${C('gardenBullet1')}</text>
+  <text x="65" y="346" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">${C('gardenBullet2')}</text>
+  <text x="65" y="384" font-family="Arial, Helvetica, sans-serif" font-size="21" fill="#e7e1d5">${C('gardenBullet3')}</text>
 
   <!-- Pill Badges -->
   <rect x="65" y="418" width="160" height="36" rx="10" fill="#14291a" stroke="#86a66a" stroke-width="1" />
-  <text x="145" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${starPlantCount} Leitpflanzen</text>
+  <text x="145" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${starPlantCount} ${C('starCount')}</text>
 
   <rect x="240" y="418" width="195" height="36" rx="10" fill="#14291a" stroke="#86a66a" stroke-width="1" />
-  <text x="337" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${companionCountLabel} Begleitpflanzen</text>
+  <text x="337" y="441" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="bold" fill="#c9d9b8">${companionCountLabel} ${C('companionCount')}</text>
 
   <!-- BOTTOM LEFT: Pflanzengilde.de Logo + Text -->
   <g transform="translate(65, 505)">
@@ -321,7 +365,7 @@ async function generateAll() {
       <path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>
     </g>
     <text x="82" y="36" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="bold" fill="#ffffff">Pflanzengilde<tspan fill="#a8c08f">.de</tspan></text>
-    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">Interaktiver Permakultur-Gartenplaner</text>
+    <text x="84" y="56" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#d9e4cc" letter-spacing="0.02em">${C('gardenTagline')}</text>
   </g>
 </svg>
 `.trim();
