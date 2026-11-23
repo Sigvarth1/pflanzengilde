@@ -69,7 +69,7 @@ fn render_shapes(
         let stroke = if in_season { 0.55 } else { 0.25 };
         let dash = if !in_season { Some("2 3") } else if cover.hard_edge { None } else { Some("5 3") };
         let color = cover.color.clone();
-        let title = format!("{} · {:.1} m²", cover.name, cover.area_m2);
+        let title = format!("{} · {} m²", cover.name, crate::drawing::num(cover.area_m2, 1));
         let id = cover.plant_id.clone();
         view! {
             <g class="ground-cover" class:plan-hit=on_select.is_some() data-cover=cover.plant_id.clone()

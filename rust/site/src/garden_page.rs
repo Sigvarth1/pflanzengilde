@@ -815,12 +815,7 @@ pub fn GardenPage(
     let name_hint = text(language, ["Hagens navn", "Garden name", "Gartenname"]);
     view! {
         <header class="site-header">
-            <a class="brand" href=format!("{}?lang={language}", crate::routes::planner())><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg></span><span>"pflanzengilde"<b>".de"</b></span></a>
-            <nav class="site-nav">
-                <a href=format!("{}?lang={language}", crate::routes::planner()) aria-current=if false { Some("page") } else { None }>{catalog.text("navPlanner")}</a>
-                <a href=format!("{}?lang={language}", crate::routes::garden()) aria-current=if true { Some("page") } else { None }>{catalog.text("navGarden")}</a>
-                <a href=format!("/guides/?lang={language}")>{catalog.text("navGuides")}</a>
-            </nav>
+            <crate::routes::SiteNav catalog=catalog.clone() language active=crate::routes::Section::Garden />
             <crate::share_dialog::ShareDialog catalog=catalog.clone() language garden=true make_payload=share preview />
             <crate::routes::LanguageSelect language />
         </header>
@@ -865,24 +860,27 @@ pub fn GardenPage(
                         });
                     }) />
             </section>
-            <section class="panel">
-                <DisplayControls catalog=catalog.clone() active=show_covers season=cover_season />
-                <div class="grid-tools">
-                    <button type="button" on:click=move |_| zoom.update(|value| *value = (*value * 1.3).min(4.0))
-                        aria-label=catalog.text("gardenGridZoomIn")>"+"</button>
-                    <button type="button" on:click=move |_| zoom.update(|value| *value = (*value / 1.3).max(0.25))
-                        aria-label=catalog.text("gardenGridZoomOut")>"−"</button>
-                    <button type="button" on:click=move |_| { zoom.set(1.0); center.set(None); selected.set(String::new()); group.set(Vec::new()); }>
-                        {catalog.text("gardenGridCenterView")}
-                    </button>
-                </div>
-                <GardenMap catalog=catalog.clone() draft selected group focused_plant zoom center companions resolution shade covers show_covers cover_season tool notice language on_import=import_file />
-            </section>
-            <GardenWarnings catalog=catalog.clone() draft resolution shade notice language />
-            <InfrastructureControls catalog=catalog.clone() draft tool language />
-            <section class="panel">
-                <h2>{catalog.text("gardenSidebarActiveStarPlants")}</h2>
-                <div class="settings garden-tree-picker">
+            <section class="panel garden-map-panel">
+                <header class="panel-head">
+                    <div>
+                        <h2>{text(language, ["Hagekart", "Garden map", "Gartenkarte"])}</h2>
+                        <p>{text(language, [
+                            "Ett rutenettfelt er én meter. Dra for å flytte visningen, og dra plantene for å flytte dem.",
+                            "Each grid square is one metre. Drag to pan the view, and drag plants to move them.",
+                            "Ein Rasterfeld ist ein Meter. Ziehen verschiebt die Ansicht, Pflanzen lassen sich verschieben.",
+                        ])}</p>
+                    </div>
+                    <div class="grid-tools zoom-tools">
+                        <button type="button" on:click=move |_| zoom.update(|value| *value = (*value * 1.3).min(4.0))
+                            aria-label=catalog.text("gardenGridZoomIn") title=catalog.text("gardenGridZoomIn")>"+"</button>
+                        <button type="button" on:click=move |_| zoom.update(|value| *value = (*value / 1.3).max(0.25))
+                            aria-label=catalog.text("gardenGridZoomOut") title=catalog.text("gardenGridZoomOut")>"−"</button>
+                        <button type="button" on:click=move |_| { zoom.set(1.0); center.set(None); selected.set(String::new()); group.set(Vec::new()); }>
+                            {catalog.text("gardenGridCenterView")}
+                        </button>
+                    </div>
+                </header>
+                <div class="settings garden-tree-picker" class:garden-empty=move || list.with(Vec::is_empty)>
                     <label>{catalog.text("gardenSidebarAddStarPlant")}
                         <select prop:value=picker on:change=move |ev| picker.set(event_target_value(&ev))>
                             <optgroup label=text(language, ["Plantekatalog", "Plant catalogue", "Pflanzenkatalog"])>{opts}</optgroup>
@@ -894,9 +892,17 @@ pub fn GardenPage(
                             </optgroup>
                         </select>
                     </label>
-                    <button type="button" on:click=add>{catalog.text("gardenSidebarAddStarPlant")}</button>
+                    <button type="button" class="primary" on:click=add>{catalog.text("gardenSidebarAddStarPlant")}</button>
+                    <p class="garden-empty-hint" hidden=move || list.with(|ids| !ids.is_empty())>{catalog.text("gardenSidebarNoStarPlants")}</p>
                 </div>
-                <p hidden=move || list.with(|ids| !ids.is_empty())>{catalog.text("gardenSidebarNoStarPlants")}</p>
+                <DisplayControls catalog=catalog.clone() active=show_covers season=cover_season />
+                <GardenMap catalog=catalog.clone() draft selected group focused_plant zoom center companions resolution shade covers show_covers cover_season tool notice language on_import=import_file />
+            </section>
+            <GardenWarnings catalog=catalog.clone() draft resolution shade notice language />
+            <InfrastructureControls catalog=catalog.clone() draft tool language />
+            <section class="panel">
+                <h2>{catalog.text("gardenSidebarActiveStarPlants")}</h2>
+                <p class="muted" hidden=move || list.with(|ids| !ids.is_empty())>{catalog.text("gardenSidebarNoStarPlants")}</p>
                 <ul class="garden-stars"><For each=move || list.get() key=String::clone children=rows /></ul>
             </section>
             <section class="panel">
@@ -910,7 +916,9 @@ pub fn GardenPage(
             </section>
             <CompanionEditor catalog=catalog.clone() draft selected focused_plant resolution notice language />
             <div role="status" class="notice">{notice}</div>
-            <section class="panel settings">
+            <section class="panel exports">
+                <h2>{text(language, ["Import og eksport", "Import and export", "Import und Export"])}</h2>
+                <div class="settings">
                 <label>{catalog.text("importPlan")}
                     <input type="file" accept=".json,application/json" node_ref=file on:change=on_import />
                 </label>
@@ -920,9 +928,12 @@ pub fn GardenPage(
                 <button type="button" on:click=move |_| csv("csv")>{catalog.text("navbarExportCsv")}</button>
                 <button type="button" on:click=move |_| svg("svg")>{catalog.text("navbarExportSvg")}</button>
                 <button type="button" on:click=move |_| dxf("dxf")>{catalog.text("navbarExportDxf")}</button>
-                <button type="button" on:click=reset>{text(language, ["Tøm hageplanen", "Clear garden plan", "Gartenplan leeren"])}</button>
+                <GeoExport catalog=catalog.clone() draft companions covers notice language />
+                </div>
+                <div class="danger-zone">
+                    <button type="button" class="danger" on:click=reset>{text(language, ["Tøm hageplanen", "Clear garden plan", "Gartenplan leeren"])}</button>
+                </div>
             </section>
-            <GeoExport catalog=catalog.clone() draft companions covers notice language />
         </main>
         <crate::routes::SiteFooter catalog=catalog.clone() language />
     }
@@ -1444,7 +1455,7 @@ fn GeoExport(
         );
     };
     view! {
-        <section class="panel">
+        <div class="geo-export">
             <button type="button" hidden=move || visible.get() on:click=open>{catalog.text("navbarExportGeoJson")}</button>
             <form hidden=move || !visible.get() on:submit=export>
                 <h2>{catalog.text("geoRefTitle")}</h2>
@@ -1473,6 +1484,6 @@ fn GeoExport(
                     <button type="button" on:click=move |_| visible.set(false)>{catalog.text("geoRefCancel")}</button>
                 </div>
             </form>
-        </section>
+        </div>
     }
 }

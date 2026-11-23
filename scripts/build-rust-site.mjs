@@ -186,7 +186,7 @@ try {
     'pdfRadialMap', 'pdfRadialMapSub', 'zoneCollar', 'zoneBulb', 'zoneMid', 'zoneDrip', 'zoneOuter',
     'compatReasonJuglone', 'compatReasonEdaphic', 'compatReasonPestHost', 'compatAutoRemovedToast',
     'searchPlaceholder', 'noPlantsMatched', 'showAll', 'details', 'soilUnsuitable',
-    'soilBarTitle', 'soilBarSubtitle', 'soilOptimal', 'soilChipGood', 'soilChipBad', 'step1Subtitle', 'dripLine',
+    'zoneIncompatibleBadge', 'footerText', 'soilBarTitle', 'soilBarSubtitle', 'soilOptimal', 'soilChipGood', 'soilChipBad', 'step1Subtitle', 'dripLine',
     'siteConditionsLoamPh', 'siteConditionsClayPh', 'siteConditionsSandyPh', 'siteConditionsChalkyPh',
     'siteConditionsAcidicPh', 'siteConditionsSiltPh',
   ];

@@ -25,10 +25,6 @@ fn soil_image(id: &str) -> String {
     format!("/images/soils/soil-{file}")
 }
 
-fn metres(value: f64, language: &str) -> String {
-    let text = format!("{value:.1}");
-    if language == "en" { text } else { text.replace('.', ",") }
-}
 
 const CHECK: &str = r#"<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>"#;
 const SUN: &str = r#"<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/></svg>"#;
@@ -94,6 +90,7 @@ pub fn TreePicker(
     let drip = catalog.text("dripLine");
     let optimal = catalog.text("soilOptimal");
     let unsuitable = catalog.text("soilUnsuitable");
+    let zone_badge = catalog.text("zoneIncompatibleBadge");
     let cards = catalog
         .trees
         .iter()
@@ -117,6 +114,7 @@ pub fn TreePicker(
                 })
             };
             let out_of_zone = move || guild.with(|state| !zones.contains(&state.climate_zone));
+            let zone_badge = zone_badge.clone();
             let sun = match tree.sun_preference.as_str() {
                 "FULL_SUN" => Some(SUN),
                 "PARTIAL_SUN" => Some(PARTIAL),
@@ -127,7 +125,6 @@ pub fn TreePicker(
             view! {
                 <button type="button" class="tree-card"
                     aria-pressed=move || guild.with(|state| state.tree_id == pressed_id).to_string()
-                    class:out-of-zone=out_of_zone
                     on:click=move |_| on_select.run(click_id.clone())>
                     <span class="tree-card-top">
                         <img src=tree.image_url.clone() alt="" width="36" height="36" loading="lazy" decoding="async"
@@ -139,6 +136,7 @@ pub fn TreePicker(
                                 Some(false) => view! { <span class="fit-dot fit-bad" title=unsuitable.clone()></span> }.into_any(),
                                 None => ().into_any(),
                             }}
+                            <span class="zone-badge" hidden=move || !out_of_zone()>{zone_badge}</span>
                             {tree.juglone_producer.then(|| view! {
                                 <span class="juglone-badge">{if language == "en" { "Juglone" } else { "Juglon" }}</span>
                             })}
@@ -148,7 +146,7 @@ pub fn TreePicker(
                     <i>{tree.botanical_name.clone()}</i>
                     <small>{tree.category_label.clone()}</small>
                     <span class="tree-card-foot">
-                        <span>{format!("{}: {} m", drip, metres(tree.mature_radius_m, language))}</span>
+                        <span>{format!("{}: {} m", drip, crate::drawing::number(tree.mature_radius_m, 1, language))}</span>
                         <b>{tree.bloom_label.clone()}</b>
                     </span>
                 </button>

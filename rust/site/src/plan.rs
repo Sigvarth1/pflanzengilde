@@ -161,7 +161,7 @@ pub fn GuildPlan(
                     let label = format!(
                         "{} · {} m · {}° · {}",
                         p.species.name,
-                        p.distance,
+                        crate::drawing::num(p.distance, 2),
                         p.angle,
                         radial_catalog.text(p.zone.label())
                     );
@@ -220,7 +220,7 @@ pub fn GuildPlan(
             <h2>{title}</h2>
             <p>{subtitle}</p>
             <ClusterControls catalog=cluster_controls guild options config spacing_override language />
-            <label>{age_label}
+            <label class="inline-field">{age_label}
                 <select prop:value=move || guild.with(|g| if g.tree_age == "ESTABLISHED" { "ESTABLISHED" } else { "YOUNG" })
                     on:change=move |event| crate::update_guild(guild, |g| g.tree_age = event_target_value(&event))>
                     <option value="YOUNG">{young_label}</option>
@@ -239,7 +239,7 @@ pub fn GuildPlan(
                 let viewbox = format!("{} {} {} {}", -extent, -extent, 2.0 * extent, 2.0 * extent);
                 let shown = |id: &str| visible.then(|| covers.iter().find(|cover| cover.plant_id == id)).flatten();
                 let legend = markers.iter().map(|(id, _, _, _, color, label)| {
-                    let label = shown(id).map_or_else(|| label.clone(), |cover| format!("{} · {:.1} m²", cover.name, cover.area_m2));
+                    let label = shown(id).map_or_else(|| label.clone(), |cover| format!("{} · {} m²", cover.name, crate::drawing::num(cover.area_m2, 1)));
                     let id = id.clone();
                     view! { <li><button type="button" class="map-legend-item" on:click=move |_| on_select.run(id.clone())>
                         <span class="map-key" style:background-color=color.clone()></span>{label}

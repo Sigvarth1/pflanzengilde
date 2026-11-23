@@ -401,6 +401,18 @@ impl<'a> Drawing<'a> {
     }
 }
 
+static UI_LANGUAGE: std::sync::OnceLock<&'static str> = std::sync::OnceLock::new();
+
+/// Remembers the page language so number formatting deep in views can follow it.
+pub fn set_ui_language(language: &'static str) {
+    let _ = UI_LANGUAGE.set(language);
+}
+
+/// Formats a number with the decimal separator of the page language.
+pub fn num(value: f64, decimals: usize) -> String {
+    number(value, decimals, UI_LANGUAGE.get().copied().unwrap_or("nb"))
+}
+
 pub fn number(value: f64, decimals: usize, lang: &str) -> String {
     let out = format!("{value:.decimals$}");
     if lang == "en" {

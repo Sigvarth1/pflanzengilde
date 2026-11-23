@@ -391,7 +391,7 @@ pub fn guild(
                 code,
                 name: &position.species.name,
                 species: position.species,
-                detail: format!("{:.2} m²", cover.area_m2),
+                detail: format!("{} m²", crate::drawing::num(cover.area_m2, 2)),
             });
             continue;
         }
@@ -414,7 +414,7 @@ pub fn guild(
             code,
             species: position.species,
             name: &position.species.name,
-            detail: format!("{:.2} m · {}° · {zone}", position.distance, position.angle),
+            detail: format!("{} m · {}° · {zone}", crate::drawing::num(position.distance, 2), position.angle),
         });
     }
     map_legend(&mut map, &rows, 343.0, 13);
@@ -593,7 +593,7 @@ pub fn garden(
             8.0,
             true,
             INK,
-            &format!("{metres:.1} m"),
+            &format!("{} m", crate::drawing::num(metres, 1)),
         );
     }
     let mut rows: Vec<Row<'_>> = Vec::new();
@@ -645,8 +645,8 @@ pub fn garden(
             name: &cover.species.name,
             species: cover.species,
             detail: format!(
-                "{:.2} m²  ·  {}",
-                cover.area,
+                "{} m²  ·  {}",
+                crate::drawing::num(cover.area, 2),
                 cover.species.roles.join(", ")
             ),
         });
@@ -674,11 +674,11 @@ pub fn garden(
         );
         for (index, bed) in drawing.beds.iter().take(4).enumerate() {
             let label = format!(
-                "B{}  {} · {:.2} m² · {:.2} m",
+                "B{}  {} · {} m² · {} m",
                 index + 1,
                 fit(&bed.name, 18),
-                bed.area,
-                bed.height
+                crate::drawing::num(bed.area, 2),
+                crate::drawing::num(bed.height, 2)
             );
             map.key(153.0 - 18.0 * index as f64, &label, BED);
         }

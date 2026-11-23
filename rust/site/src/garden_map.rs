@@ -739,8 +739,9 @@ pub fn GardenMap(
             <defs><pattern id="metre-grid" width=grid height=grid patternUnits="userSpaceOnUse">
                 <path d=move || format!("M {} 0 H 0 V {}", grid(), grid()) class="grid-line" />
             </pattern></defs>
-            <rect x=move || frame.get().corner()[0] y=move || frame.get().corner()[1]
-                width=move || frame.get().width height=move || frame.get().width fill="url(#metre-grid)" />
+            // The square view box is letterboxed on wide screens, so paint the grid well past its sides.
+            <rect x=move || frame.get().corner()[0] - 2.0 * frame.get().width y=move || frame.get().corner()[1] - frame.get().width
+                width=move || 5.0 * frame.get().width height=move || 3.0 * frame.get().width fill="url(#metre-grid)" />
             <path d="M -0.2 0 H 0.2 M 0 -0.2 V 0.2" class="grid-origin" pointer-events="none"/>
             {move || draft.with(|state| {
                 let outline = state.garden.infrastructure.outline.as_ref().map(|shape| shape_view(shape, false));
