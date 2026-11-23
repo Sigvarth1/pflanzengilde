@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { GroundCoverGuide, RaisedBedGuide } from './RaisedBedGuide';
 import { ForageGapGuide } from './ForageGapGuide';
+import { PioneerGuide } from './PioneerGuide';
 
 interface GuidesProps {
   language: Language;
@@ -35,7 +36,7 @@ interface GuidesProps {
 type Tr = ReturnType<typeof t>;
 type Icon = typeof Leaf;
 
-type GuideTab = 'roles' | 'guild_design' | 'chop_and_drop' | 'allelopathy' | 'pests' | 'shade_and_stars' | 'tea_sinensis' | 'tea_assamica' | 'raised_beds' | 'forage_gaps' | 'sources';
+type GuideTab = 'roles' | 'guild_design' | 'chop_and_drop' | 'allelopathy' | 'pests' | 'shade_and_stars' | 'tea_sinensis' | 'tea_assamica' | 'raised_beds' | 'forage_gaps' | 'pioneers' | 'sources';
 
 export const GUIDE_TABS: { id: GuideTab; icon: Icon; label: keyof Tr }[] = [
   { id: 'roles', icon: Layers, label: 'guidesTabRoles' },
@@ -48,6 +49,7 @@ export const GUIDE_TABS: { id: GuideTab; icon: Icon; label: keyof Tr }[] = [
   { id: 'tea_assamica', icon: Sprout, label: 'guidesTabTeaAssamica' },
   { id: 'raised_beds', icon: Fence, label: 'guidesTabRaisedBeds' },
   { id: 'forage_gaps', icon: Flower2, label: 'guidesTabForageGaps' },
+  { id: 'pioneers', icon: TreePine, label: 'guidesTabPioneers' },
   { id: 'sources', icon: BookmarkCheck, label: 'guidesTabSources' }
 ];
 
@@ -65,6 +67,7 @@ export const GUIDE_ANCHORS: Record<GuideTab, string[]> = {
   tea_assamica: ['tea-assamica-'],
   raised_beds: ['bed-'],
   forage_gaps: ['forage-gaps'],
+  pioneers: ['pioneer'],
   sources: ['fn-'],
 };
 
@@ -1644,6 +1647,26 @@ export const Guides: React.FC<GuidesProps> = ({ language, initialTab }) => {
                 />
                 <ChopCard
                   tr={tr}
+                  id="chop-plant-silver-birch"
+                  name={tr.guidesSilverBirch}
+                  latin={tr.guidesBetulaPendulaTemporaryNurse}
+                  badge={tr.guidesBirchBadge}
+                  cut={tr.guidesBirchCut}
+                  much={tr.guidesBirchMuch}
+                  spread={tr.guidesBirchSpread}
+                />
+                <ChopCard
+                  tr={tr}
+                  id="chop-plant-pigeon-pea"
+                  name={tr.guidesPigeonPea}
+                  latin={tr.guidesCajanusCajanNurseShrub}
+                  badge={tr.guidesPigeonPeaBadge}
+                  cut={tr.guidesPigeonPeaCut}
+                  much={tr.guidesPigeonPeaMuch}
+                  spread={tr.guidesPigeonPeaSpread}
+                />
+                <ChopCard
+                  tr={tr}
                   id="chop-plant-linden"
                   name={tr.guidesSmallLeavedLinden}
                   latin={tr.guidesTiliaCordataPollardedHedgerowTree}
@@ -1750,6 +1773,8 @@ export const Guides: React.FC<GuidesProps> = ({ language, initialTab }) => {
         {activeTab === 'raised_beds' && <RaisedBedGuide language={language} />}
 
         {activeTab === 'forage_gaps' && <ForageGapGuide language={language} />}
+
+        {activeTab === 'pioneers' && <PioneerGuide language={language} />}
 
         {activeTab === 'allelopathy' && (
           <div id="allelopathy" className="space-y-8 animate-in fade-in duration-200 scroll-mt-24">

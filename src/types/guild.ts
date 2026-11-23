@@ -75,6 +75,7 @@ export type StarPlantCategory =
   | 'FRUIT_TREE' 
   | 'NUT_TREE' 
   | 'NITROGEN_FIXING_TREE' 
+  | 'PIONEER_TREE'
   | 'BERRY_SHRUB' 
   | 'VINE' 
   | 'PERENNIAL_HERB'
