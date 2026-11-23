@@ -46,3 +46,6 @@ public/robots.txt
 /rust/garden-core/target/
 /src/generated/garden-core.wasm
 /rust/site/target/
+
+# Wrangler local state
+.wrangler/

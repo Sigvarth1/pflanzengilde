@@ -12,7 +12,8 @@
     "generate-og": "npx tsx scripts/generate_og_embeds.ts",
     "build:rust-site": "node scripts/build-rust-site.mjs",
     "preview": "vite preview",
-    "deploy": "bash ./scripts/deploy.sh"
+    "deploy": "bash ./scripts/deploy.sh",
+    "deploy:cloudflare": "npm run build && npx -y wrangler@4 deploy"
   },
   "dependencies": {
     "@fontsource-variable/figtree": "^5.2.10",

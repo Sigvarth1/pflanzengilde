@@ -1,0 +1,12 @@
+{
+  // Static deployment of the built site (npm run build) on Cloudflare Workers.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pflanzengilde",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    // Same as nginx: unknown paths fall back to /index.html.
+    "not_found_handling": "single-page-application",
+    "html_handling": "auto-trailing-slash"
+  }
+}
