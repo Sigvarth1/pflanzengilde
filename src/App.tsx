@@ -9,12 +9,10 @@ import { GuildBuilder } from './components/GuildBuilder';
 import { RoleCoverageCard } from './components/RoleCoverageCard';
 import { SeasonalCalendar } from './components/SeasonalCalendar';
 import { GardenPlanCanvas } from './components/GardenPlanCanvas';
-import { PlantDetailModal } from './components/PlantDetailModal';
 import { AntagonistCard } from './components/AntagonistCard';
-import { GuildEmbedCard } from './components/GuildEmbedCard';
-import { GardenEmbedCard } from './components/ShareGardenModal';
 import { parseGuildUrl, parseGardenUrl, SOIL_TYPES, CLIMATE_ZONES } from './utils/shareUtils';
 import { resolveGardenConflicts } from './core/gardenOptimizer';
+import { loadGardenSpacing } from './core/gardenSpacingWasm';
 import { isCompatibleWithGuild, partitionGuildByCompatibility } from './core/compatibility';
 import { GUILD_PRESETS as PRESETS, DEFAULT_GUILD_PLANT_IDS } from './core/guildPresets';
 import { t } from './i18n/translations';
@@ -22,25 +20,20 @@ import { CheckCircle2, AlertCircle, X } from 'lucide-react';
 import { buildClusterStarInstances } from './core/multiStarLayout';
 import { StarPlantClusterConfig, GardenStarPlantInstance } from './types/garden';
 import { STORAGE_KEY_GARDEN_GRID } from './utils/gardenStorage';
-
-// Legal pages are operator-specific and not in the repository. Drop Impressum.tsx /
-// Datenschutz.tsx into src/legal/ to enable the /impressum and /datenschutz routes.
-interface LegalPageProps {
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  onBack: () => void;
-  onNavigate: (path: string) => void;
-}
-const legalModules = import.meta.glob<Record<string, React.ComponentType<LegalPageProps>>>('./legal/*.tsx');
-const loadLegalPage = (name: string) => {
-  const load = legalModules[`./legal/${name}.tsx`];
-  return load ? React.lazy(() => load().then(m => ({ default: m[name] }))) : null;
-};
-const Impressum = loadLegalPage('Impressum');
-const Datenschutz = loadLegalPage('Datenschutz');
-const Guides = React.lazy(() => import('./components/Guides').then(m => ({ default: m.Guides })));
+import { Impressum, Datenschutz } from './legal-pages';
+export const loadGuides = () => import('./components/Guides').then(m => ({ default: m.Guides }));
+const Guides = React.lazy(loadGuides);
 const PhotoCredits = React.lazy(() => import('./components/PhotoCredits').then(m => ({ default: m.PhotoCredits })));
-const GardenPlannerPage = React.lazy(() => import('./components/GardenPlannerPage').then(m => ({ default: m.GardenPlannerPage })));
+const GardenPlannerPage = React.lazy(async () => {
+  const [page] = await Promise.all([
+    import('./components/GardenPlannerPage'),
+    loadGardenSpacing(),
+  ]);
+  return { default: page.GardenPlannerPage };
+});
+const PlantDetailModal = React.lazy(() => import('./components/PlantDetailModal').then(m => ({ default: m.PlantDetailModal })));
+const GuildEmbedCard = React.lazy(() => import('./components/GuildEmbedCard').then(m => ({ default: m.GuildEmbedCard })));
+const GardenEmbedCard = React.lazy(() => import('./components/ShareGardenModal').then(m => ({ default: m.GardenEmbedCard })));
 const ShareGuildModal = React.lazy(() => import('./components/ShareGuildModal').then(m => ({ default: m.ShareGuildModal })));
 
 const STORAGE_KEY_GUILD = 'permaculture_plant_guild_v1';
@@ -75,6 +68,9 @@ export const App: React.FC = () => {
   // Bumped to remount the garden planner so it re-reads an imported plan from localStorage
   const [gardenImportKey, setGardenImportKey] = useState(0);
   const [language, setLanguage] = useState<Language>(() => {
+    const explicit = new URLSearchParams(window.location.search).get('lang')?.toLowerCase();
+    if (explicit === 'de' || explicit === 'en' || explicit === 'nb') return explicit;
+    if (explicit === 'no' || explicit === 'nn') return 'nb';
     const saved = localStorage.getItem(STORAGE_KEY_LANG);
     if (saved === 'de' || saved === 'en' || saved === 'nb') return saved;
     // Norwegian fork: Norwegian unless the browser asks for German or English
@@ -135,6 +131,13 @@ export const App: React.FC = () => {
 
   const navigateTo = (path: string) => {
     if (typeof window !== 'undefined') {
+      const route = path.split(/[?#]/, 1)[0].replace(/\/$/, '');
+      if (import.meta.env.PROD && (route === '' || route === '/garten' || route === '/garden'
+        || route === '/credits' || route === '/guides' || route.startsWith('/guides/')
+        || route.startsWith('/share/') || route.startsWith('/guild/'))) {
+        window.location.assign(path);
+        return;
+      }
       const currentFull = window.location.pathname + window.location.search + window.location.hash;
       if (currentFull !== path) {
         window.history.pushState({}, '', path);
@@ -578,16 +581,18 @@ export const App: React.FC = () => {
       return (
         <div className="min-h-screen bg-stone-950 p-2 sm:p-4 flex items-center justify-center">
           <div className="w-full max-w-2xl">
-            <GardenEmbedCard
-              gardenName={gardenData.gardenName || defaultName}
-              starPlants={gardenData.starPlants}
-              companions={embedCompanions}
-              soil={gardenData.soil || selectedSoil}
-              zone={gardenData.zone || selectedZone}
-              language={embedLang}
-              showActionBtn={true}
-              actionUrl={`https://pflanzengilde.de/garten/?garden=${gardenCode}`}
-            />
+            <React.Suspense fallback={null}>
+              <GardenEmbedCard
+                gardenName={gardenData.gardenName || defaultName}
+                starPlants={gardenData.starPlants}
+                companions={embedCompanions}
+                soil={gardenData.soil || selectedSoil}
+                zone={gardenData.zone || selectedZone}
+                language={embedLang}
+                showActionBtn={true}
+                actionUrl={`https://pflanzengilde.de/garten/?garden=${gardenCode}`}
+              />
+            </React.Suspense>
             <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-500">
               {Impressum && (
                 <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
@@ -608,13 +613,15 @@ export const App: React.FC = () => {
     return (
       <div className="min-h-screen bg-stone-950 p-2 sm:p-4 flex items-center justify-center">
         <div className="w-full max-w-2xl">
-          <GuildEmbedCard
-            starTree={selectedTree}
-            selectedPlants={selectedPlants}
-            language={language}
-            showActionBtn={true}
-            actionUrl={`https://pflanzengilde.de/?tree=${selectedTree.id}`}
-          />
+          <React.Suspense fallback={null}>
+            <GuildEmbedCard
+              starTree={selectedTree}
+              selectedPlants={selectedPlants}
+              language={language}
+              showActionBtn={true}
+              actionUrl={`https://pflanzengilde.de/?tree=${selectedTree.id}`}
+            />
+          </React.Suspense>
           <div className="mt-2 flex justify-end gap-3 text-[11px] text-stone-500">
             {Impressum && (
               <a href="/impressum" target="_blank" rel="noopener noreferrer" className="hover:text-stone-200 underline">
@@ -670,11 +677,7 @@ export const App: React.FC = () => {
             onNavigate={navigateTo}
           />
         ) : currentPath.startsWith('/guides') ? (
-          <Guides
-            language={language}
-            setLanguage={setLanguage}
-            onNavigate={navigateTo}
-          />
+          <Guides language={language} />
         ) : currentPath.startsWith('/credits') ? (
           <PhotoCredits language={language} />
         ) : isGardenRoute ? (
@@ -784,21 +787,25 @@ export const App: React.FC = () => {
         )}
       </React.Suspense>
 
-      <PlantDetailModal
-        language={language}
-        selectedSoil={selectedSoil}
-        selectedTree={selectedTree}
-        selectedZone={selectedZone}
-        plant={modalPlant}
-        onClose={() => setModalPlant(null)}
-        isSelected={modalPlant ? selectedPlants.some(p => p.id === modalPlant.id) : false}
-        onToggleSelect={handleTogglePlant}
-        guildPlants={selectedPlants}
-        onNavigate={(path) => {
-          setModalPlant(null);
-          navigateTo(path);
-        }}
-      />
+      {modalPlant && (
+        <React.Suspense fallback={null}>
+          <PlantDetailModal
+            language={language}
+            selectedSoil={selectedSoil}
+            selectedTree={selectedTree}
+            selectedZone={selectedZone}
+            plant={modalPlant}
+            onClose={() => setModalPlant(null)}
+            isSelected={selectedPlants.some(p => p.id === modalPlant.id)}
+            onToggleSelect={handleTogglePlant}
+            guildPlants={selectedPlants}
+            onNavigate={(path) => {
+              setModalPlant(null);
+              navigateTo(path);
+            }}
+          />
+        </React.Suspense>
+      )}
 
       {isShareOpen && (
         <React.Suspense fallback={null}>

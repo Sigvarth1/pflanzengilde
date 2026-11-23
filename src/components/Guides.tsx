@@ -29,8 +29,7 @@ import { ForageGapGuide } from './ForageGapGuide';
 
 interface GuidesProps {
   language: Language;
-  setLanguage: (lang: Language) => void;
-  onNavigate: (path: string) => void;
+  initialTab?: GuideTab;
 }
 
 type Tr = ReturnType<typeof t>;
@@ -38,7 +37,7 @@ type Icon = typeof Leaf;
 
 type GuideTab = 'roles' | 'guild_design' | 'chop_and_drop' | 'allelopathy' | 'pests' | 'shade_and_stars' | 'tea_sinensis' | 'tea_assamica' | 'raised_beds' | 'forage_gaps' | 'sources';
 
-const GUIDE_TABS: { id: GuideTab; icon: Icon; label: keyof Tr }[] = [
+export const GUIDE_TABS: { id: GuideTab; icon: Icon; label: keyof Tr }[] = [
   { id: 'roles', icon: Layers, label: 'guidesTabRoles' },
   { id: 'guild_design', icon: TreePine, label: 'guidesTabGuildDesign' },
   { id: 'chop_and_drop', icon: Scissors, label: 'guidesTabChopAndDrop' },
@@ -52,21 +51,27 @@ const GUIDE_TABS: { id: GuideTab; icon: Icon; label: keyof Tr }[] = [
   { id: 'sources', icon: BookmarkCheck, label: 'guidesTabSources' }
 ];
 
+export const guideTabPath = (tab: GuideTab) => tab === 'roles' ? '/guides/' : `/guides/${tab}/`;
+
 // Deep links may carry only a hash (e.g. from calendar exports), so the tab is inferred from its prefix.
-const tabFromHash = (hash: string): GuideTab | null => {
-  if (hash.startsWith('chop-') || hash === 'chop_and_drop') return 'chop_and_drop';
-  if (hash.startsWith('role-') || hash === 'roles') return 'roles';
-  if (hash.startsWith('guide-') || hash === 'guild_design') return 'guild_design';
-  if (hash.startsWith('allelo-') || hash === 'allelopathy') return 'allelopathy';
-  if (hash.startsWith('pest-') || hash === 'pests') return 'pests';
-  if (hash.startsWith('shade-') || hash.startsWith('dual-') || hash === 'shade_and_stars') return 'shade_and_stars';
-  if (hash.startsWith('tea-sinensis-') || hash.startsWith('tea-pruning-') || hash === 'tea_sinensis') return 'tea_sinensis';
-  if (hash.startsWith('tea-assamica-') || hash === 'tea_assamica') return 'tea_assamica';
-  if (hash.startsWith('bed-') || hash === 'raised_beds') return 'raised_beds';
-  if (hash.startsWith('forage-gaps') || hash === 'forage_gaps') return 'forage_gaps';
-  if (hash.startsWith('fn-') || hash === 'sources') return 'sources';
-  return null;
+export const GUIDE_ANCHORS: Record<GuideTab, string[]> = {
+  roles: ['role-'],
+  guild_design: ['guide-'],
+  chop_and_drop: ['chop-'],
+  allelopathy: ['allelo-'],
+  pests: ['pest-'],
+  shade_and_stars: ['shade-', 'dual-'],
+  tea_sinensis: ['tea-sinensis-', 'tea-pruning-'],
+  tea_assamica: ['tea-assamica-'],
+  raised_beds: ['bed-'],
+  forage_gaps: ['forage-gaps'],
+  sources: ['fn-'],
 };
+
+const tabFromHash = (hash: string) => GUIDE_TABS.find(({ id }) =>
+  id === hash || GUIDE_ANCHORS[id].some(prefix => hash.startsWith(prefix))
+)?.id;
+
 
 const GuideStep: React.FC<{ id: string; step: number; title: string; children: React.ReactNode }> = ({ id, step, title, children }) => (
   <div id={id} className="flex gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-200 scroll-mt-24 transition">
@@ -1145,9 +1150,19 @@ const SOURCES: Source[] = [
   }
 ];
 
-export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
+function tabFromUrl({ pathname, search, hash }: Location): GuideTab {
+  const param = new URLSearchParams(search).get('tab');
+  const fromQuery = GUIDE_TABS.find(({ id }) => id === param)?.id;
+  const fromPath = GUIDE_TABS.find(({ id }) => guideTabPath(id) === `${pathname.replace(/\/$/, '')}/`)?.id;
+  return fromQuery ?? (fromPath === 'roles' ? undefined : fromPath)
+    ?? tabFromHash(hash.slice(1)) ?? 'roles';
+}
+
+export const Guides: React.FC<GuidesProps> = ({ language, initialTab }) => {
   const tr = t(language);
-  const [activeTab, setActiveTab] = useState<GuideTab>('roles');
+  const [activeTab, setActiveTab] = useState<GuideTab>(() =>
+    initialTab ?? (typeof window === 'undefined' ? 'roles' : tabFromUrl(window.location))
+  );
 
   // Sync the tab with ?tab= / #anchor on mount and whenever App navigates (it dispatches popstate).
   useEffect(() => {
@@ -1156,22 +1171,8 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
     const handleUrlChange = () => {
       if (!window.location.pathname.startsWith('/guides')) return;
-      const params = new URLSearchParams(window.location.search);
-      const tabParam = params.get('tab') as GuideTab | null;
-      const hash = window.location.hash.replace('#', '');
-
-      let targetTab: GuideTab | null = null;
-      if (tabParam && GUIDE_TABS.some(tab => tab.id === tabParam)) {
-        targetTab = tabParam;
-      } else if (hash) {
-        targetTab = tabFromHash(hash);
-      } else {
-        targetTab = 'roles';
-      }
-
-      if (targetTab) {
-        setActiveTab(targetTab);
-      }
+      const hash = window.location.hash.slice(1);
+      setActiveTab(tabFromUrl(window.location));
 
       if (hash) {
         // The target only exists once the tab has rendered, so retry briefly.
@@ -1199,31 +1200,18 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
   const handleSelectTab = (tab: GuideTab) => {
     setActiveTab(tab);
-    window.history.replaceState({}, '', `/guides?tab=${tab}`);
+    window.history.replaceState({}, '', guideTabPath(tab));
   };
 
   const scrollToFootnote = (fnId: string) => {
     setActiveTab('sources');
-    window.history.replaceState({}, '', `/guides?tab=sources#${fnId}`);
+    window.history.replaceState({}, '', `${guideTabPath('sources')}#${fnId}`);
     setTimeout(() => {
       const el = document.getElementById(fnId);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         el.classList.add('bg-amber-100/70');
         setTimeout(() => el.classList.remove('bg-amber-100/70'), 2500);
-      }
-    }, 100);
-  };
-
-  const scrollToSection = (tab: GuideTab, sectionId: string) => {
-    setActiveTab(tab);
-    window.history.replaceState({}, '', `/guides?tab=${tab}#${sectionId}`);
-    setTimeout(() => {
-      const el = document.getElementById(sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        el.classList.add('ring-2', 'ring-forest-500', 'ring-offset-2');
-        setTimeout(() => el.classList.remove('ring-2', 'ring-forest-500', 'ring-offset-2'), 3500);
       }
     }, 100);
   };
@@ -1252,10 +1240,14 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
           <nav className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 border-t border-stone-200 pt-4">
             {GUIDE_TABS.map(({ id, icon: TabIcon, label }) => (
-              <button
+              <a
                 key={id}
-                type="button"
-                onClick={() => handleSelectTab(id)}
+                href={guideTabPath(id)}
+                onClick={event => {
+                  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                  event.preventDefault();
+                  handleSelectTab(id);
+                }}
                 aria-current={activeTab === id ? 'page' : undefined}
                 className={`h-10 px-3 rounded-lg text-sm text-left flex items-center gap-2.5 transition-colors cursor-pointer ${
                   activeTab === id
@@ -1265,7 +1257,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
               >
                 <TabIcon className={`w-4 h-4 shrink-0 ${activeTab === id ? 'text-forest-700' : 'text-stone-400'}`} strokeWidth={1.75} />
                 <span className="truncate">{tr[label]}</span>
-              </button>
+              </a>
             ))}
           </nav>
         </div>
@@ -1538,14 +1530,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                   spread={<RichText text={tr.guidesDropPruningsUnderAcidLoving} onFootnote={scrollToFootnote} />}
                 >
                   <div className="pt-1 flex flex-wrap items-center gap-3">
-                    <button
-                      type="button"
-                      onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
+                    <a
+                      href={`${guideTabPath('tea_sinensis')}#tea-sinensis-pruning-guide`}
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                     >
                       <Scissors className="w-3.5 h-3.5 text-forest-700" />
                       <span>{tr.guidesOpenCompleteTeaPruningManual}</span>
-                    </button>
+                    </a>
                   </div>
                 </ChopCard>
                 <ChopCard
@@ -1570,14 +1561,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     <RichText
                       text={tr.guidesScatterClippingsAcrossZone2}
                       slots={[
-                        <button
-                          type="button"
-                          onClick={() => scrollToFootnote('fn-15')}
+                        <a
+                          href="/guides/sources/#fn-15"
                           className="inline-flex items-center text-forest-700 hover:text-forest-900 font-bold underline font-mono text-[11px]"
                           title={tr.guidesViewResearchPaperCitation}
                         >
                           [15]
-                        </button>
+                        </a>
                       ]}
                     />
                   }
@@ -1759,7 +1749,7 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
 
         {activeTab === 'raised_beds' && <RaisedBedGuide language={language} />}
 
-        {activeTab === 'forage_gaps' && <ForageGapGuide language={language} onNavigate={onNavigate} />}
+        {activeTab === 'forage_gaps' && <ForageGapGuide language={language} />}
 
         {activeTab === 'allelopathy' && (
           <div id="allelopathy" className="space-y-8 animate-in fade-in duration-200 scroll-mt-24">
@@ -2062,14 +2052,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     <RichText text={tr.guidesEveryTrueTeaEarthGreen} onFootnote={scrollToFootnote} slots={[<code>tree-tea-sinensis</code>, <code>plant-tea-sinensis</code>]} />
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTab('tea_assamica')}
+                <a
+                  href={guideTabPath('tea_assamica')}
                   className="shrink-0 px-4 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 font-bold text-xs flex items-center gap-2 transition-colors cursor-pointer"
                 >
                   <Sprout className="w-4 h-4 text-amber-700" />
                   <span>{tr.guidesCompareAssamTeaVarAssamica}</span>
-                </button>
+                </a>
               </div>
 
               <div className="p-5 rounded-2xl bg-forest-50 border border-forest-200 space-y-4">
@@ -2315,40 +2304,36 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     <ul className="text-xs text-stone-600 space-y-1.5 leading-relaxed list-disc list-inside">
                       <li>
                         <strong>{tr.guidesYears12EstablishRoots}</strong>{' '}
-                        <RichText text={tr.guidesDoNotHarvestLeavesPinch} onFootnote={scrollToFootnote} slots={[<button
-                              type="button"
-                              onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
+                        <RichText text={tr.guidesDoNotHarvestLeavesPinch} onFootnote={scrollToFootnote} slots={[<a
+                              href={`${guideTabPath('tea_sinensis')}#tea-sinensis-pruning-guide`}
                               className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
-                            >{tr.guidesFirstCenteringCutDingxingXiujian}</button>]} />
+                            >{tr.guidesFirstCenteringCutDingxingXiujian}</a>]} />
                       </li>
                       <li>
                         <strong>{tr.guidesYears34ScaffoldWidening}</strong>{' '}
-                        <RichText text={tr.guidesHeadBackScaffoldsAt35} onFootnote={scrollToFootnote} slots={[<button
-                              type="button"
-                              onClick={() => scrollToSection('tea_sinensis', 'tea-pruning-stage-3')}
+                        <RichText text={tr.guidesHeadBackScaffoldsAt35} onFootnote={scrollToFootnote} slots={[<a
+                              href={`${guideTabPath('tea_sinensis')}#tea-pruning-stage-3`}
                               className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
-                            >{tr.guidesPluckingTableCaizhaiMian}</button>]} />
+                            >{tr.guidesPluckingTableCaizhaiMian}</a>]} />
                       </li>
                       <li>
                         <strong>{tr.guidesAnnualSkiffingRejuvenation}</strong>{' '}
-                        <RichText text={tr.guidesLightlyTrimTop35} onFootnote={scrollToFootnote} slots={[<button
-                              type="button"
-                              onClick={() => scrollToSection('tea_sinensis', 'tea-pruning-crows-feet')}
+                        <RichText text={tr.guidesLightlyTrimTop35} onFootnote={scrollToFootnote} slots={[<a
+                              href={`${guideTabPath('tea_sinensis')}#tea-pruning-crows-feet`}
                               className="text-forest-800 font-bold underline decoration-forest-500 underline-offset-2 hover:text-forest-950 cursor-pointer"
-                            >{tr.guidesCrowSFeetJizhaoZhi}</button>]} />
+                            >{tr.guidesCrowSFeetJizhaoZhi}</a>]} />
                       </li>
                     </ul>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
+                  <a
+                    href={`${guideTabPath('tea_sinensis')}#tea-sinensis-pruning-guide`}
                     className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                   >
                     <Scissors className="w-3.5 h-3.5 text-forest-700 shrink-0" />
                     <span>
                       {tr.guidesHowPruneStepStepDingxing}
                     </span>
-                  </button>
+                  </a>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">
@@ -2805,14 +2790,13 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                     <RichText text={tr.guidesWhileCamelliaSinensisVarSinensis} onFootnote={scrollToFootnote} slots={[<code>tree-tea-assamica</code>]} />
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleSelectTab('tea_sinensis')}
+                <a
+                  href={guideTabPath('tea_sinensis')}
                   className="shrink-0 px-4 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 font-bold text-xs flex items-center gap-2 transition-colors cursor-pointer"
                 >
                   <Leaf className="w-4 h-4 text-emerald-700" />
                   <span>{tr.guidesViewChineseTeaVarSinensis}</span>
-                </button>
+                </a>
               </div>
 
               <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -2929,16 +2913,15 @@ export const Guides: React.FC<GuidesProps> = ({ language, onNavigate }) => {
                       </li>
                     </ul>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => scrollToSection('tea_sinensis', 'tea-sinensis-pruning-guide')}
+                  <a
+                    href={`${guideTabPath('tea_sinensis')}#tea-sinensis-pruning-guide`}
                     className="mt-2 w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-forest-50 hover:bg-forest-100 border border-forest-200 text-forest-900 text-xs font-bold transition-colors cursor-pointer"
                   >
                     <Scissors className="w-3.5 h-3.5 text-forest-700 shrink-0" />
                     <span>
                       {tr.guidesViewStepStepPruningGuide}
                     </span>
-                  </button>
+                  </a>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200 space-y-2">

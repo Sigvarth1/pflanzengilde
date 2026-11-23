@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { ClimateZone, Hemisphere, Language, SoilType, StarTree, TreeAgeMode, getLoc } from '../types/guild';
 import { Mountain, AlertTriangle, CheckCircle2, Info, Droplets, Globe, Compass, Check } from 'lucide-react';
 import { t, translateClimateZone } from '../i18n/translations';
-import { ClimateZoneModal } from './ClimateZoneModal';
 import { TreeAgeToggle } from './TreeAgeToggle';
+
+const ClimateZoneModal = React.lazy(() => import('./ClimateZoneModal').then(m => ({ default: m.ClimateZoneModal })));
 
 interface SiteConditionsBarProps {
   language: Language;
@@ -316,14 +317,16 @@ export const SiteConditionsBar: React.FC<SiteConditionsBarProps> = ({
       </div>
 
       {isMapModalOpen && (
-        <ClimateZoneModal
-          language={language}
-          selectedZone={selectedZone}
-          hemisphere={hemisphere}
-          onSelectZone={onSelectZone}
-          onSelectHemisphere={onSelectHemisphere}
-          onClose={() => setIsMapModalOpen(false)}
-        />
+        <React.Suspense fallback={null}>
+          <ClimateZoneModal
+            language={language}
+            selectedZone={selectedZone}
+            hemisphere={hemisphere}
+            onSelectZone={onSelectZone}
+            onSelectHemisphere={onSelectHemisphere}
+            onClose={() => setIsMapModalOpen(false)}
+          />
+        </React.Suspense>
       )}
     </div>
   );

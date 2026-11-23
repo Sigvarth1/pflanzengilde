@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { StaticContent } from './StaticContent';
 import {
   ArrowUpRight, Ban, Blend, BookOpen, BrickWall, CalendarRange, ChevronDown, CloudSun, Droplets, Fence, Hammer, Info, KeyRound, Layers, Leaf,
   LucideIcon, Moon, Mountain, Ruler, Scale, Shovel, Snowflake, Sprout, Sun, SunMoon, Thermometer, ThumbsDown, ThumbsUp, TreeDeciduous, Waves,
@@ -413,6 +414,7 @@ const RuleCard: React.FC<{ visual: React.ReactNode; children: React.ReactNode }>
 
 /** Explainer for the ground-cover areas (guild-design tab). */
 export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language }) => {
+  const staticContent = useContext(StaticContent);
   const g = (l: L) => getLoc(l, language);
   const specs = Object.values(GROUND_COVER_SPECS);
   const plantOf = (id: string) => GUILD_PLANTS.find(p => p.id === id);
@@ -536,21 +538,24 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
         </div>
 
         {/* Documented pairs */}
-        <div className="space-y-3">
+        <div className="space-y-3" data-cover-pairs={staticContent ? PAIR_LIMIT : undefined}>
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-sm font-bold text-stone-900 mr-1">{g(L('Documented pairs', 'Belegte Paare'))}</span>
             {(['ALL', 'COEXIST', 'MOSAIC', 'EXCLUDE'] as const).map(f => (
-              <button key={f} onClick={() => { setFilter(f); setShowAll(false); }}
-                className={`rounded-full border px-3 py-1 text-xs font-semibold transition-colors ${filter === f ? 'bg-stone-900 text-white border-stone-900' : 'bg-white text-stone-600 border-stone-200 hover:border-stone-400'}`}>
+              <button key={f} type="button" onClick={() => { setFilter(f); setShowAll(false); }}
+                hidden={staticContent}
+                data-pair-filter={staticContent ? f : undefined}
+                aria-pressed={filter === f}
+                className="rounded-full border px-3 py-1 text-xs font-semibold transition-colors bg-white text-stone-600 border-stone-200 hover:border-stone-400 aria-pressed:bg-stone-900 aria-pressed:text-white aria-pressed:border-stone-900">
                 {f === 'ALL' ? `${g(L('all', 'alle'))} ${pairs.length}` : `${g(VERDICT_LABEL[f])} ${counts[f]}`}
               </button>
             ))}
           </div>
           <div className="grid gap-3 md:grid-cols-2">
-            {(showAll ? shown : shown.slice(0, PAIR_LIMIT)).map(([k, r]) => {
+            {(staticContent || showAll ? shown : shown.slice(0, PAIR_LIMIT)).map(([k, r]) => {
               const [a, b2] = k.split('|').map(ref);
               return (
-                <div key={k} className="rounded-xl border border-stone-200 bg-white p-3 flex gap-3">
+                <div key={k} data-pair-verdict={staticContent ? r.verdict : undefined} className="rounded-xl border border-stone-200 bg-white p-3 flex gap-3">
                   <div className={`flex items-center shrink-0 ${r.verdict === 'COEXIST' ? '-space-x-3' : r.verdict === 'MOSAIC' ? '-space-x-1' : 'gap-2'}`}>
                     <PlantThumbnail src={a.imageUrl} alt={a.name} fallbackColor={a.color} className="w-11 h-11 ring-2 ring-white" roundedClassName="rounded-full" targetSize={96} priority="low" />
                     {r.verdict === 'EXCLUDE' && <span className="w-0.5 h-8 bg-amber-500 rounded" />}
@@ -570,9 +575,12 @@ export const GroundCoverGuide: React.FC<{ language: Language }> = ({ language })
             })}
           </div>
           {shown.length > PAIR_LIMIT && (
-            <button onClick={() => setShowAll(v => !v)} className="w-full rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 py-2 text-xs font-bold text-stone-700 inline-flex items-center justify-center gap-1">
-              <ChevronDown className={`w-4 h-4 transition-transform ${showAll ? 'rotate-180' : ''}`} />
-              {showAll ? g(L('Show fewer', 'Weniger zeigen')) : `${g(L('Show all', 'Alle zeigen'))} (${shown.length})`}
+            <button type="button" onClick={() => setShowAll(v => !v)} hidden={staticContent} aria-expanded={showAll}
+              data-pair-more={staticContent ? g(L('Show all', 'Alle zeigen')) : undefined}
+              data-pair-fewer={staticContent ? g(L('Show fewer', 'Weniger zeigen')) : undefined}
+              className="group w-full rounded-xl border border-stone-200 bg-stone-50 hover:bg-stone-100 py-2 text-xs font-bold text-stone-700 inline-flex items-center justify-center gap-1">
+              <ChevronDown className="w-4 h-4 transition-transform group-aria-expanded:rotate-180" />
+              <span>{showAll ? g(L('Show fewer', 'Weniger zeigen')) : `${g(L('Show all', 'Alle zeigen'))} (${shown.length})`}</span>
             </button>
           )}
         </div>

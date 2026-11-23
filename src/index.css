@@ -1,3 +1,5 @@
+@import '@fontsource-variable/figtree';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +100,14 @@ html {
 .no-scrollbar::-webkit-scrollbar,
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+/* Static articles use native fragment navigation and preserve the sticky header clearance. */
+#content-page main :target {
+  scroll-margin-top: 6rem;
+  outline: 2px solid #6a8c4f;
+  outline-offset: 3px;
+}
+#content-page [hidden] {
+  display: none !important;
 }

@@ -5,10 +5,12 @@
   "license": "AGPL-3.0-only",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/build-rust.mjs",
     "dev": "vite",
     "test": "npx tsx scripts/test_pests.ts && npx tsx scripts/test_conflicts.ts && npx tsx scripts/test_garden_optimizer.ts && npx tsx scripts/test_calendar.ts && npx tsx scripts/test_garden_pdf.ts && npx tsx scripts/test_garden_share.ts && npx tsx scripts/test_guild_compat.ts && npx tsx scripts/test_garden_resolution.ts && npx tsx scripts/test_radial_cluster.ts && npx tsx scripts/test_garden_handover.ts && npx tsx scripts/test_ground_cover.ts && npx tsx scripts/test_raised_beds.ts && npx tsx scripts/test_garden_cad_export.ts",
-    "build": "tsc && vite build && npx tsx scripts/postbuild.ts",
+    "build": "tsc && vite build && node scripts/build-pages.mjs && node scripts/build-rust-site.mjs --primary",
     "generate-og": "npx tsx scripts/generate_og_embeds.ts",
+    "build:rust-site": "node scripts/build-rust-site.mjs",
     "preview": "vite preview",
     "deploy": "bash ./scripts/deploy.sh"
   },

@@ -30,14 +30,18 @@ export const RichText: React.FC<RichTextProps> = ({ text, onFootnote, slots }) =
       const fn = part.match(/^\[\^([\w-]+)\]$/);
       if (fn) {
         return (
-          <button
+          <a
             key={i}
-            type="button"
-            onClick={() => onFootnote?.(`fn-${fn[1]}`)}
+            href={`/guides/sources/#fn-${fn[1]}`}
+            onClick={event => {
+              if (!onFootnote || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              onFootnote(`fn-${fn[1]}`);
+            }}
             className="text-forest-700 font-bold hover:underline cursor-pointer"
           >
             [{fn[1]}]
-          </button>
+          </a>
         );
       }
       const slot = slots && part.match(/^\{\{(\d+)\}\}$/);

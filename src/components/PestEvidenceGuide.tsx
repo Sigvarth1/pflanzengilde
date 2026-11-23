@@ -78,13 +78,12 @@ const SeeAlso: React.FC<{ ids?: string[]; language: Language; label: string }> =
       {links.map((link, i) => (
         <React.Fragment key={link.id}>
           {i > 0 && ', '}
-          <button
-            type="button"
-            onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+          <a
+            href={`#${link.id}`}
             className="text-emerald-700 underline underline-offset-2 hover:text-emerald-900"
           >
             {link.title}
-          </button>
+          </a>
         </React.Fragment>
       ))}
     </p>

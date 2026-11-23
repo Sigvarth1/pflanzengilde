@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: rustup target add wasm32-unknown-unknown
+      - run: cargo install wasm-bindgen-cli --version 0.2.129 --locked
       - run: npm ci
       - run: npm test
+      - run: cargo test --locked --manifest-path rust/site/Cargo.toml
       - run: npm run build

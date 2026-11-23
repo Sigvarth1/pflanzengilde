@@ -32,6 +32,7 @@ export const nbPart9 = {
   groundCoverLegendHint: 'Skraverte områder viser hvor et bunndekke vokser: bart rundt stammer, hull rundt andre planter, skyggeelskere på skyggesiden. Den nøyaktige konturen er en planleggingsform.',
   groundCoverOutOfSeason: 'ikke aktiv denne sesongen',
   coverSeasonAll: 'Alle sesonger',
+  coverSeasonLabel: 'Sesong',
   showGroundCovers: 'Bunndekke',
   spotHintKey: 'Shift',
   spotHint: 'Hold inne Shift mens du holder musepekeren over hagen for å se hvilke planter som vokser på det stedet.',

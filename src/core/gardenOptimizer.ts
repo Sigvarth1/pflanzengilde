@@ -1,5 +1,6 @@
 import { ClimateZone, GuildPlant, GuildRole, Hemisphere, LocalizedString, SoilType, StarTree } from '../types/guild';
 import { GardenShape, RaisedBed } from '../types/garden';
+import { relaxSpacingInRust } from './gardenSpacingWasm';
 import { compartmentAt } from './compartments';
 import { plantCrossesBedWall } from './bedWallRules';
 import { nearestPointInside, nearestPointOutside, signedDistanceToShape } from './geometry2d';
@@ -353,68 +354,70 @@ export function optimizeGardenCompanions(
     wormwood: isWormwoodPlant(c.plant)
   }));
 
-  // Relaxation: push crowded companions apart and keep allium/legume, fennel and wormwood buffers
-  for (let iter = 0; iter < 16; iter++) {
-    for (let i = 0; i < placedCompanions.length; i++) {
-      for (let j = i + 1; j < placedCompanions.length; j++) {
-        const p1 = placedCompanions[i];
-        const p2 = placedCompanions[j];
-        const f1 = flags[i];
-        const f2 = flags[j];
-        const dist = Math.hypot(p2.xM - p1.xM, p2.yM - p1.yM);
+  // Relaxation: push crowded companions apart, keep clear of trunks and respect the outline.
+  if (!relaxSpacingInRust(placedCompanions, flags, starPlants, outline)) {
+    for (let iter = 0; iter < 16; iter++) {
+      for (let i = 0; i < placedCompanions.length; i++) {
+        for (let j = i + 1; j < placedCompanions.length; j++) {
+          const p1 = placedCompanions[i];
+          const p2 = placedCompanions[j];
+          const f1 = flags[i];
+          const f2 = flags[j];
+          const dist = Math.hypot(p2.xM - p1.xM, p2.yM - p1.yM);
 
-        const isAlliumLegume = (f1.allium && f2.legume) || (f1.legume && f2.allium);
-        const isFennelPair = f1.fennel || f2.fennel;
-        const isWormwoodPair = f1.wormwood || f2.wormwood;
+          const isAlliumLegume = (f1.allium && f2.legume) || (f1.legume && f2.allium);
+          const isFennelPair = f1.fennel || f2.fennel;
+          const isWormwoodPair = f1.wormwood || f2.wormwood;
 
-        let minSeparation = Math.max(0.6, (p1.plant.spreadM + p2.plant.spreadM) * 0.4);
-        if (isAlliumLegume) {
-          minSeparation = Math.max(minSeparation, 1.95);
-        } else if (isFennelPair) {
-          minSeparation = Math.max(minSeparation, 1.65);
-        } else if (isWormwoodPair) {
-          minSeparation = Math.max(minSeparation, 1.35);
-        }
-
-        if (dist < minSeparation - GEOM_EPS) {
-          const overlap = minSeparation - dist;
-          let angle: number;
-          if (dist > 0.05 + GEOM_EPS) {
-            angle = Math.atan2(p2.yM - p1.yM, p2.xM - p1.xM);
-          } else {
-            // Stacked plants: direction from the species pair, not array indices, so other guilds
-            // in the garden do not change it
-            angle = ((hashString(`${p1.plantId}|${p2.plantId}`) % 360) * Math.PI) / 180;
+          let minSeparation = Math.max(0.6, (p1.plant.spreadM + p2.plant.spreadM) * 0.4);
+          if (isAlliumLegume) {
+            minSeparation = Math.max(minSeparation, 1.95);
+          } else if (isFennelPair) {
+            minSeparation = Math.max(minSeparation, 1.65);
+          } else if (isWormwoodPair) {
+            minSeparation = Math.max(minSeparation, 1.35);
           }
-          const pushDist = (overlap + 0.06) / 2;
 
-          p1.xM = roundCm(p1.xM - pushDist * Math.cos(angle));
-          p1.yM = roundCm(p1.yM - pushDist * Math.sin(angle));
-          p2.xM = roundCm(p2.xM + pushDist * Math.cos(angle));
-          p2.yM = roundCm(p2.yM + pushDist * Math.sin(angle));
+          if (dist < minSeparation - GEOM_EPS) {
+            const overlap = minSeparation - dist;
+            let angle: number;
+            if (dist > 0.05 + GEOM_EPS) {
+              angle = Math.atan2(p2.yM - p1.yM, p2.xM - p1.xM);
+            } else {
+              // Stacked plants: direction from the species pair, not array indices, so other guilds
+              // in the garden do not change it
+              angle = ((hashString(`${p1.plantId}|${p2.plantId}`) % 360) * Math.PI) / 180;
+            }
+            const pushDist = (overlap + 0.06) / 2;
+
+            p1.xM = roundCm(p1.xM - pushDist * Math.cos(angle));
+            p1.yM = roundCm(p1.yM - pushDist * Math.sin(angle));
+            p2.xM = roundCm(p2.xM + pushDist * Math.cos(angle));
+            p2.yM = roundCm(p2.yM + pushDist * Math.sin(angle));
+          }
         }
       }
-    }
 
-    // Keep the trunk collar bare (0.4 m; 1.95 m for alliums next to N-fixing trees)
-    for (let ci = 0; ci < placedCompanions.length; ci++) {
-      const comp = placedCompanions[ci];
-      for (const tree of starPlants) {
-        const dTrunk = Math.hypot(comp.xM - tree.xM, comp.yM - tree.yM);
-        const isAlliumNearNTree = tree.starTree.category === 'NITROGEN_FIXING_TREE' && flags[ci].allium;
-        const minTrunkDist = isAlliumNearNTree ? 1.95 : 0.4;
-        if (dTrunk < minTrunkDist - GEOM_EPS) {
-          const angle = dTrunk > 0.01 + GEOM_EPS ? Math.atan2(comp.yM - tree.yM, comp.xM - tree.xM) : 0.5;
-          comp.xM = roundCm(tree.xM + minTrunkDist * Math.cos(angle));
-          comp.yM = roundCm(tree.yM + minTrunkDist * Math.sin(angle));
+      // Keep the trunk collar bare (0.4 m; 1.95 m for alliums next to N-fixing trees)
+      for (let ci = 0; ci < placedCompanions.length; ci++) {
+        const comp = placedCompanions[ci];
+        for (const tree of starPlants) {
+          const dTrunk = Math.hypot(comp.xM - tree.xM, comp.yM - tree.yM);
+          const isAlliumNearNTree = tree.starTree.category === 'NITROGEN_FIXING_TREE' && flags[ci].allium;
+          const minTrunkDist = isAlliumNearNTree ? 1.95 : 0.4;
+          if (dTrunk < minTrunkDist - GEOM_EPS) {
+            const angle = dTrunk > 0.01 + GEOM_EPS ? Math.atan2(comp.yM - tree.yM, comp.xM - tree.xM) : 0.5;
+            comp.xM = roundCm(tree.xM + minTrunkDist * Math.cos(angle));
+            comp.yM = roundCm(tree.yM + minTrunkDist * Math.sin(angle));
+          }
         }
       }
-    }
 
-    // Garden outline: pull companions back inside every iteration, so the push-apart above can
-    // spread them along the border instead of stacking them on it
-    if (outline) {
-      for (const comp of placedCompanions) keepInsideOutline(comp, outline);
+      // Garden outline: pull companions back inside every iteration, so the push-apart above can
+      // spread them along the border instead of stacking them on it
+      if (outline) {
+        for (const comp of placedCompanions) keepInsideOutline(comp, outline);
+      }
     }
   }
 

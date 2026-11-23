@@ -1,4 +1,12 @@
 import fs from 'fs';
+import { createHash } from 'node:crypto';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { Guides, GUIDE_TABS, GUIDE_ANCHORS, guideTabPath } from '../src/components/Guides';
+import { PhotoCredits } from '../src/components/PhotoCredits';
+import { StaticContent } from '../src/components/StaticContent';
+import { ContentPage, CONTENT_LABEL_KEYS, CONTENT_LANGUAGES, contentPath } from '../src/components/ContentPage';
+import { t } from '../src/i18n/translations';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { STAR_TREES } from '../src/data/starTrees';
@@ -60,7 +68,11 @@ const legalRoutes = [
 ]
   .filter(({ file }) => fs.existsSync(path.resolve(__dirname, '../src/legal', file)))
   .map(({ route }) => route);
-const routes = [...legalRoutes, 'guides', 'credits', 'embed', 'garten', 'garden'];
+const legalLabels = JSON.stringify(Object.fromEntries(CONTENT_LANGUAGES.map(({ code }) => {
+  const labels = t(code);
+  return [code, Object.fromEntries(CONTENT_LABEL_KEYS.map(key => [key, labels[key]]))];
+}))).replace(/</g, '\\u003c');
+const routes = [...legalRoutes, 'embed', 'garten', 'garden'];
 for (const route of routes) {
   const dir = path.resolve(distDir, route);
   fs.mkdirSync(dir, { recursive: true });
@@ -88,9 +100,11 @@ for (const route of routes) {
     fs.writeFileSync(path.resolve(dir, 'index.html'), gardenHtml, 'utf8');
     console.log(`Pre-rendered garden page dist/${route}/index.html`);
   } else {
-    // Each page names itself as canonical; with the root's canonical Google treats /guides/ etc. as duplicates of
-    // the home page. The embed widget keeps the root's (it is the same planner inside an iframe).
-    const html = route === 'embed' ? baseHtml : setCanonical(baseHtml, `https://pflanzengilde.de/${route}/`);
+    const html = route === 'embed'
+      ? baseHtml
+      : setCanonical(baseHtml, `https://pflanzengilde.de/${route}/`)
+        .replace(/<html lang="[^"]*">/, `<html lang="${SITE_LANG}">`)
+        .replace('</head>', () => `  <script type="application/json" id="legal-labels">${legalLabels}</script>\n  </head>`);
     fs.writeFileSync(path.resolve(dir, 'index.html'), html, 'utf8');
     console.log(`Mirrored dist/index.html to dist/${route}/index.html`);
   }
@@ -107,7 +121,7 @@ if (fs.existsSync(publicOgDir)) {
   console.log(`Mirrored ${ogFiles.length} OG images to dist/og/`);
 }
 
-// Per-tree share pages: crawlers read the meta tags, browsers get forwarded to the planner
+// Per-tree share pages keep their own social metadata and open the planner at the same URL.
 const escapeAttr = (s: string) => s.replace(/"/g, '&quot;');
 
 for (const tree of STAR_TREES) {
@@ -136,24 +150,66 @@ for (const tree of STAR_TREES) {
   treeHtml = setMeta(treeHtml, 'name', 'twitter:description', treeDesc);
   treeHtml = setMeta(treeHtml, 'name', 'twitter:image', ogImageUrl);
 
-  const clientRedirectScript = `
-    <script>
-      (function() {
-        var isCrawler = /bot|googlebot|crawler|spider|crawling|discord|whatsapp|telegram|facebookexternalhit|twitterbot|slackbot/i.test(navigator.userAgent);
-        if (!isCrawler) {
-          var params = new URLSearchParams(window.location.search);
-          if (!params.has('tree') && !params.has('g')) {
-            params.set('tree', '${tree.id}');
-          }
-          window.location.replace('/?' + params.toString());
-        }
-      })();
-    </script>
-  `;
-
-  treeHtml = treeHtml.replace('</head>', () => `${clientRedirectScript}\n</head>`);
-
   fs.writeFileSync(path.resolve(treeDir, 'index.html'), treeHtml, 'utf8');
+  const legacyTreeDir = path.resolve(distDir, `guild/${tree.id}`);
+  fs.mkdirSync(legacyTreeDir, { recursive: true });
+  fs.writeFileSync(path.resolve(legacyTreeDir, 'index.html'), treeHtml, 'utf8');
 }
 
 console.log(`Pre-rendered ${STAR_TREES.length} share pages in dist/share/<tree-id>/index.html`);
+
+
+// Publish all three languages as complete documents. The small script handles
+// older query links and the documented-pair filter without mounting React.
+const client = fs.readFileSync(path.join(__dirname, 'content-pages.js'));
+const clientName = `content-${createHash('sha256').update(client).digest('hex').slice(0, 16)}.js`;
+fs.writeFileSync(path.join(distDir, 'assets', clientName), client);
+const contentShell = baseHtml
+  .replace(/\s*<script\b[^>]*type="module"[^>]*>[\s\S]*?<\/script>/gi, '')
+  .replace(/\s*<link\b[^>]*rel="modulepreload"[^>]*>/gi, '');
+const guideRoutes = new Set(GUIDE_TABS.map(({ id }) => guideTabPath(id)));
+
+for (const { code: language } of CONTENT_LANGUAGES) {
+  const text = t(language);
+  for (const { route, title, description, page, guide } of [
+    ...GUIDE_TABS.map(({ id, label }) => ({
+      route: guideTabPath(id), title: text[label], description: text.guidesSubtitle, guide: true,
+      page: createElement(Guides, { language, initialTab: id }),
+    })),
+    { route: '/credits/', title: text.photoCreditsTitle, description: text.photoCreditsIntro, guide: false,
+      page: createElement(PhotoCredits, { language }) },
+  ]) {
+    const destination = contentPath(route, language, SITE_LANG);
+    const canonical = `https://pflanzengilde.de${destination}`;
+    const dir = path.join(distDir, destination);
+    fs.mkdirSync(dir, { recursive: true });
+    const markup = renderToStaticMarkup(createElement(StaticContent.Provider, { value: true },
+      createElement(ContentPage, {
+        route, language, defaultLanguage: SITE_LANG, legalRoutes, labels: text, guideAnchors: guide ? GUIDE_ANCHORS : undefined,
+        children: page,
+      }))).replace(/href="(\/guides\/[^"#?]*)(#[^"]*)?"/g, (attribute, target, hash = '') =>
+        guideRoutes.has(target) ? `href="${contentPath(target, language, SITE_LANG)}${hash}"` : attribute
+      );
+    const pageTitle = escapeAttr(`${title} • Pflanzengilde.de`);
+    let html = contentShell.replace(/<html lang="[^"]*">/, `<html lang="${language}">`);
+    html = setTitle(html, pageTitle);
+    html = setCanonical(html, canonical);
+    html = setMeta(html, 'name', 'description', escapeAttr(description));
+    html = setMeta(html, 'property', 'og:url', canonical);
+    html = setMeta(html, 'property', 'og:title', pageTitle);
+    html = setMeta(html, 'property', 'og:description', escapeAttr(description));
+    html = setMeta(html, 'property', 'og:locale', { nb: 'nb_NO', de: 'de_DE', en: 'en_US' }[language]);
+    html = setMeta(html, 'name', 'twitter:title', pageTitle);
+    html = setMeta(html, 'name', 'twitter:description', escapeAttr(description));
+    const alternateLinks = CONTENT_LANGUAGES.map(({ code }) =>
+      `<link rel="alternate" hreflang="${code}" href="https://pflanzengilde.de${contentPath(route, code, SITE_LANG)}">`
+    );
+    alternateLinks.push(`<link rel="alternate" hreflang="x-default" href="https://pflanzengilde.de${route}">`);
+    html = html.replace('</head>', () =>
+      `  ${alternateLinks.join('\n    ')}\n    <script type="module" src="/assets/${clientName}"></script>\n  </head>`);
+    html = html.replace('<div id="root"></div>', () => markup);
+    fs.writeFileSync(path.join(dir, 'index.html'), html, 'utf8');
+  }
+}
+
+console.log(`Rendered ${(GUIDE_TABS.length + 1) * CONTENT_LANGUAGES.length} localized guide and photo-credit pages to HTML`);

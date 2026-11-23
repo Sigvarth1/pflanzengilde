@@ -79,7 +79,7 @@ const Refs: React.FC<{ ns: number[] }> = ({ ns }) => (
   <span className="text-[11px] font-semibold text-stone-500">[{ns.join(', ')}]</span>
 );
 
-export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: string) => void }> = ({ language, onNavigate }) => {
+export const ForageGapGuide: React.FC<{ language: Language }> = ({ language }) => {
   const g = (l: L) => getLoc(l, language);
   const plantsIn = (season: (typeof SEASON_ROWS)[number]['id']) =>
     ACTIVE_GUILD_PLANTS
@@ -199,15 +199,12 @@ export const ForageGapGuide: React.FC<{ language: Language; onNavigate?: (path: 
             'Der Gilden-Planer meldet eine „Bestäuber- & Nützlingsmagnet“-Jahreszeit ohne blühende Begleitpflanze (Vorfrühling, Spätfrühling, Sommer, Herbst) und schlägt Pflanzen dafür vor. So siehst du, ob deine Gilde in den obigen Jahreszeiten eine Lücke hat. Die Prüfung ist eine grobe Planer-Heuristik; sie selbst wird von den hier zitierten Studien nicht gestützt.'
           ))}
         </p>
-        {onNavigate && (
-          <button
-            type="button"
-            onClick={() => onNavigate('/')}
-            className="inline-flex items-center rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
-          >
-            {g(L('Open the guild planner', 'Gilden-Planer öffnen'))}
-          </button>
-        )}
+        <a
+          href={`/?lang=${language}`}
+          className="inline-flex items-center rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-emerald-700"
+        >
+          {g(L('Open the guild planner', 'Gilden-Planer öffnen'))}
+        </a>
       </div>
 
       <div className="rounded-2xl bg-stone-50 border border-stone-200 p-4">

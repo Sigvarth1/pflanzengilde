@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { StaticContent } from './StaticContent';
 
 interface PlantThumbnailProps {
   src?: string;
@@ -48,6 +49,7 @@ export const PlantThumbnail: React.FC<PlantThumbnailProps> = ({
   targetSize = 160,
   priority = 'auto',
 }) => {
+  const staticContent = useContext(StaticContent);
   // Keyed by src so a reused instance (e.g. the selected-tree preview) resets when the image changes.
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
@@ -94,8 +96,9 @@ export const PlantThumbnail: React.FC<PlantThumbnailProps> = ({
         onLoad={() => setLoadedSrc(src)}
         onError={() => setFailedSrc(src)}
         className={`w-full h-full object-cover transition-opacity duration-200 ${
-          isLoaded ? 'opacity-100' : 'opacity-0'
+          staticContent ? 'relative' : isLoaded ? 'opacity-100' : 'opacity-0'
         }`}
+        data-static-thumbnail={staticContent || undefined}
       />
     </div>
   );

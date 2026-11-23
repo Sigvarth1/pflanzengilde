@@ -11,6 +11,7 @@ Pick a tree, add companions by what they do, and get a metric planting plan that
 [**pflanzengilde.de**](https://pflanzengilde.de) · [Guides](https://pflanzengilde.de/guides) · [Garden Planner](https://pflanzengilde.de/garten) · [Report a bug](../../issues)
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Rust](https://img.shields.io/badge/Rust-WebAssembly-8A4D31?logo=rust&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)
@@ -45,6 +46,7 @@ Pflanzengilde puts that knowledge in one place. Each companion recommendation co
 - **28 star trees and shrubs.** Fruit and nut trees, nitrogen-fixing trees, and tea (*Camellia sinensis* var. *sinensis* and *assamica*), each with its own pest profile and site needs.
 - **96 companion species** grouped into **9 ecological roles**: nitrogen fixer, dynamic accumulator, pollinator attractor, pest repeller, living mulch, grass barrier, and more.
 - **Radial zone plan.** Companions are placed automatically into zones (collar, bulb ring, mid taproots, drip line, outer buffer), and the harvest path is kept clear.
+- **Spot inspection.** Hold Shift while hovering, or use the Inspect spot button and tap the map or move with the arrow keys. The radial plan and garden grid list all plants and ground covers at the selected point.
 - **Role coverage and seasonal gaps.** Shows which roles your guild still lacks and when nothing is flowering.
 
 ### Evidence and conflict checks
@@ -65,25 +67,28 @@ Pflanzengilde puts that knowledge in one place. Each companion recommendation co
 
 ## Getting started
 
-**Prerequisites:** Node.js 18 or newer, and npm.
+**Prerequisites:** Node.js 22.12 or later, npm, Rust with the `wasm32-unknown-unknown` target, and wasm-bindgen CLI 0.2.129.
 
 ```bash
 git clone https://github.com/leks2205/pflanzengilde.git
 cd pflanzengilde
+rustup target add wasm32-unknown-unknown
+cargo install wasm-bindgen-cli --version 0.2.129 --locked
 npm ci
-npm run dev
 ```
 
-The dev server runs at <http://localhost:3000>.
-
-To build a production bundle:
+To build and preview the production site:
 
 ```bash
-npm run build     # type-check, bundle to dist/, write static route pages
+npm run build     # compile Rust to WebAssembly, bundle, and generate static HTML
 npm run preview   # serve the production build locally
 ```
 
-The build output in `dist/` is fully static and can be served by any web server. `scripts/postbuild.ts` copies `index.html` to each route (`/guides/`, `/garten/`, …), so direct links work on a stock nginx without rewrite rules. See [`nginx.conf`](nginx.conf) for a reference config.
+The build output in `dist/` is fully static. The build renders each guide as HTML and creates entry points for direct links to the planners and shared guilds. See [`nginx.conf`](nginx.conf) for a reference config.
+
+The production guild and garden planners use the Leptos implementation in [`rust/site/`](rust/site/). It uses the ordered plant catalogue and existing share codes and browser storage formats. The planners are available at `/` and `/garten/`, with `/garden/` and the old guild links supported. Rust assets and catalogue data share a content-based revision for caching.
+
+The standalone iframe cards at `/embed/` also use Rust and accept existing share URLs. The build renders guides and photo credits into HTML for Norwegian, English, and German. These pages use ordinary links and a small script for legacy URLs and the plant-pair filter. Vite bundles the shared content stylesheet and creates a separate entry point for operator-provided legal pages when present. Each production build recreates `dist/` with the current release's files. Use `npm run dev` for hot reload while editing the pages or catalogue data. Use `npm run build:rust-site` to rebuild the separate `/rust/` preview.
 
 ### Running your own instance
 
@@ -98,7 +103,7 @@ Files that depend on who runs the site are not part of the repository and are gi
 | Command | Description |
 | :--- | :--- |
 | `npm run dev` | Start the Vite dev server with hot reload |
-| `npm run build` | Type-check, build for production, and generate static route pages |
+| `npm run build` | Build the Rust planners and the static production site |
 | `npm run preview` | Serve the production build locally |
 | `npm test` | Run the test suites (pests, conflicts, garden optimizer, calendar, PDF, share links) |
 | `npm run generate-og` | Regenerate per-tree Open Graph preview images in `public/og/` |
@@ -111,9 +116,12 @@ Files that depend on who runs the site are not part of the repository and are gi
 │   ├── images/soils/      # Soil type images
 │   └── og/                # Social preview images per star tree
 ├── scripts/               # Build steps, test suites, and asset tooling
+├── rust/
+│   ├── site/              # Production planners and embeds built with Rust and Leptos
+│   └── garden-core/       # Shared garden spacing solver
 └── src/
-    ├── components/        # React UI (planner, garden canvas, guides, modals)
-    ├── core/              # Domain logic, independent of the UI
+    ├── components/        # Content components and the legacy development UI
+    ├── core/              # TypeScript reference engines for catalogue generation and tests
     │   ├── antagonistEngine.ts      # Allelopathy and incompatibility checks
     │   ├── pestCompanionEngine.ts   # Key-pest → companion defense rules
     │   ├── placementRules.ts        # Zone-based automatic placement

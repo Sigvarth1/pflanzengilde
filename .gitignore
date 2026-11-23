@@ -41,3 +41,8 @@ src/legal/
 scripts/deploy.sh
 public/sitemap.xml
 public/robots.txt
+
+# Rust build artifacts
+/rust/garden-core/target/
+/src/generated/garden-core.wasm
+/rust/site/target/
